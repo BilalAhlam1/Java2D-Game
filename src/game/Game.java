@@ -30,6 +30,16 @@ public class Game {
         StaticBody ground = new StaticBody(world, shape);
         ground.setPosition(new Vec2(0f, -11.5f));
 
+        //make a roof platform
+        Shape roof = new BoxShape(30, 0.5f);
+        StaticBody roofbody = new StaticBody(world, shape);
+        roofbody.setPosition(new Vec2(0f, -11.5f));
+
+        //make a leftWall platform
+        Shape leftWall = new BoxShape(0.5f, 30);
+        StaticBody leftWallBody = new StaticBody(world, shape);
+        leftWallBody.setPosition(new Vec2(0f, 0f));
+
         // make a suspended platform
         Shape platformShape = new BoxShape(3, 0.5f);
         StaticBody platform1 = new StaticBody(world, platformShape);
@@ -38,12 +48,12 @@ public class Game {
         //make a character (with an overlaid image)
         Shape studentShape = new BoxShape(1,2);
         DynamicBody student = new DynamicBody(world, studentShape);
-        student.setPosition(new Vec2(4,-5));
+        student.setPosition(new Vec2(7,0));
         student.addImage(new BodyImage("data/student.png", 4));
 
 
         //3. make a view to look into the game world
-        UserView view = new UserView(world, 500, 500);
+        UserView view = new UserView(world, 1200, 1200);
 
 
         //optional: draw a 1-metre grid over the view

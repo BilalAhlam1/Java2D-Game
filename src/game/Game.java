@@ -32,13 +32,18 @@ public class Game {
 
         //make a roof platform
         Shape roof = new BoxShape(30, 0.5f);
-        StaticBody roofbody = new StaticBody(world, shape);
-        roofbody.setPosition(new Vec2(0f, -11.5f));
+        StaticBody roofbody = new StaticBody(world, roof);
+        roofbody.setPosition(new Vec2(0f, 11.5f));
 
-        //make a leftWall platform
-        Shape leftWall = new BoxShape(0.5f, 30);
-        StaticBody leftWallBody = new StaticBody(world, shape);
-        leftWallBody.setPosition(new Vec2(0f, 0f));
+        //make a Left Wall platform
+        Shape leftWall = new BoxShape(0.5f, 15);
+        StaticBody leftWallBody = new StaticBody(world, leftWall);
+        leftWallBody.setPosition(new Vec2(-11.5f, 0f));
+
+        //make a Right Wall platform
+        Shape rightWall = new BoxShape(0.5f, 15);
+        StaticBody rightWallBody = new StaticBody(world, rightWall);
+        rightWallBody.setPosition(new Vec2(11.5f, 0f));
 
         // make a suspended platform
         Shape platformShape = new BoxShape(3, 0.5f);
@@ -53,11 +58,11 @@ public class Game {
 
 
         //3. make a view to look into the game world
-        UserView view = new UserView(world, 1200, 1200);
+        UserView view = new UserView(world, 500, 500);
 
 
         //optional: draw a 1-metre grid over the view
-        // view.setGridResolution(1);
+        view.setGridResolution(1);
 
 
         //4. create a Java window (frame) and add the game

@@ -3,20 +3,26 @@ package game;
 import city.cs.engine.*;
 import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.SolverData;
 
-import javax.swing.JFrame;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.beans.EventSetDescriptor;
 import java.io.IOException;
+import java.security.Key;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.event.*;
 
 /**
  * Your main game entry point
  */
-public class Game {
-
-
+public class Game{
+    public static Walker studentWalker;
     /** Initialise a new Game. */
     public Game() {
 
@@ -53,9 +59,10 @@ public class Game {
         //make a character (with an overlaid image)
         Shape studentShape = new BoxShape(1,2);
         DynamicBody student = new DynamicBody(world, studentShape);
-        student.setPosition(new Vec2(7,0));
+        student.setPosition(new Vec2(0,0));
         student.addImage(new BodyImage("data/student.png", 4));
-        new GhostlyFixture(student, studentShape, 200);
+        studentWalker = new Walker(world, studentShape);
+        studentWalker.jump(7);
 
 
         //Football
@@ -63,6 +70,9 @@ public class Game {
         DynamicBody CircleBody = new DynamicBody(world, Circle);
         CircleBody.setPosition(new Vec2(0,0));
         CircleBody.addImage(new BodyImage("data/football.png", 4));
+        SolidFixture CircleFixture = new SolidFixture(CircleBody, Circle);
+        CircleFixture.setDensity(2);
+
 
         //3. make a view to look into the game world
         UserView view = new UserView(world, 500, 500);
@@ -91,13 +101,29 @@ public class Game {
         //optional: uncomment this to make a debugging view
          JFrame debugView = new DebugViewer(world, 500, 500);
 
+
         // start our game world simulation!
-        world.start();
+        while (true) {
+            world.setGravity(8);
+            world.getSimulationSettings().setTargetFrameRate(60);
+            world.start();
+        }
+
     }
 
+    public void KeyPressed(KeyEvent e){
+        char Key = e.getKeyChar();
+        System.out.println(Key);
+        if(Key == 'd'){
+            studentWalker.startWalking(2);
+        }
+    }
     /** Run the game. */
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
         new Game();
+
     }
 }
+
+

@@ -297,5 +297,4 @@ public class PolygonEditor extends JPanel
         System.out.println(this);
         repaint();
     }
-
 }

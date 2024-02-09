@@ -96,6 +96,9 @@ public class Game{
         frame.pack();
         // finally, make the frame visible
         frame.setVisible(true);
+
+
+        //Control Character
         frame.addKeyListener(new Control(studentWalker, view));
 
         //optional: uncomment this to make a debugging view

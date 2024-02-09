@@ -19,6 +19,6 @@ public class Camera {
 
 
     public void Move(){
-        view.setView(new Vec2(xPos, yPos), 20);
+        view.setView(new Vec2(xPos, yPos), 10);
     }
 }

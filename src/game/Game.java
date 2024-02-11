@@ -62,6 +62,7 @@ public class Game{
         //student.setPosition(new Vec2(0,0));
         //student.addImage(new BodyImage("data/student.png", 4));
         Walker studentWalker = new Walker(world, studentShape);
+        studentWalker.addImage(new BodyImage("data/student.png", 4));
         //studentWalker.jump(10);
 
 
@@ -75,7 +76,7 @@ public class Game{
 
 
         //3. make a view to look into the game world
-        UserView view = new UserView(world, 500, 500);
+        UserView view = new UserView(world, 800, 500);
 
         //optional: draw a 1-metre grid over the view
         //view.setGridResolution(1);

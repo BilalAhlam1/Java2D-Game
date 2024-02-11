@@ -25,7 +25,7 @@ public class Control extends KeyAdapter {
             Character.startWalking(-7);
             Cam.Move();
         } else if (Key == KeyEvent.VK_UP) {
-            Character.jump(7);
+            Character.jump(15);
             Cam.Move();
         }
     }

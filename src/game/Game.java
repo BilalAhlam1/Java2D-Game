@@ -34,14 +34,16 @@ public class Game{
         //3. make a view to look into the game world
         GameView view = new GameView(gameWorld, 800, 500);
         view.setCentre(studentWalker.getPosition());
-        Camera cam = new Camera(view.getAlignmentX(), view.getAlignmentY(), view, gameWorld);
-        cam.Move();
+
         //optional: draw a 1-metre grid over the view
         //view.setGridResolution(1);
 
         //4. create a Java window (frame) and add the game
         //   view to it
-        final JFrame frame = new JFrame("City Game");
+        JFrame frame = new JFrame("City Game");
+        //Calls the camera function to follow the character
+        Camera cam = new Camera(studentWalker, view, gameWorld);
+        frame.setContentPane(cam);
         frame.add(view);
 
         // enable the frame to quit the application
@@ -73,7 +75,13 @@ public class Game{
 
     /** Run the game. */
     public static void main(String[] args){
-        Game game = new Game();
+        //Game game = new Game();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new Game();
+            }
+        });
 
     }
 }

@@ -31,6 +31,6 @@ public class Levels {
     public void MakeLevel(){
         Shape platform = new BoxShape(10,  0.5f);
         StaticBody ground = new StaticBody(world, platform);
-        ground.setPosition(new Vec2(view.getX() + 2, view.getY() + 5));
+        ground.setPosition(new Vec2(view.getX() + 7, view.getY() + 5));
     }
 }

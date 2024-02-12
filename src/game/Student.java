@@ -7,4 +7,8 @@ public class Student extends Walker {
         super(w, studentShape);
         addImage(image);
     }
+
+    public static Shape getStudentShape() {
+        return studentShape;
+    }
 }

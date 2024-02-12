@@ -27,60 +27,17 @@ public class Game{
     public Game(){
 
         //1. make an empty game world
-        World world = new World(60);
-
         //2. populate it with bodies (ex: platforms, collectibles, characters)
-
-        //make a ground platform
-        Shape shape = new BoxShape(30, 0.5f);
-        StaticBody ground = new StaticBody(world, shape);
-        ground.setPosition(new Vec2(0f, -11.5f));
-
-        //make a roof platform
-        //Shape roof = new BoxShape(30, 0.5f);
-        //StaticBody roofbody = new StaticBody(world, roof);
-        //roofbody.setPosition(new Vec2(0f, 11.5f));
-
-        //make a Left Wall platform
-        //Shape leftWall = new BoxShape(0.5f, 15);
-        //StaticBody leftWallBody = new StaticBody(world, leftWall);
-        //leftWallBody.setPosition(new Vec2(-11.5f, 0f));
-
-        //make a Right Wall platform
-        //Shape rightWall = new BoxShape(0.5f, 15);
-        //StaticBody rightWallBody = new StaticBody(world, rightWall);
-        //rightWallBody.setPosition(new Vec2(11.5f, 0f));
-
-        // make a suspended platform
-        Shape platformShape = new BoxShape(3, 0.5f);
-        StaticBody platform1 = new StaticBody(world, platformShape);
-        platform1.setPosition(new Vec2(-8, -4f));
-
-        //make a character (with an overlaid image)
-        Shape studentShape = new BoxShape(1,2);
-        //DynamicBody student = new DynamicBody(world, studentShape);
-        //student.setPosition(new Vec2(0,0));
-        //student.addImage(new BodyImage("data/student.png", 4));
-        Walker studentWalker = new Walker(world, studentShape);
-        studentWalker.addImage(new BodyImage("data/student.png", 4));
-        //studentWalker.jump(10);
-
-
-        //Football
-        Shape Circle = new CircleShape(1);
-        DynamicBody CircleBody = new DynamicBody(world, Circle);
-        CircleBody.setPosition(new Vec2(0,0));
-        CircleBody.addImage(new BodyImage("data/football.png", 4));
-        SolidFixture CircleFixture = new SolidFixture(CircleBody, Circle);
-        CircleFixture.setDensity(2);
-
-
+        GameWorld gameWorld = new GameWorld();
+        Student studentWalker = new Student(gameWorld);
+        studentWalker.setPosition(new Vec2(0, -11));
         //3. make a view to look into the game world
-        UserView view = new UserView(world, 800, 500);
-
+        GameView view = new GameView(gameWorld, 800, 500);
+        view.setCentre(studentWalker.getPosition());
+        Camera cam = new Camera(view.getAlignmentX(), view.getAlignmentY(), view, gameWorld);
+        cam.Move();
         //optional: draw a 1-metre grid over the view
         //view.setGridResolution(1);
-
 
         //4. create a Java window (frame) and add the game
         //   view to it
@@ -100,22 +57,23 @@ public class Game{
 
 
         //Control Character
-        frame.addKeyListener(new Control(studentWalker, view));
+        frame.addKeyListener(new Control(studentWalker, view, gameWorld));
 
         //optional: uncomment this to make a debugging view
-         JFrame debugView = new DebugViewer(world, 500, 500);
+         JFrame debugView = new DebugViewer(gameWorld, 500, 500);
 
-
+        view.setView(studentWalker.getPosition(), 20);
+        gameWorld.setGravity(20);
+        gameWorld.start();
         // start our game world simulation!
-        //while (true) {
-            world.setGravity(8);
-            view.setView(studentWalker.getPosition(), 20);
-            world.start();
+        //while (world.isRunning()) {
+            //world.setGravity(8);
         //}
     }
+
     /** Run the game. */
     public static void main(String[] args){
-        new Game();
+        Game game = new Game();
 
     }
 }

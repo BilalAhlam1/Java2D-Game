@@ -1,29 +1,36 @@
 package game;
 
+
 import city.cs.engine.*;
+import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
+import org.jbox2d.dynamics.SolverData;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.swing.*;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.beans.EventSetDescriptor;
+import java.io.IOException;
+import java.security.Key;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.awt.event.*;
 
 public class Levels {
-    public float NewyPos = 0;
-    public float PreyPos = 0;
-
-    Walker studentWalker;
-
+    UserView view;
     World world;
-    public Levels(float yPos, World world, Walker studentWalker){
-        if (yPos > NewyPos) {
-            this.PreyPos = NewyPos;
-            this.NewyPos = yPos;
-            this.world = world;
-            this.studentWalker = studentWalker;
-            MakeLevel();
-        }
+
+    public Levels(float yPos, World world, UserView view){
+        this.world = world;
+        this.view = view;
     }
 
     public void MakeLevel(){
-        Shape platform = new BoxShape(30, 0.5f);
+        Shape platform = new BoxShape(10,  0.5f);
         StaticBody ground = new StaticBody(world, platform);
-        ground.setPosition(new Vec2(studentWalker.getPosition()));
-
+        ground.setPosition(new Vec2(view.getX() + 2, view.getY() + 5));
     }
 }

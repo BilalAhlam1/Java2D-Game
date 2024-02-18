@@ -18,6 +18,7 @@ import java.security.Key;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.awt.event.*;
+import java.util.Random;
 
 public class Levels {
     UserView view;
@@ -29,8 +30,10 @@ public class Levels {
     }
 
     public void MakeLevel(){
-        Shape platform = new BoxShape(10,  0.5f);
+        Random rand = new Random();
+        float x = rand.nextFloat();
+        Shape platform = new BoxShape(5,  0.5f);
         StaticBody ground = new StaticBody(world, platform);
-        ground.setPosition(new Vec2(view.getX() + 7, view.getY() + 5));
+        ground.setPosition(new Vec2(11, view.getY() + 5));
     }
 }

@@ -25,6 +25,7 @@ public class Camera extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Move();
+                System.out.println(studentWalker.getPosition().y);
             }
         };
         Timer timer = new Timer(15, al);
@@ -36,12 +37,14 @@ public class Camera extends JPanel {
         view.setView(new Vec2(0, studentWalker.getPosition().y), 20);
 
         // If the current position (Rounded to 10) is bigger than the previous height(yPos) then create a platform
-        float a = (studentWalker.getPosition().y % 5);
-        if (a < 3) {
-            if (studentWalker.getPosition().y > PreyPos) {
-                this.PreyPos = studentWalker.getPosition().y;
-                Platform = new Levels(studentWalker.getPosition().y, world, view);
-                Platform.MakeLevel();
+        if (studentWalker.getPosition().y > 0) {
+            float a = (studentWalker.getPosition().y % 5);
+            if (a < 1 && a > 0) {
+                if (studentWalker.getPosition().y > PreyPos) {
+                    this.PreyPos = studentWalker.getPosition().y;
+                    Platform = new Levels(studentWalker.getPosition().y, world, view);
+                    Platform.MakeLevel();
+                }
             }
         }
     }

@@ -62,7 +62,7 @@ public class Game{
         frame.addKeyListener(new Control(studentWalker, view, gameWorld));
 
         //optional: uncomment this to make a debugging view
-         JFrame debugView = new DebugViewer(gameWorld, 500, 500);
+         JFrame debugView = new DebugViewer(gameWorld, 500, 800);
 
         view.setView(studentWalker.getPosition(), 20);
         gameWorld.setGravity(20);

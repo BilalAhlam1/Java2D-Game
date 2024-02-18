@@ -9,6 +9,10 @@ public class Control extends KeyAdapter {
     UserView view;
     Camera Cam;
     World world;
+    private static final BodyImage runRight = new BodyImage("data/Adventurer/Sprites/adventurer-run-00.png", 4f);
+    private static final BodyImage runLeft = new BodyImage("data/Adventurer/Sprites/Run Left.png", 4f);
+    private static final BodyImage jump = new BodyImage("data/Adventurer/Sprites/adventurer-fall-00.png", 4f);
+    private static final BodyImage idle = new BodyImage("data/Adventurer/Sprites/adventurer-idle-01.png", 4f);
 
     public Control(Walker StudentWalker, UserView View, World world){
         this.Character = StudentWalker;
@@ -18,27 +22,30 @@ public class Control extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         int Key = e.getKeyCode();
-        //Camera Cam = new Camera(Character.getPosition().x, Character.getPosition().y, view, world);
-        //Cam.Move();
         if (Key == KeyEvent.VK_RIGHT) {
             Character.startWalking(5);
-            //Cam.Move();
+            Character.removeAllImages();
+            Character.addImage(runRight);
         } else if (Key == KeyEvent.VK_LEFT) {
             Character.startWalking(-5);
-            //Cam.Move();
+            Character.removeAllImages();
+            Character.addImage(runLeft);
         } else if (Key == KeyEvent.VK_UP) {
             Character.jump(20);
-            //Cam.Move();
+            Character.removeAllImages();
+            Character.addImage(jump);
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        //Camera Cam = new Camera(Character.getPosition().x, Character.getPosition().y, view, world);
         if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) {
             Character.stopWalking();
-            //Cam.Move();
+            Character.removeAllImages();
+            Character.addImage(idle);
+        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            Character.removeAllImages();
+            Character.addImage(idle);
         }
-        //Cam.Move();
     }
 }

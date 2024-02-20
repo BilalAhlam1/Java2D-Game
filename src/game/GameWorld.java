@@ -17,9 +17,9 @@ public class GameWorld extends World {
         StaticBody platform1 = new StaticBody(this, platformShape);
         platform1.setPosition(new Vec2(-8, -4f));
 
-        Shape platformShape2 = new BoxShape(3, 0.5f);
-        StaticBody platform2 = new StaticBody(this, platformShape);
-        platform2.setPosition(new Vec2(0, 4f));
+        //Shape platformShape2 = new BoxShape(3, 0.5f);
+        //StaticBody platform2 = new StaticBody(this, platformShape);
+        //platform2.setPosition(new Vec2(0, 4f));
 
         //make a character (with an overlaid image)
         //Student studentShape = new Student();

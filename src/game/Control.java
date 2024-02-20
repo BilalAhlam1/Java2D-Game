@@ -23,11 +23,11 @@ public class Control extends KeyAdapter {
     public void keyPressed(KeyEvent e) {
         int Key = e.getKeyCode();
         if (Key == KeyEvent.VK_RIGHT) {
-            Character.startWalking(5);
+            Character.startWalking(7);
             Character.removeAllImages();
             Character.addImage(runRight);
         } else if (Key == KeyEvent.VK_LEFT) {
-            Character.startWalking(-5);
+            Character.startWalking(-7);
             Character.removeAllImages();
             Character.addImage(runLeft);
         } else if (Key == KeyEvent.VK_UP) {

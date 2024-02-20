@@ -23,17 +23,25 @@ import java.util.Random;
 public class Levels {
     UserView view;
     World world;
+    float Y;
 
     public Levels(float yPos, World world, UserView view){
         this.world = world;
         this.view = view;
+        this.Y = yPos;
     }
 
     public void MakeLevel(){
-        Random rand = new Random();
-        float x = rand.nextFloat();
-        Shape platform = new BoxShape(5,  0.5f);
-        StaticBody ground = new StaticBody(world, platform);
-        ground.setPosition(new Vec2(11, view.getY() + 5));
+        for (int i = 1; i < 20; i++){
+            //Random rand = new Random();
+            //float x = rand.nextFloat();
+            float min = -11; // Minimum value of range
+            float max = 11; // Maximum value of range
+            float x = (float)Math.floor(Math.random() * (max - min + 1) + min);
+
+            Shape platform = new BoxShape(5, 0.5f);
+            StaticBody ground = new StaticBody(world, platform);
+            ground.setPosition(new Vec2(x, Y + 7 * i));
+        }
     }
 }

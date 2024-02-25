@@ -24,6 +24,8 @@ public class Levels {
     UserView view;
     World world;
     float Y;
+    float preX = 1;
+    private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
 
     public Levels(float yPos, World world, UserView view){
         this.world = world;
@@ -33,15 +35,18 @@ public class Levels {
 
     public void MakeLevel(){
         for (int i = 1; i < 20; i++){
-            //Random rand = new Random();
-            //float x = rand.nextFloat();
+            float x = 0;
+
             float min = -11; // Minimum value of range
             float max = 11; // Maximum value of range
-            float x = (float)Math.floor(Math.random() * (max - min + 1) + min);
+            x = (float) Math.floor(Math.random() * (max - min + 1) + min);
+
 
             Shape platform = new BoxShape(5, 0.5f);
             StaticBody ground = new StaticBody(world, platform);
             ground.setPosition(new Vec2(x, Y + 7 * i));
+            ground.addImage(Cloud);
+
         }
     }
 }

@@ -4,6 +4,7 @@ import game.Student;
 import org.jbox2d.common.Vec2;
 
 public class GameWorld extends World {
+    private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
     public GameWorld(){
         super(60);
 
@@ -16,6 +17,7 @@ public class GameWorld extends World {
         Shape platformShape = new BoxShape(3, 0.5f);
         StaticBody platform1 = new StaticBody(this, platformShape);
         platform1.setPosition(new Vec2(-8, -4f));
+        platform1.addImage(Cloud);
 
         //Shape platformShape2 = new BoxShape(3, 0.5f);
         //StaticBody platform2 = new StaticBody(this, platformShape);

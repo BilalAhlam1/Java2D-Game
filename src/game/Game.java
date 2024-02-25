@@ -1,22 +1,11 @@
 package game;
 
 import city.cs.engine.*;
-import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.SolverData;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicTreeUI;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.beans.EventSetDescriptor;
-import java.io.IOException;
-import java.security.Key;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.event.*;
 
 /**
  * Your main game entry point
@@ -56,7 +45,9 @@ public class Game{
         frame.pack();
         // finally, make the frame visible
         frame.setVisible(true);
+        MouseController MouseHandler = new MouseController(gameWorld, view, studentWalker);
 
+        frame.addMouseListener(MouseHandler);
 
         //Control Character
         frame.addKeyListener(new Control(studentWalker, view, gameWorld));

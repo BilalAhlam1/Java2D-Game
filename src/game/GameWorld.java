@@ -1,11 +1,8 @@
 package game;
 import city.cs.engine.*;
 import city.cs.engine.Shape;
-import game.Character;
 import org.jbox2d.common.Vec2;
-
 import javax.swing.*;
-import java.awt.*;
 
 public class GameWorld extends World {
     private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
@@ -32,11 +29,9 @@ public class GameWorld extends World {
         //sets the score
         JLabel score = new JLabel("Score = 0");
 
-
+        //Displays score with collisions
         XPpickup Collisions = new XPpickup(studentWalker, score);
         studentWalker.addCollisionListener(Collisions);
-
-
 
     }
 

@@ -23,8 +23,7 @@ public class XPpickup implements CollisionListener {
             e.getOtherBody().destroy();
             //update the score
             score.setText("Score = " + Character.getXPCount());
-        } else if (e.getOtherBody() instanceof Bullet) {
-
+        } else if (e.getOtherBody() instanceof Ammunition) {
         }
     }
 

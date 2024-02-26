@@ -2,6 +2,7 @@ package game;
 import city.cs.engine.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.Objects;
 
 public class Control extends KeyAdapter {
 
@@ -9,10 +10,16 @@ public class Control extends KeyAdapter {
     UserView view;
     Camera Cam;
     World world;
+
+    //Character Movement images
     private static final BodyImage runRight = new BodyImage("data/Adventurer/Sprites/adventurer-run-00.png", 4f);
     private static final BodyImage runLeft = new BodyImage("data/Adventurer/Sprites/Run Left.png", 4f);
     private static final BodyImage jump = new BodyImage("data/Adventurer/Sprites/adventurer-fall-00.png", 4f);
-    private static final BodyImage idle = new BodyImage("data/Adventurer/Sprites/adventurer-idle-01.png", 4f);
+    private static final BodyImage idleRight = new BodyImage("data/Adventurer/Sprites/adventurer-idle-00.png", 4f);
+    private static final BodyImage idleLeft = new BodyImage("data/Adventurer/Sprites/adventurer-idleLeft-01.png", 4f);
+
+    //Last movement key. Used to add the appropriate orientated image to the character
+    public String preKey = null;
 
     public Control(Walker StudentWalker, UserView View, World world){
         this.Character = StudentWalker;
@@ -22,16 +29,27 @@ public class Control extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         int Key = e.getKeyCode();
-        if (Key == KeyEvent.VK_RIGHT) {
+
+        // Move Right
+        if (Key == KeyEvent.VK_RIGHT || Key == KeyEvent.VK_D) {
             Character.startWalking(7);
+            //replace Character image
             Character.removeAllImages();
             Character.addImage(runRight);
-        } else if (Key == KeyEvent.VK_LEFT) {
+            preKey = "Right";
+
+            // Move Left
+        } else if (Key == KeyEvent.VK_LEFT || Key == KeyEvent.VK_A) {
             Character.startWalking(-7);
+            //replace Character image
             Character.removeAllImages();
             Character.addImage(runLeft);
-        } else if (Key == KeyEvent.VK_UP) {
+            preKey = "Left";
+
+            //Jump
+        } else if (Key == KeyEvent.VK_UP || Key == KeyEvent.VK_W) {
             Character.jump(20);
+            //replace Character image
             Character.removeAllImages();
             Character.addImage(jump);
         }
@@ -39,13 +57,28 @@ public class Control extends KeyAdapter {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+
+        //Stop Walking on release and set the appropriate image for the characters direction
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_D) {
             Character.stopWalking();
+            //Set default image
             Character.removeAllImages();
-            Character.addImage(idle);
-        } else if (e.getKeyCode() == KeyEvent.VK_UP) {
+            Character.addImage(idleRight);
+            preKey = "Right";
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT || e.getKeyCode() == KeyEvent.VK_A) {
+            Character.stopWalking();
+            //Set default image
             Character.removeAllImages();
-            Character.addImage(idle);
+            Character.addImage(idleLeft);
+            preKey = "Left";
+        }else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
+            //Set default image
+            Character.removeAllImages();
+            if(Objects.equals(preKey, "Right")) {
+                Character.addImage(idleRight);
+            } else if (Objects.equals(preKey, "Left")) {
+                Character.addImage(idleLeft);
+            }
         }
     }
 }

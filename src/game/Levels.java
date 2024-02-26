@@ -42,10 +42,17 @@ public class Levels {
             x = (float) Math.floor(Math.random() * (max - min + 1) + min);
 
 
-            Shape platform = new BoxShape(5, 0.5f);
+            Shape platform = new BoxShape(6, 0.5f);
             StaticBody ground = new StaticBody(world, platform);
             ground.setPosition(new Vec2(x, Y + 7 * i));
             ground.addImage(Cloud);
+
+            float RandomXP = (float) Math.random();
+            System.out.println(RandomXP);
+            // chance of XP spawning
+            if (RandomXP < 0.5){
+                XP xp = new XP(world, ground);
+            }
 
         }
     }

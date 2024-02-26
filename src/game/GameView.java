@@ -11,9 +11,11 @@ public class GameView extends UserView {
     public GameView(World w, int width, int height) {
         super(w, width, height);
         background = new ImageIcon("data/Clouds_GIF.gif").getImage();
+        setCentre(Game.getGameWorld().getStudentWalker().getPosition());
     }
     @Override
     protected void paintBackground(Graphics2D g) {
         g.drawImage(background, 0, 0, this);
     }
+
 }

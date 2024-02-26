@@ -12,20 +12,19 @@ import java.awt.*;
  */
 public class Game{
 
+    private static GameWorld gameWorld;
+
     /** Initialise a new Game. */
     public Game(){
 
         //1. make an empty game world
         //2. populate it with bodies (ex: platforms, collectibles, characters)
-        GameWorld gameWorld = new GameWorld();
-        Student studentWalker = new Student(gameWorld);
-        studentWalker.setPosition(new Vec2(0, -11));
+        gameWorld = new GameWorld();
+        Character studentWalker = gameWorld.getStudentWalker();
+
         //3. make a view to look into the game world
         GameView view = new GameView(gameWorld, 800, 500);
-        view.setCentre(studentWalker.getPosition());
-
-        //optional: draw a 1-metre grid over the view
-        //view.setGridResolution(1);
+        //view.setCentre(studentWalker.getPosition());
 
         //4. create a Java window (frame) and add the game
         //   view to it
@@ -45,23 +44,25 @@ public class Game{
         frame.pack();
         // finally, make the frame visible
         frame.setVisible(true);
-        MouseController MouseHandler = new MouseController(gameWorld, view, studentWalker);
-
+        Shooting MouseHandler = new Shooting(gameWorld, view, studentWalker);
         frame.addMouseListener(MouseHandler);
 
         //Control Character
         frame.addKeyListener(new Control(studentWalker, view, gameWorld));
 
         //optional: uncomment this to make a debugging view
-         JFrame debugView = new DebugViewer(gameWorld, 500, 800);
+        JFrame debugView = new DebugViewer(gameWorld, 500, 500);
 
-        view.setView(studentWalker.getPosition(), 20);
+        //Add Game Score to the userview
+        view.add(XPpickup.getScore());
+
         gameWorld.setGravity(20);
         gameWorld.start();
-        // start our game world simulation!
-        //while (world.isRunning()) {
-            //world.setGravity(8);
-        //}
+
+    }
+
+    public static GameWorld getGameWorld() {
+        return gameWorld;
     }
 
     /** Run the game. */

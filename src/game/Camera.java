@@ -16,7 +16,7 @@ public class Camera extends JPanel {
     Levels Platform;
     UserView view;
     Walker studentWalker;
-    public Camera(Student studentWalker, UserView view, World world){
+    public Camera(Character studentWalker, UserView view, World world){
         this.view = view;
         this.studentWalker = studentWalker;
         this.world = world;
@@ -34,12 +34,15 @@ public class Camera extends JPanel {
     public void Move() {
         view.setView(new Vec2(0, studentWalker.getPosition().y), 20);
         int Y = (int) studentWalker.getPosition().y;
-        System.out.println(Y);
+        //System.out.println(Y);
         if (Y == 0 && Y > PreyPos) {
             PreyPos = Y;
             Platform = new Levels(Y, world, view);
             Platform.MakeLevel();
             System.out.println("Make level");
+        } else if (studentWalker.getPosition().y < -20) {
+            System.out.println("Died");
+            studentWalker.setPosition(new Vec2(0, -11));
         }
     }
 }

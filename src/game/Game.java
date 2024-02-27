@@ -2,10 +2,13 @@ package game;
 
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
+
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicTreeUI;
 
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Your main game entry point
@@ -15,7 +18,7 @@ public class Game{
     private static GameWorld gameWorld;
 
     /** Initialise a new Game. */
-    public Game(){
+    public Game() throws LineUnavailableException, IOException {
 
         //1. make an empty game world
         //2. populate it with bodies (ex: platforms, collectibles, characters)
@@ -71,7 +74,11 @@ public class Game{
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Game();
+                try {
+                    new Game();
+                } catch (LineUnavailableException | IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
 

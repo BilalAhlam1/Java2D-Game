@@ -3,7 +3,7 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
-public class XP extends DynamicBody {
+public class XP extends StaticBody {
     private static final Shape XP =  new BoxShape(1, 2);
     private int XPCount;
     private static final BodyImage image = new BodyImage("data/Loot/Seperate/tile444.png", 4f);

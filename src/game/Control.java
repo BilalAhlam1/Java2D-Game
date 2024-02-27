@@ -1,7 +1,11 @@
 package game;
 import city.cs.engine.*;
+
+import javax.sound.sampled.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Control extends KeyAdapter {
@@ -17,6 +21,26 @@ public class Control extends KeyAdapter {
     private static final BodyImage jump = new BodyImage("data/Adventurer/Sprites/adventurer-fall-00.png", 4f);
     private static final BodyImage idleRight = new BodyImage("data/Adventurer/Sprites/adventurer-idle-00.png", 4f);
     private static final BodyImage idleLeft = new BodyImage("data/Adventurer/Sprites/adventurer-idleLeft-01.png", 4f);
+    private static final AudioInputStream Jump;
+
+    static {
+        try {
+            Jump = AudioSystem.getAudioInputStream(new File("data/Sounds/jump.wav"));
+        } catch (UnsupportedAudioFileException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Clip clip;
+
+    static {
+        try {
+            clip = AudioSystem.getClip();
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     //Last movement key. Used to add the appropriate orientated image to the character
     public String preKey = null;
@@ -25,6 +49,11 @@ public class Control extends KeyAdapter {
         this.Character = StudentWalker;
         this.view = View;
         this.world = world;
+        try {
+            clip.open(Jump);
+        } catch (LineUnavailableException | IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -49,6 +78,8 @@ public class Control extends KeyAdapter {
             //Jump
         } else if (Key == KeyEvent.VK_UP || Key == KeyEvent.VK_W) {
             Character.jump(20);
+            clip.setFramePosition(0);
+            clip.start();
             //replace Character image
             Character.removeAllImages();
             Character.addImage(jump);
@@ -74,10 +105,10 @@ public class Control extends KeyAdapter {
         }else if (e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_W) {
             //Set default image
             Character.removeAllImages();
-            if(Objects.equals(preKey, "Right")) {
-                Character.addImage(idleRight);
-            } else if (Objects.equals(preKey, "Left")) {
+            if(Objects.equals(preKey, "Left")) {
                 Character.addImage(idleLeft);
+            } else{
+                Character.addImage(idleRight);
             }
         }
     }

@@ -3,16 +3,12 @@ import city.cs.engine.*;
 public class Character extends Walker {
     private static final Shape CharacterShape =  new BoxShape(1, 2);
     private int XPCount;
-    private final GhostlyFixture CharacterFixture;
+    private int health = 100;
     private static final BodyImage image = new BodyImage("data/Adventurer/Sprites/adventurer-idleRight-01.png", 4f);
     public Character(World w) {
         super(w, CharacterShape);
-        CharacterFixture = new GhostlyFixture(this, getCharacterShape());
+        SolidFixture characterFixture = new SolidFixture(this, CharacterShape);
         addImage(image);
-    }
-
-    public static Shape getCharacterShape() {
-        return CharacterShape;
     }
 
     public void setXPCount(int XPCount) {
@@ -20,11 +16,16 @@ public class Character extends Walker {
         System.out.println("XP:" + XPCount);
     }
 
+    public void reduceHealth(){
+        health = health - 10;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
     public int getXPCount() {
         return XPCount;
     }
 
-    public GhostlyFixture getCharacterFixture() {
-        return CharacterFixture;
-    }
 }

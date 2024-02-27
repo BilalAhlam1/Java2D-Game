@@ -16,18 +16,16 @@ public class XPpickup implements CollisionListener {
     }
     @Override
     public void collide(CollisionEvent e) {
-        if (e.getOtherBody() instanceof XP){
+        if (e.getOtherBody() instanceof XP) {
             // If character collides with XP, score increments
             Character.setXPCount(Character.getXPCount() + 1);
             //destroy collided object
             e.getOtherBody().destroy();
             //update the score
             score.setText("Score = " + Character.getXPCount());
-        } else if (e.getOtherBody() instanceof Ammunition) {
         }
     }
-
-    public static JLabel getScore() {
+    public static JLabel getScore () {
         return score;
     }
 }

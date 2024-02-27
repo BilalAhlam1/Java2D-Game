@@ -4,24 +4,49 @@ import city.cs.engine.*;
 import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 
 public class Shooting implements MouseListener {
 
     private GameWorld world;
     private GameView view;
-    private Walker Character;
+    private Character Character;
     private Ammunition Bomb;
+    private static final BodyImage bomb = new BodyImage("data/Loot/Seperate/tile373.png", 4f);
+    private static final BodyImage broken = new BodyImage("data/Loot/Seperate/tile373broken.png", 4f);
+    private static final AudioInputStream explosion;
 
-    public Shooting(GameWorld w, GameView v, Walker Character) {
+    static {
+        try {
+            explosion = AudioSystem.getAudioInputStream(new File("data/Sounds/Explosion.wav"));
+        } catch (UnsupportedAudioFileException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static final Clip clip;
+
+    static {
+        try {
+            clip = AudioSystem.getClip();
+        } catch (LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Shooting(GameWorld w, GameView v, Character Character) throws LineUnavailableException, IOException {
         world = w;
         view = v;
         this.Character = Character;
+        clip.open(explosion);
     }
 
     @Override
@@ -33,6 +58,7 @@ public class Shooting implements MouseListener {
     public void mousePressed(MouseEvent e) {
         //create a bullet object
         Bomb = new Ammunition(world);
+        Bomb.addImage(bomb);
 
         //get the coordinates of the mouse click
         Point mousePoint = e.getPoint();
@@ -63,31 +89,51 @@ public class Shooting implements MouseListener {
         direction.normalize(); // Normalize the direction vector to unit length
 
         // Apply a force in the direction of the mouse click
-        float forceMagnitude = 10.0f;
+        float forceMagnitude = 15.0f;
         Vec2 force = direction.mul(forceMagnitude);
         Bomb.setLinearVelocity(force);
 
         //set a timer and explode the bomb
-        explode(Bomb);
+        timer(Bomb);
     }
 
-    public void explode(Ammunition Bomb){
+    public void timer(Ammunition Bomb){
         ActionListener a = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                //remove the bomb object
-                Bomb.destroy();
-                System.out.println("BOOOM");
+                //set the bomb explosion
+                setExplosion();
             }
         };
 
-        //explodes the bomb every 5 seconds
-        Timer timer1 = new Timer(5000, a);
+        //explodes the bomb every second
+        Timer timer1 = new Timer(1000, a);
         //Doesn't repeat the timer
         timer1.setRepeats(false);
         timer1.start();
     }
 
+    public void setExplosion() {
+        Explosion explode = new Explosion(Bomb, Character);
+        Bomb.addCollisionListener(explode);
+        Bomb.removeAllImages();
+        Bomb.addImage(broken);
+        clip.setFramePosition(0);
+        clip.start();
+        System.out.println("BOOM");
+
+        ActionListener c = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Bomb.removeAllCollisionListeners();
+                Bomb.destroy();
+            }
+        };
+        Timer timer2 = new Timer(500, c);
+        //Doesn't repeat the timer
+        timer2.setRepeats(false);
+        timer2.start();
+    }
     @Override
     public void mouseReleased(MouseEvent e) {
 

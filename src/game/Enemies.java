@@ -10,29 +10,26 @@ import java.awt.event.ActionListener;
 public class Enemies extends Walker {
     private static final Shape Enemies =  new BoxShape(1, 2);
     private int Health = 100;
+    private int speed = 4;
     private static final BodyImage enenmySprite = new BodyImage("data/Loot/Seperate/tile387.png", 4f);
-    public Enemies(World w, StaticBody staticBody) {
+    public Enemies(World w, StaticBody platform) {
         super(w, Enemies);
         addImage(enenmySprite);
-        setPosition(new Vec2(staticBody.getPosition().x, staticBody.getPosition().y + 2));
-        this.startWalking((float) 0.2);
-        move(staticBody, this);
+        setPosition(new Vec2(platform.getPosition().x - 2, platform.getPosition().y + 2));
+        move(platform, this);
     }
 
-    public void move(StaticBody staticBody, Walker enemy){
+    public void move(StaticBody platform, Walker enemy){
         ActionListener a = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (enemy.getPosition().x == staticBody.getPosition().x - 0.5){
-                    enemy.startWalking(1);
-                } else if (enemy.getPosition().x == staticBody.getPosition().x + 0.5) {
-                    enemy.startWalking(-1);
-                }
+                enemy.startWalking(speed);
+                speed = speed * -1;
             }
         };
 
         //explodes the bomb every second
-        Timer timer1 = new Timer(15, a);
+        Timer timer1 = new Timer(2000, a);
 
         timer1.start();
     }

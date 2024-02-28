@@ -54,11 +54,10 @@ public class Camera extends JPanel {
     public void Level2(){
         float Y = Level1.getMaxLevel();
         //System.out.println(Y);
-        if (Character.getPosition().y == Y) {
-            Level2 = new Levels(Y, world, view, 0.2);
-            Level2.MakeLevel();
-            System.out.println("Make level");
-        }
+        Level2 = new Levels(Y, world, view, 0.2);
+        Level2.MakeLevel();
+        System.out.println("Make level");
+
         if (Character.getPosition().y < -20) {
             System.out.println("Died");
             Character.reset();

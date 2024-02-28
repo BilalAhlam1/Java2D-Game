@@ -24,13 +24,15 @@ public class Levels {
     UserView view;
     World world;
     float Y;
-    float preX = 1;
+    float MaxLevel = 0;
     private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
+    double Difficulty = 0;
 
-    public Levels(float yPos, World world, UserView view){
+    public Levels(float yPos, World world, UserView view, double Difficulty){
         this.world = world;
         this.view = view;
         this.Y = yPos;
+        this.Difficulty = Difficulty;
     }
 
     public void MakeLevel(){
@@ -50,10 +52,19 @@ public class Levels {
             float RandomXP = (float) Math.random();
             System.out.println(RandomXP);
             // chance of XP spawning
-            if (RandomXP < 0.5){
-                XP xp = new XP(world, ground);
+            if (i == 19){
+                XP xp = new XP(world, ground, true);
+                MaxLevel = Y + 7 * i;
+            } if (RandomXP > 0.5){
+                XP xp = new XP(world, ground, false);
+            } if (RandomXP < Difficulty){
+                Enemies enemies = new Enemies(world, ground);
             }
 
         }
+    }
+
+    public float getMaxLevel() {
+        return MaxLevel;
     }
 }

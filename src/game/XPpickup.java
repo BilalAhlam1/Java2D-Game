@@ -2,8 +2,6 @@ package game;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
-import city.cs.engine.Sensor;
-import city.cs.engine.World;
 
 import javax.swing.*;
 

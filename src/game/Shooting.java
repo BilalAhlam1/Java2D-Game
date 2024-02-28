@@ -114,7 +114,7 @@ public class Shooting implements MouseListener {
     }
 
     public void setExplosion() {
-        Explosion explode = new Explosion(Bomb, Character);
+        Explosion explode = new Explosion(Character, world);
         Bomb.addCollisionListener(explode);
         Bomb.removeAllImages();
         Bomb.addImage(broken);
@@ -129,7 +129,7 @@ public class Shooting implements MouseListener {
                 Bomb.destroy();
             }
         };
-        Timer timer2 = new Timer(500, c);
+        Timer timer2 = new Timer(2000, c);
         //Doesn't repeat the timer
         timer2.setRepeats(false);
         timer2.start();

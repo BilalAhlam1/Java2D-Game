@@ -5,8 +5,11 @@ import org.jbox2d.common.Vec2;
 import javax.swing.*;
 
 public class GameWorld extends World {
+
+    //Load platform image
     private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
-    public Character studentWalker = null;
+    public Character Character = null;
+    private JLabel Health;
     public GameWorld(){
         super(60);
 
@@ -23,19 +26,24 @@ public class GameWorld extends World {
         platform1.addImage(Cloud);
 
         //Creates Character
-        studentWalker = new Character(this);
-        studentWalker.setPosition(new Vec2(0, -11));
+        Character = new Character(this);
+        Character.setPosition(new Vec2(0, -11));
 
         //sets the score
         JLabel score = new JLabel("Score = 0");
+        Health = new JLabel("Health = 100");
 
         //Displays score with collisions
-        XPpickup Collisions = new XPpickup(studentWalker, score);
-        studentWalker.addCollisionListener(Collisions);
+        XPpickup Collisions = new XPpickup(Character, score);
+        Character.addCollisionListener(Collisions);
 
     }
 
-    public Character getStudentWalker() {
-        return studentWalker;
+    public JLabel getHealth() {
+        return Health;
+    }
+
+    public Character getCharacter() {
+        return Character;
     }
 }

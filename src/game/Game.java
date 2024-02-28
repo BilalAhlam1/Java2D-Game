@@ -23,42 +23,12 @@ public class Game{
         //1. make an empty game world
         //2. populate it with bodies (ex: platforms, collectibles, characters)
         gameWorld = new GameWorld();
-        Character studentWalker = gameWorld.getStudentWalker();
+        Character Character = gameWorld.getCharacter();
 
         //3. make a view to look into the game world
         GameView view = new GameView(gameWorld, 800, 500);
-        //view.setCentre(studentWalker.getPosition());
 
-        //4. create a Java window (frame) and add the game
-        //   view to it
-        JFrame frame = new JFrame("City Game");
-        //Calls the camera function to follow the character
-        Camera cam = new Camera(studentWalker, view, gameWorld);
-        frame.setContentPane(cam);
-        frame.add(view);
-
-        // enable the frame to quit the application
-        // when the x button is pressed
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationByPlatform(true);
-        // don't let the frame be resized
-        frame.setResizable(false);
-        // size the frame to fit the world view
-        frame.pack();
-        // finally, make the frame visible
-        frame.setVisible(true);
-        Shooting MouseHandler = new Shooting(gameWorld, view, studentWalker);
-        frame.addMouseListener(MouseHandler);
-
-        //Control Character
-        frame.addKeyListener(new Control(studentWalker, view, gameWorld));
-
-        //optional: uncomment this to make a debugging view
-        JFrame debugView = new DebugViewer(gameWorld, 500, 500);
-
-        //Add Game Score to the userview
-        view.add(XPpickup.getScore());
-
+        //start the world and set gravity
         gameWorld.setGravity(20);
         gameWorld.start();
 

@@ -63,7 +63,7 @@ public class Shooting implements MouseListener {
         //get the coordinates of the mouse click
         Point mousePoint = e.getPoint();
 
-        //the ball though needs to be added at *world* coordinates which
+        //the ball though needs to be added at world coordinates which
         //are in meters. So, we transform mouse coordinates into
         //world coordinates using a method provided by the view class:
         Vec2 worldPoint = view.viewToWorld(mousePoint);

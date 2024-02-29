@@ -21,8 +21,8 @@ public class GameView extends UserView {
         JFrame frame = new JFrame("City Game");
 
         //Calls the camera function to follow the character
-        Camera cam = new Camera(Character, this, w);
-        frame.setContentPane(cam);
+        Movement Movement = new Movement(Character, this, w);
+        frame.setContentPane(Movement);
         frame.add(this);
 
         // enable the frame to quit the application
@@ -48,11 +48,11 @@ public class GameView extends UserView {
         //Add Game Score and Health to the user view
         this.add(XPpickup.getScore());
         this.add(w.getHealth());
+        this.add(EnemyDamage.getEnemyHealth());
     }
     @Override
     protected void paintBackground(Graphics2D g) {
         //adds the background onto the user view
         g.drawImage(background, 0, 0, this);
     }
-
 }

@@ -20,8 +20,8 @@ public class Character extends Walker {
         System.out.println("XP:" + XPCount);
     }
 
-    public void reduceHealth(){
-        health = health - 5;
+    public void reduceHealth(int n){
+        health = health - n;
     }
 
     public int getHealth() {

@@ -10,7 +10,7 @@ import javax.swing.text.View;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Camera extends JPanel {
+public class Movement extends JPanel {
     World world;
     public int PreyPos = -1;
     private int Y;
@@ -18,29 +18,32 @@ public class Camera extends JPanel {
     Levels Level2;
     UserView view;
     Character Character;
-    public Camera(Character Character, UserView view, World world){
+    public Movement(Character Character, UserView view, World world){
         this.view = view;
         this.Character = Character;
         this.world = world;
         ActionListener al = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Move();
-                Level1();
+                // Gameview follows the character
+                Camera();
 
             }
         };
         Timer timer = new Timer(15, al);
         timer.start();
+
+        //creates level 1
+        Level1();
     }
 
-    public void Move() {
+    public void Camera() {
         view.setView(new Vec2(0, Character.getPosition().y), 20);
     }
     public void Level1(){
-        int Y = (int) Character.getPosition().y;
+        int Y = 0;
         //System.out.println(Y);
-        if (Y == 0 && Y > PreyPos) {
+        if (Y > PreyPos) {
             PreyPos = Y;
             Level1 = new Levels(Y, world, view, 0);
             Level1.MakeLevel();

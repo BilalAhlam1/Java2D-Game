@@ -17,11 +17,12 @@ public class Explosion implements CollisionListener {
     @Override
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Character){
-            character.reduceHealth();
+            //reduce character health by 5 and update health on user view when in contact with the bomb
+            character.reduceHealth(5);
             world.getHealth().setText("Health = " + character.getHealth());
             System.out.println(character.getHealth());
             if (character.getHealth() <= 0){
-                //world.getHealth().setText("Health = 100");
+                //if character health is 0 or below, reset the character
                 character.reset();
             }
         }

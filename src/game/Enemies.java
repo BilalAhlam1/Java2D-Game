@@ -9,13 +9,19 @@ import java.awt.event.ActionListener;
 
 public class Enemies extends Walker {
     private static final Shape Enemies =  new BoxShape(1, 2);
+
+    //set the initial health
     private int Health = 100;
+
+    //set the initial speed
     private int speed = 4;
     private static final BodyImage enenmySprite = new BodyImage("data/Loot/Seperate/tile387.png", 4f);
     public Enemies(World w, StaticBody platform) {
         super(w, Enemies);
         addImage(enenmySprite);
         setPosition(new Vec2(platform.getPosition().x - 2, platform.getPosition().y + 2));
+
+        // Move the character in alternating speeds every 2 seconds
         move(platform, this);
     }
 

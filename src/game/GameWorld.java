@@ -34,7 +34,7 @@ public class GameWorld extends World {
         Health = new JLabel("Health = 100");
 
         //Displays score with collisions
-        XPpickup Collisions = new XPpickup(Character, score);
+        XPpickup Collisions = new XPpickup(Character, score, this);
         Character.addCollisionListener(Collisions);
 
     }

@@ -23,7 +23,7 @@ import java.util.Random;
 public class Levels {
     UserView view;
     World world;
-    float Y;
+    float Ypos;
     float MaxLevel = 0;
     private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
     double Difficulty = 0;
@@ -31,7 +31,7 @@ public class Levels {
     public Levels(float yPos, World world, UserView view, double Difficulty){
         this.world = world;
         this.view = view;
-        this.Y = yPos;
+        this.Ypos = yPos;
         this.Difficulty = Difficulty;
     }
 
@@ -46,7 +46,7 @@ public class Levels {
 
             Shape platform = new BoxShape(6, 0.5f);
             StaticBody ground = new StaticBody(world, platform);
-            ground.setPosition(new Vec2(x, Y + 7 * i));
+            ground.setPosition(new Vec2(x, Ypos + 7 * i));
             ground.addImage(Cloud);
 
             float RandomXP = (float) Math.random();
@@ -54,11 +54,13 @@ public class Levels {
             // chance of XP spawning
             if (i == 19){
                 XP xp = new XP(world, ground, true);
-                MaxLevel = Y + 7 * i;
+                MaxLevel = Ypos + 7 * i;
             } if (RandomXP > 0.5){
                 XP xp = new XP(world, ground, false);
             } if (RandomXP < Difficulty){
                 Enemies enemies = new Enemies(world, ground);
+                EnemyDamage enemyDamage = new EnemyDamage(enemies);
+                enemies.addCollisionListener(enemyDamage);
             }
 
         }

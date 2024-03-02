@@ -21,16 +21,16 @@ import java.awt.event.*;
 import java.util.Random;
 
 public class Levels {
-    UserView view;
-    World world;
-    float Ypos;
-    float MaxLevel = 0;
+    private final World world;
+    private float Ypos;
+    private float MaxLevel = 0;
+    private Character character;
     private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
-    double Difficulty = 0;
+    private double Difficulty = 0;
 
-    public Levels(float yPos, World world, UserView view, double Difficulty){
+    public Levels(Character character, float yPos, World world, double Difficulty){
+        this.character = character;
         this.world = world;
-        this.view = view;
         this.Ypos = yPos;
         this.Difficulty = Difficulty;
     }
@@ -59,7 +59,7 @@ public class Levels {
                 XP xp = new XP(world, ground, false);
             } if (RandomXP < Difficulty){
                 Enemies enemies = new Enemies(world, ground);
-                EnemyDamage enemyDamage = new EnemyDamage(enemies);
+                EnemyDamage enemyDamage = new EnemyDamage(enemies, character);
                 enemies.addCollisionListener(enemyDamage);
             }
 

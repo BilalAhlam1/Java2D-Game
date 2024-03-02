@@ -7,11 +7,9 @@ import javax.swing.*;
 
 public class XPpickup implements CollisionListener {
     private final Character Character;
-    private static JLabel score;
     private final GameWorld world;
-    public XPpickup(Character c, JLabel score, GameWorld w){
+    public XPpickup(Character c, GameWorld w){
         this.Character = c;
-        this.score = score;
         this.world = w;
     }
     @Override
@@ -22,17 +20,14 @@ public class XPpickup implements CollisionListener {
             //destroy collided object
             e.getOtherBody().destroy();
             //update the score
-            score.setText("Score = " + Character.getXPCount());
+            Character.setScoreLabel();
         } else if (e.getOtherBody() instanceof Enemies) {
             Character.reduceHealth(25);
-            world.getHealth().setText("Health = " + Character.getHealth());
-            System.out.println(Character.getHealth());
-            if (Character.getHealth() <= 0){
+            Character.setHealth();
+            System.out.println(Character.getHealthPoints());
+            if (Character.getHealthPoints() <= 0){
                 Character.reset();
             }
         }
-    }
-    public static JLabel getScore () {
-        return score;
     }
 }

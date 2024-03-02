@@ -46,8 +46,8 @@ public class GameView extends UserView {
 
 
         //Add Game Score and Health to the user view
-        this.add(XPpickup.getScore());
-        this.add(w.getHealth());
+        this.add(Character.getScore());
+        this.add(Character.getHealth());
         this.add(EnemyDamage.getEnemyHealth());
     }
     @Override

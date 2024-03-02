@@ -2,15 +2,21 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
+import javax.swing.*;
+
 public class Character extends Walker {
     private static final Shape CharacterShape =  new BoxShape(1, 2);
     private int XPCount;
-    private int health = 100;
-    private GameWorld w;
+    private int HealthPoints = 100;
+    private final GameWorld w;
+    private final JLabel score;
+    private final JLabel Health;
     private static final BodyImage image = new BodyImage("data/Adventurer/Sprites/adventurer-idleRight-01.png", 4f);
-    public Character(GameWorld w) {
+    public Character(GameWorld w, JLabel score, JLabel Health) {
         super(w, CharacterShape);
         this.w = w;
+        this.score = score;
+        this.Health = Health;
         SolidFixture characterFixture = new SolidFixture(this, CharacterShape);
         addImage(image);
     }
@@ -19,28 +25,44 @@ public class Character extends Walker {
         this.XPCount = XPCount;
         System.out.println("XP:" + XPCount);
     }
-
-    public void reduceHealth(int n){
-        health = health - n;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
-
     public int getXPCount() {
         return XPCount;
     }
 
+    public void reduceHealth(int n){
+        HealthPoints = HealthPoints - n;
+    }
+
+    public int getHealthPoints() {
+        return HealthPoints;
+    }
+
+    public void setHealthPoints(int HealthPoints) {
+        this.HealthPoints = HealthPoints;
+    }
+
+
+    public void setScoreLabel() {
+        score.setText("Score = " + getXPCount());
+    }
+
+    public JLabel getScore() {
+        return score;
+    }
+
+    public void setHealth() {
+        score.setText("Health = " + getHealthPoints());
+    }
+
+    public JLabel getHealth() {
+        return Health;
+    }
+
     public void reset(){
-        this.XPCount = 0;
-        this.health = 100;
+        XPCount = 0;
+        this.HealthPoints = 100;
         this.setPosition(new Vec2(0, -11));
-        w.getHealth().setText("Health = 100");
+        getHealth().setText("Health = 100");
     }
 
 }

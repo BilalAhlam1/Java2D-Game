@@ -41,7 +41,7 @@ public class Enemies extends Walker {
     }
 
     public void reduceHealth() {
-        Health = Health - 10;
+        Health = Health - 20;
     }
 
     public int getHealth() {

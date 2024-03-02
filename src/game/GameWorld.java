@@ -9,7 +9,6 @@ public class GameWorld extends World {
     //Load platform image
     private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
     public Character Character = null;
-    private JLabel Health;
     public GameWorld(){
         super(60);
 
@@ -25,22 +24,19 @@ public class GameWorld extends World {
         platform1.setPosition(new Vec2(-8, -4f));
         platform1.addImage(Cloud);
 
-        //Creates Character
-        Character = new Character(this);
-        Character.setPosition(new Vec2(0, -11));
 
         //sets the score
         JLabel score = new JLabel("Score = 0");
-        Health = new JLabel("Health = 100");
+        JLabel Health = new JLabel("Health = 100");
+
+        //Creates Character
+        Character = new Character(this, score, Health);
+        Character.setPosition(new Vec2(0, -11));
 
         //Displays score with collisions
-        XPpickup Collisions = new XPpickup(Character, score, this);
+        XPpickup Collisions = new XPpickup(Character, this);
         Character.addCollisionListener(Collisions);
 
-    }
-
-    public JLabel getHealth() {
-        return Health;
     }
 
     public Character getCharacter() {

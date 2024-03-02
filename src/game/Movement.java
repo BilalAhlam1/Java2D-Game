@@ -12,13 +12,12 @@ import java.awt.event.ActionListener;
 
 public class Movement extends JPanel {
     World world;
-    public int PreyPos = -1;
-    private int Y;
-    Levels Level1;
-    Levels Level2;
+    double Difficulty = 0;
+    float lastYpos = 0;
     UserView view;
     Character Character;
-    public Movement(Character Character, UserView view, World world){
+
+    public Movement(Character Character, UserView view, World world) {
         this.view = view;
         this.Character = Character;
         this.world = world;
@@ -28,42 +27,37 @@ public class Movement extends JPanel {
                 // Gameview follows the character
                 Camera();
 
+                //creates level when the character is on the highest platform
+                if (Character.getPosition().y > lastYpos) {
+                    Level();
+                } else if (Character.getPosition().y < -20) {
+                    System.out.println("Died");
+                    Character.reset();
+                }
+
             }
         };
         Timer timer = new Timer(15, al);
         timer.start();
 
         //creates level 1
-        Level1();
+        //Level1();
     }
 
     public void Camera() {
         view.setView(new Vec2(0, Character.getPosition().y), 20);
     }
-    public void Level1(){
-        int Y = 0;
-        //System.out.println(Y);
-        if (Y > PreyPos) {
-            PreyPos = Y;
-            Level1 = new Levels(Y, world, view, 0);
-            Level1.MakeLevel();
-            System.out.println("Make level");
-            Level2();
-        } else if (Character.getPosition().y < -20) {
-            System.out.println("Died");
-            Character.reset();
-        }
-    }
-    public void Level2(){
-        float Y = Level1.getMaxLevel();
-        //System.out.println(Y);
-        Level2 = new Levels(Y, world, view, 0.2);
-        Level2.MakeLevel();
+
+    public void Level() {
+        Levels Level = new Levels(Character,lastYpos, world, Difficulty);
+        Level.MakeLevel();
         System.out.println("Make level");
 
-        if (Character.getPosition().y < -20) {
-            System.out.println("Died");
-            Character.reset();
-        }
+        //Gets the position of the highest platform
+        lastYpos = Level.getMaxLevel();
+
+        //Increases Difficulty for every level
+        Difficulty = 0.1;
+
     }
 }

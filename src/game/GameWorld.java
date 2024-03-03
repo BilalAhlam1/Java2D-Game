@@ -25,8 +25,8 @@ public class GameWorld extends World {
         platform1.addImage(Cloud);
 
 
-        //sets the score
-        JLabel score = new JLabel("Score = 0");
+        //sets the arrow and health label
+        JLabel score = new JLabel("Arrows = 0");
         JLabel Health = new JLabel("Health = 100");
 
         //Creates Character
@@ -34,7 +34,7 @@ public class GameWorld extends World {
         Character.setPosition(new Vec2(0, -11));
 
         //Displays score with collisions
-        XPpickup Collisions = new XPpickup(Character);
+        ArrowPickup Collisions = new ArrowPickup(Character);
         Character.addCollisionListener(Collisions);
 
     }

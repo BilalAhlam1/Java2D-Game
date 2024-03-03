@@ -49,17 +49,18 @@ public class Levels {
             ground.setPosition(new Vec2(uniqueNumbers[i], Ypos + 7 * i));
             ground.addImage(Cloud);
 
+
             float Random = (float) Math.random();
 
-            //sets the position of the last platform and loads level xp
+            //sets the position of the last platform and loads Arrows
             if (i == 19){
-                XP xp = new XP(world, ground, true);
+                Quiver quiver = new Quiver(world, ground);
                 MaxLevel = Ypos + 7 * i;
             }
 
-            // chance of XP spawning
-            if (Random > 0.5){
-                XP xp = new XP(world, ground, false);
+            // chance of Arrows spawning
+            if (Random > 0.8){
+                Arrows arrows = new Arrows(world, ground);
             }
 
             //chance of bouncy cloud spawning
@@ -74,6 +75,7 @@ public class Levels {
                 EnemyDamage enemyDamage = new EnemyDamage(enemies, character, view);
                 enemies.addCollisionListener(enemyDamage);
             }
+
         }
     }
 

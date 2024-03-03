@@ -72,7 +72,7 @@ public class Shooting implements MouseListener {
             //set a timer and explode the bomb
             timer(Bomb);
         } //Create a Bullet if left click
-        else if (e.getButton() == MouseEvent.BUTTON1) {
+        else if (e.getButton() == MouseEvent.BUTTON1 && Character.getArrowCount() > 0) {
             //create an Ammunition object
             Ammunition Arrow = new Ammunition(world);
             Arrow.isBullet();
@@ -98,6 +98,10 @@ public class Shooting implements MouseListener {
             // Set the rotation of the bullet image
             Arrow.setAngle(angle);
 
+            //remove the arrow from inventory
+            Character.setArrowCount(Character.getArrowCount() - 1);
+
+            //remove the arrow
             removeBullet(Arrow);
         }
     }

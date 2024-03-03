@@ -8,32 +8,33 @@ import java.awt.*;
 
 public class Character extends Walker {
     private static final Shape CharacterShape =  new BoxShape(1, 2);
-    private int XPCount;
+    private int ArrowCount;
     private int HealthPoints = 100;
-    private final JLabel score;
+    private final JLabel Arrows;
     private final JLabel Health;
     private static final BodyImage image = new BodyImage("data/Adventurer/Sprites/adventurer-idleRight-01.png", 4f);
-    public Character(GameWorld w, JLabel score, JLabel Health) {
+    public Character(GameWorld w, JLabel Arrows, JLabel Health) {
         super(w, CharacterShape);
-        this.score = score;
+        this.Arrows = Arrows;
         this.Health = Health;
         SolidFixture characterFixture = new SolidFixture(this, CharacterShape);
         addImage(image);
 
-        score.setBounds(10,0,120,20);
-        score.setFont(new Font("Arial", Font.BOLD, 12));
+        Arrows.setBounds(10,0,120,20);
+        Arrows.setFont(new Font("Arial", Font.BOLD, 12));
 
         Health.setForeground(Color.GREEN);
         Health.setBounds(700, 0, 120, 20);
         Health.setFont(new Font("Arial", Font.BOLD, 12));
     }
 
-    public void setXPCount(int XPCount) {
-        this.XPCount = XPCount;
-        System.out.println("XP:" + XPCount);
+    public void setArrowCount(int XPCount) {
+        this.ArrowCount = XPCount;
+        setScoreLabel();
     }
-    public int getXPCount() {
-        return XPCount;
+
+    public int getArrowCount() {
+        return ArrowCount;
     }
 
     public void reduceHealth(int n){
@@ -50,15 +51,15 @@ public class Character extends Walker {
 
 
     public void setScoreLabel() {
-        score.setText("Score = " + getXPCount());
+        Arrows.setText("Arrows = " + getArrowCount());
     }
 
-    public JLabel getScore() {
-        return score;
+    public JLabel getArrows() {
+        return Arrows;
     }
 
     public void setHealth() {
-        score.setText("Health = " + getHealthPoints());
+        Health.setText("Health = " + getHealthPoints());
     }
 
     public JLabel getHealth() {
@@ -66,10 +67,11 @@ public class Character extends Walker {
     }
 
     public void reset(){
-        XPCount = 0;
+        ArrowCount = 0;
         this.HealthPoints = 100;
         this.setPosition(new Vec2(0, -11));
-        getHealth().setText("Health = 100");
+        setHealth();
+        setScoreLabel();
     }
 
 }

@@ -59,7 +59,7 @@ public class EnemyDamage implements CollisionListener {
                 Enemies.destroy();
                 Clip.setFramePosition(0);
                 Clip.start();
-                character.setXPCount(character.getXPCount() + 5);
+                character.setArrowCount(character.getArrowCount() + 5);
                 character.setScoreLabel();
             }
         }

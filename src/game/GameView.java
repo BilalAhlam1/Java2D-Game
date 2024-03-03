@@ -48,7 +48,7 @@ public class GameView extends UserView {
         this.setLayout(null);
 
         //Add Game Score and Health to the user view
-        this.add(Character.getScore());
+        this.add(Character.getArrows());
         this.add(Character.getHealth());
         this.add(EnemyDamage.getEnemyHealth());
     }

@@ -1,11 +1,6 @@
 package game;
 
-import city.cs.engine.*;
-import org.jbox2d.common.Vec2;
-
 import javax.sound.sampled.LineUnavailableException;
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicTreeUI;
 
 import java.awt.*;
 import java.io.IOException;

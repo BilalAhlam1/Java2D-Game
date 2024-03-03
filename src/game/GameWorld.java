@@ -7,7 +7,7 @@ import javax.swing.*;
 public class GameWorld extends World {
 
     //Load platform image
-    private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
+    private static final BodyImage Cloud = new BodyImage("data/Cloud.png", 7f);
     public Character Character = null;
     public GameWorld(){
         super(60);

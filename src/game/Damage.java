@@ -2,9 +2,6 @@ package game;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
-import org.jbox2d.common.Vec2;
-
-import javax.swing.*;
 
 public class Damage implements CollisionListener {
     private final Character character;

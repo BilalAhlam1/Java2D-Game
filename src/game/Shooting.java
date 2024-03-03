@@ -1,7 +1,6 @@
 package game;
 
 import city.cs.engine.*;
-import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
 
 import javax.sound.sampled.*;
@@ -16,9 +15,9 @@ import java.io.IOException;
 
 public class Shooting implements MouseListener {
 
-    private GameWorld world;
-    private GameView view;
-    private Character Character;
+    private final GameWorld world;
+    private final GameView view;
+    private final Character Character;
     private Ammunition Bomb;
     private static final BodyImage bomb = new BodyImage("data/Loot/Seperate/tile373.png", 4f);
     private static final BodyImage broken = new BodyImage("data/Loot/Seperate/tile373broken.png", 4f);

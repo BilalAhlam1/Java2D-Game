@@ -30,7 +30,7 @@ public class Control extends KeyAdapter {
         }
     }
 
-    private static Clip clip;
+    private static final Clip clip;
 
     static {
         try {

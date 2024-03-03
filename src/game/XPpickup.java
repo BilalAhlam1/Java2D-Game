@@ -3,7 +3,6 @@ package game;
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
 
-import javax.swing.*;
 
 public class XPpickup implements CollisionListener {
     private final Character Character;

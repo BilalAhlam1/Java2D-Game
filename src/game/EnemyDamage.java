@@ -2,7 +2,8 @@ package game;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
-import org.jbox2d.common.Vec2;
+import city.cs.engine.UserView;
+import city.cs.engine.World;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class EnemyDamage implements CollisionListener {
     private final Enemies Enemies;
     private final Character character;
+    private final UserView view;
     private static final JLabel EnemyHealth = new JLabel();
 
     private static final AudioInputStream Death;
@@ -35,16 +37,21 @@ public class EnemyDamage implements CollisionListener {
         }
     }
 
-    public EnemyDamage(Enemies Enemies, Character character) throws LineUnavailableException, IOException {
+    public EnemyDamage(Enemies Enemies, Character character, UserView view) throws LineUnavailableException, IOException {
         this.Enemies = Enemies;
         this.character = character;
+        this.view = view;
+
     }
 
     @Override
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Ammunition) {
             Enemies.reduceHealth();
-            //EnemyHealth.setBounds((int) Enemies.getPosition().x, (int) Enemies.getPosition().y, 100, 20);
+            Point frameLocationOnScreen = view.getLocationOnScreen();
+            float frameX = Enemies.getPosition().x - frameLocationOnScreen.x;
+            float frameY = Enemies.getPosition().y - frameLocationOnScreen.y;
+            EnemyHealth.setBounds((int) frameY, (int) frameY, 50, 20);
             EnemyHealth.setText("" + Enemies.getHealth());
             System.out.println(Enemies.getHealth());
             if (Enemies.getHealth() <= 0){

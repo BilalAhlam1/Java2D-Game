@@ -6,12 +6,11 @@ import org.jbox2d.common.Vec2;
 
 import javax.swing.*;
 
-public class Explosion implements CollisionListener {
-    private static Character character;
-    private GameWorld world;
-    Explosion(Character character, GameWorld gameWorld){
-        Explosion.character = character;
-        this.world = gameWorld;
+public class Damage implements CollisionListener {
+    private final Character character;
+
+    Damage(Character character){
+        this.character = character;
     }
 
     @Override

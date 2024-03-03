@@ -12,7 +12,6 @@ public class Control extends KeyAdapter {
 
     Walker Character;
     UserView view;
-    Movement Movement;
     World world;
 
     //Character Movement images

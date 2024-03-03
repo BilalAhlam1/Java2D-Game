@@ -7,10 +7,8 @@ import javax.swing.*;
 
 public class XPpickup implements CollisionListener {
     private final Character Character;
-    private final GameWorld world;
-    public XPpickup(Character c, GameWorld w){
+    public XPpickup(Character c){
         this.Character = c;
-        this.world = w;
     }
     @Override
     public void collide(CollisionEvent e) {

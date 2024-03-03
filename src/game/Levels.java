@@ -22,9 +22,9 @@ import java.util.Random;
 
 public class Levels {
     private final World world;
-    private float Ypos;
+    private final float Ypos;
     private float MaxLevel = 0;
-    private Character character;
+    private final Character character;
     private static final BodyImage Cloud = new BodyImage("data/Cloud Platform.png", 7f);
     private double Difficulty = 0;
 
@@ -35,7 +35,7 @@ public class Levels {
         this.Difficulty = Difficulty;
     }
 
-    public void MakeLevel(){
+    public void MakeLevel() throws LineUnavailableException, IOException {
         for (int i = 1; i < 20; i++){
             float x = 0;
 

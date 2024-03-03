@@ -20,8 +20,8 @@ public class GameView extends UserView {
 
         JFrame frame = new JFrame("City Game");
 
-        //Calls the camera function to follow the character
-        Movement Movement = new Movement(Character, this, w);
+        //Calls the function to follow the character and load the scene(levels)
+        Scene Movement = new Scene(Character, this, w);
         frame.setContentPane(Movement);
         frame.add(this);
 
@@ -44,6 +44,8 @@ public class GameView extends UserView {
         //optional: uncomment this to make a debugging view
         JFrame debugView = new DebugViewer(w, 500, 500);
 
+        frame.getContentPane();
+        this.setLayout(null);
 
         //Add Game Score and Health to the user view
         this.add(Character.getScore());

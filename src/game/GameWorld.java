@@ -34,7 +34,7 @@ public class GameWorld extends World {
         Character.setPosition(new Vec2(0, -11));
 
         //Displays score with collisions
-        XPpickup Collisions = new XPpickup(Character, this);
+        XPpickup Collisions = new XPpickup(Character);
         Character.addCollisionListener(Collisions);
 
     }

@@ -12,7 +12,5 @@ public class Arrows extends DynamicBody {
         addImage(ArrowImage);
         setPosition(new Vec2(staticBody.getPosition().x, staticBody.getPosition().y + 2));
         this.isBullet();
-        this.getFixtureList().remove(0);
-        GhostlyFixture ghostlyFixture = new GhostlyFixture(this, Arrows);
     }
 }

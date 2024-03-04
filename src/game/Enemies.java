@@ -14,12 +14,12 @@ public class Enemies extends Walker {
     private int Health = 100;
 
     //set the initial speed
-    private int speed = 4;
+    private int speed = 9;
     private static final BodyImage enenmySprite = new BodyImage("data/Loot/Seperate/tile387.png", 4f);
     public Enemies(World w, StaticBody platform) {
         super(w, Enemies);
         addImage(enenmySprite);
-        setPosition(new Vec2(platform.getPosition().x - 2, platform.getPosition().y + 2));
+        setPosition(new Vec2(platform.getPosition().x - 3, platform.getPosition().y + 2));
 
         // Move the character in alternating speeds every 2 seconds
         move(platform, this);
@@ -35,7 +35,7 @@ public class Enemies extends Walker {
         };
 
         //explodes the bomb every second
-        Timer timer1 = new Timer(2000, a);
+        Timer timer1 = new Timer(1000, a);
 
         timer1.start();
     }

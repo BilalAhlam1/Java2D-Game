@@ -44,6 +44,7 @@ public class Levels {
         //Create an array of unique x values for the platforms
         createUniqueNumbers();
 
+        //if the most recent platform is bouncy, it's index is stored
         int isPurple = -1;
 
         //create the platforms
@@ -69,7 +70,7 @@ public class Levels {
                 Arrows arrows = new Arrows(world, ground);
             }
 
-            //chance of bouncy cloud spawning
+            //chance of bouncy cloud spawning and checks if the previous cloud is bouncy
             if (Random>0.2 && Random<0.3 && i > isPurple + 1){
                 platformFixture.setRestitution((float) (2 + Difficulty*10));
                 ground.removeAllImages();

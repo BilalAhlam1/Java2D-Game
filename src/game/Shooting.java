@@ -18,7 +18,6 @@ public class Shooting implements MouseListener {
     private final GameWorld world;
     private final GameView view;
     private final Character Character;
-    private Ammunition Bomb;
     private static final BodyImage bomb = new BodyImage("data/Loot/Seperate/tile373.png", 4f);
     private static final BodyImage broken = new BodyImage("data/Loot/Seperate/tile373broken.png", 4f);
     private static final BodyImage bulletImage = new BodyImage("data/Loot/Seperate/Arrow.png", 4f);
@@ -54,7 +53,7 @@ public class Shooting implements MouseListener {
         //Create a bomb if right click
         if (e.getButton() == MouseEvent.BUTTON3) {
             //create an Ammunition object
-            Bomb = new Ammunition(world);
+            Ammunition Bomb = new Ammunition(world);
             Bomb.addImage(bomb);
 
             //get the coordinates of the mouse click
@@ -127,7 +126,7 @@ public class Shooting implements MouseListener {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 //set the bomb explosion
-                setExplosion();
+                setExplosion(Bomb);
             }
         };
 
@@ -138,7 +137,7 @@ public class Shooting implements MouseListener {
         timer1.start();
     }
 
-    public void setExplosion() {
+    public void setExplosion(Ammunition Bomb) {
         Damage explode = new Damage(Character);
         Bomb.addCollisionListener(explode);
         Bomb.removeAllImages();

@@ -3,16 +3,14 @@ package game;
 import city.cs.engine.*;
 
 public class Ammunition extends DynamicBody {
-    private static final Shape Bomb = new CircleShape(1);
+    private static final Shape shape = new CircleShape(1);
 
 
     public Ammunition(World w) {
-        super(w, Bomb);
+        super(w, shape);
+        this.getFixtureList().remove(0);
+        GhostlyFixture ghostlyFixture = new GhostlyFixture(this, shape);
         this.isBullet();
 
-    }
-
-    public static Shape getBomb() {
-        return Bomb;
     }
 }

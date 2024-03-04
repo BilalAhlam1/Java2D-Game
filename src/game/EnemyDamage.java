@@ -51,7 +51,7 @@ public class EnemyDamage implements CollisionListener {
             Point frameLocationOnScreen = view.getLocationOnScreen();
             float frameX = Enemies.getPosition().x - frameLocationOnScreen.x;
             float frameY = Enemies.getPosition().y - frameLocationOnScreen.y;
-            EnemyHealth.setBounds((int) frameY, (int) frameY, 50, 20);
+            EnemyHealth.setBounds((int) frameX, (int) frameY, 50, 20);
             EnemyHealth.setText("" + Enemies.getHealth());
             System.out.println(Enemies.getHealth());
             if (Enemies.getHealth() <= 0){

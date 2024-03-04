@@ -55,7 +55,6 @@ public class Shooting implements MouseListener {
         if (e.getButton() == MouseEvent.BUTTON3) {
             //create an Ammunition object
             Bomb = new Ammunition(world);
-            Bomb.isBullet();
             Bomb.addImage(bomb);
 
             //get the coordinates of the mouse click
@@ -75,7 +74,6 @@ public class Shooting implements MouseListener {
         else if (e.getButton() == MouseEvent.BUTTON1 && Character.getArrowCount() > 0) {
             //create an Ammunition object
             Ammunition Arrow = new Ammunition(world);
-            Arrow.isBullet();
             Arrow.addImage(bulletImage);
 
             //get the coordinates of the mouse click

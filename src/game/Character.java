@@ -9,6 +9,7 @@ import java.awt.*;
 public class Character extends Walker {
     private static final Shape CharacterShape =  new BoxShape(1, 2);
     private int ArrowCount;
+    private Vec2 spawnPosition = new Vec2(0, -11);
     private int HealthPoints = 100;
     private final JLabel Arrows;
     private final JLabel Health;
@@ -69,9 +70,13 @@ public class Character extends Walker {
     public void reset(){
         ArrowCount = 0;
         this.HealthPoints = 100;
-        this.setPosition(new Vec2(0, -11));
+        this.setPosition(spawnPosition);
         setHealth();
         setScoreLabel();
+    }
+
+    public void setSpawn(){
+        spawnPosition = this.getPosition();
     }
 
 }

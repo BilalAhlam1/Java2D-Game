@@ -62,7 +62,7 @@ public class Scene extends JPanel {
         lastYpos = Level.getMaxLevel();
 
         //Increases Difficulty for every level by 10%
-        Difficulty = 0.1;
+        Difficulty = 0.1 + Difficulty;
 
     }
 }

@@ -40,7 +40,13 @@ public class Levels {
     }
 
     public void MakeLevel() throws LineUnavailableException, IOException {
+
+        //Create an array of unique x values for the platforms
         createUniqueNumbers();
+
+        int isPurple = -1;
+
+        //create the platforms
         for (int i = 1; i < 20; i++){
 
             Shape platform = new BoxShape(6, 0.5f);
@@ -64,10 +70,11 @@ public class Levels {
             }
 
             //chance of bouncy cloud spawning
-            if (Random>0.2 && Random<0.3){
+            if (Random>0.2 && Random<0.3 && i > isPurple + 1){
                 platformFixture.setRestitution((float) (2 + Difficulty*10));
                 ground.removeAllImages();
                 ground.addImage(purpleCloud);
+                isPurple = i;
             }
             //loads enemy on a condition
             if (Random < Difficulty){
@@ -75,7 +82,6 @@ public class Levels {
                 EnemyDamage enemyDamage = new EnemyDamage(enemies, character, view);
                 enemies.addCollisionListener(enemyDamage);
             }
-
         }
     }
 

@@ -41,7 +41,8 @@ public class Shooting implements MouseListener {
         }
     }
 
-    public Shooting(GameWorld w, GameView v, Character Character) throws LineUnavailableException, IOException {
+
+    public Shooting(GameWorld w, GameView v, Character Character ) throws LineUnavailableException, IOException {
         world = w;
         view = v;
         this.Character = Character;
@@ -138,13 +139,10 @@ public class Shooting implements MouseListener {
     }
 
     public void setExplosion(Ammunition Bomb) {
-        //Damage explode = new Damage(Character);
-        //Bomb.addCollisionListener(explode);
         Bomb.removeAllImages();
+        //replace bomb with the explosion
         Explosion explosion1 = new Explosion(world, Bomb);
-        //Bomb.addImage(broken);
         Bomb.destroy();
-        //explosion1.addCollisionListener(explode);
         clip.setFramePosition(0);
         clip.start();
         System.out.println("BOOM");
@@ -154,7 +152,6 @@ public class Shooting implements MouseListener {
             public void actionPerformed(ActionEvent ae) {
 
                 //Remove the Bomb object
-                explosion1.removeAllCollisionListeners();
                 explosion1.destroy();
             }
         };

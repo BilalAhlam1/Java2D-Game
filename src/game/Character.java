@@ -9,10 +9,11 @@ import java.awt.*;
 public class Character extends Walker {
     private static final Shape CharacterShape =  new BoxShape(1, 2);
     private int ArrowCount;
-    private Vec2 spawnPosition = new Vec2(0, -11);
+    private Vec2 spawnPosition = new Vec2(0, 3);
     private int HealthPoints = 100;
     private final JLabel Arrows;
     private final JLabel Health;
+    private int levelNum = 0;
     private static final BodyImage image = new BodyImage("data/Adventurer/Sprites/adventurer-idleRight-01.png", 4f);
     public Character(GameWorld w, JLabel Arrows, JLabel Health) {
         super(w, CharacterShape);
@@ -27,6 +28,13 @@ public class Character extends Walker {
         Health.setForeground(Color.GREEN);
         Health.setBounds(700, 0, 120, 20);
         Health.setFont(new Font("Arial", Font.BOLD, 12));
+    }
+
+    public int getLevelNum() {
+        return levelNum;
+    }
+    public void setLevelNum(int n){
+        levelNum = n;
     }
 
     public void setArrowCount(int XPCount) {

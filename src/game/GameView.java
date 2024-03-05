@@ -15,13 +15,13 @@ public class GameView extends UserView {
         super(w, width, height);
 
         //positions the view at the characters starting position
-        setCentre(Game.getGameWorld().getCharacter().getPosition());
+        //setCentre(Game.getGameWorld().getCharacter().getPosition());
         Character Character = Game.getGameWorld().getCharacter();
 
         JFrame frame = new JFrame("City Game");
 
         //Calls the function to follow the character and load the scene(levels)
-        Scene Movement = new Scene(Character, this, w);
+        Scene Movement = new Scene(Character, this);
         frame.setContentPane(Movement);
         frame.add(this);
 
@@ -33,8 +33,11 @@ public class GameView extends UserView {
         frame.setResizable(false);
         // size the frame to fit the world view
         frame.pack();
+
         // finally, make the frame visible
         frame.setVisible(true);
+
+
         Shooting MouseHandler = new Shooting(w, this, Character);
         frame.addMouseListener(MouseHandler);
 
@@ -52,6 +55,7 @@ public class GameView extends UserView {
         this.add(Character.getHealth());
         //this.add(EnemyDamage.getEnemyHealth());
     }
+
     @Override
     protected void paintBackground(Graphics2D g) {
         //adds the background onto the user view

@@ -14,7 +14,6 @@ import java.io.IOException;
 public class EnemyDamage implements CollisionListener {
     private final Enemy Enemy;
     private final Character character;
-    private final UserView view;
     //private static final JLabel EnemyHealth = new JLabel();
 
     private static final AudioInputStream Death;
@@ -38,10 +37,9 @@ public class EnemyDamage implements CollisionListener {
         }
     }
 
-    public EnemyDamage(Enemy Enemy, Character character, UserView view) throws LineUnavailableException, IOException {
+    public EnemyDamage(Enemy Enemy, Character character) throws LineUnavailableException, IOException {
         this.Enemy = Enemy;
         this.character = character;
-        this.view = view;
 
     }
 

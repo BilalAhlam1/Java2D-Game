@@ -7,61 +7,46 @@ import org.jbox2d.common.Vec2;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import javax.swing.text.View;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class Scene extends JPanel {
-    GameWorld world;
-    double Difficulty = 0;
-    float lastYpos = 0;
-    UserView view;
-    Character Character;
+    private final UserView view;
+    private final Character Character;
+    private JProgressBar progressBar;
 
-    public Scene(Character Character, UserView view, GameWorld world) {
+    public Scene(Character Character, UserView view) {
         this.view = view;
         this.Character = Character;
-        this.world = world;
+
+        //GameView follows the character
+        Camera();
+
+        // Create and add progress bar
+        progressBar = new JProgressBar(JProgressBar.VERTICAL,0, 4); // Assuming max value is 100
+        progressBar.setStringPainted(true); // Display the value
+        this.add(progressBar, BorderLayout.SOUTH);
+    }
+
+    public void Camera() {
         ActionListener al = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Gameview follows the character
-                Camera();
+                view.setView(new Vec2(0, Character.getPosition().y), 20);
 
-                //creates level when the character is on the highest platform
-                if (Character.getPosition().y > lastYpos - 20) {
-                    try {
-                        Level();
-                    } catch (LineUnavailableException | IOException ex) {
-                        throw new RuntimeException(ex);
-                    }
-                } else if (Character.getPosition().y < -20) {
-                    System.out.println("Died");
+                //checks the level and updates progress bar
+                progressBar.setValue(Character.getLevelNum());
+
+                //resets the character if it falls below the levels
+                if (Character.getPosition().y < -20) {
                     Character.reset();
                 }
-
             }
         };
         Timer timer = new Timer(15, al);
         timer.start();
-
-        //creates level 1
-        //Level1();
-    }
-
-    public void Camera() {
-        view.setView(new Vec2(0, Character.getPosition().y), 20);
-    }
-
-    public void Level() throws LineUnavailableException, IOException {
-        Levels Level = new Levels(Character,lastYpos, world, Difficulty, view);
-        Level.MakeLevel();
-        System.out.println("Make level");
-
-        //Gets the position of the highest platform
-        lastYpos = Level.getMaxLevel();
-
-        //Increases Difficulty for every level by 20%
-        Difficulty = 0.2 + Difficulty;
     }
 }

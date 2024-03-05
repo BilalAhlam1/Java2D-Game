@@ -4,39 +4,24 @@ package game;
 import city.cs.engine.*;
 import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
-import org.jbox2d.dynamics.SolverData;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.swing.*;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.beans.EventSetDescriptor;
 import java.io.IOException;
-import java.security.Key;
 import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import java.awt.event.*;
-import java.util.Random;
 
 public class Levels {
     private final GameWorld world;
-    private final UserView view;
     private final float Ypos;
     private float MaxLevel = 0;
     private final Character character;
-    private final float[] uniqueNumbers = new float[20];
+    private final float[] uniqueNumbers = new float[10];
     private static final BodyImage Cloud = new BodyImage("data/Cloud.png", 7f);
     private static final BodyImage purpleCloud = new BodyImage("data/Purple Cloud.png", 7f);
     private double Difficulty = 0;
 
-    public Levels(Character character, float yPos, GameWorld world, double Difficulty, UserView view){
+    public Levels(Character character, float yPos, GameWorld world, double Difficulty){
         this.character = character;
         this.world = world;
         this.Ypos = yPos;
         this.Difficulty = Difficulty;
-        this.view = view;
     }
 
     public void MakeLevel() throws LineUnavailableException, IOException {
@@ -48,7 +33,7 @@ public class Levels {
         int isPurple = -1;
 
         //create the platforms
-        for (int i = 1; i < 20; i++){
+        for (int i = 1; i < 10; i++){
 
             Shape platform = new BoxShape(6, 0.5f);
             StaticBody ground = new StaticBody(world, platform);
@@ -56,14 +41,13 @@ public class Levels {
             ground.setPosition(new Vec2(uniqueNumbers[i], Ypos + 7 * i));
             ground.addImage(Cloud);
 
-
-            float Random = (float) Math.random();
-
             //sets the position of the last platform and loads Arrows
-            if (i == 19){
+            if (i == 9){
                 Quiver quiver = new Quiver(world, ground);
                 MaxLevel = Ypos + 7 * i;
             }
+
+            float Random = (float) Math.random();
 
             // chance of Arrows spawning
             if (Random > 0.8){
@@ -80,7 +64,7 @@ public class Levels {
             //loads enemy on a condition
             if (Random < Difficulty){
                 Enemy Enemy = new Enemy(world, ground);
-                EnemyDamage enemyDamage = new EnemyDamage(Enemy, character, view);
+                EnemyDamage enemyDamage = new EnemyDamage(Enemy, character);
                 Enemy.addCollisionListener(enemyDamage);
 
             }
@@ -89,7 +73,7 @@ public class Levels {
     public void createUniqueNumbers(){
         int currentIndex = 0;
 
-        while (currentIndex < 19) {
+        while (currentIndex < 10) {
             float randomNumber = generateRandomNumber(-11, 11);
             if (!contains(uniqueNumbers, currentIndex, randomNumber)) {
                 uniqueNumbers[currentIndex] = randomNumber;

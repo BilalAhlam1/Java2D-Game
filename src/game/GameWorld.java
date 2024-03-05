@@ -3,6 +3,7 @@ import city.cs.engine.*;
 import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
+import java.awt.*;
 
 public class GameWorld extends World {
 
@@ -12,18 +13,11 @@ public class GameWorld extends World {
     public GameWorld(){
         super(60);
 
-        //make a ground platform
-        Shape shape = new BoxShape(3, 0.5f);
+        //make a starting platform
+        Shape shape = new BoxShape(6, 0.5f);
         StaticBody ground = new StaticBody(this, shape);
-        ground.setPosition(new Vec2(0f, -11.5f));
+        ground.setPosition(new Vec2(0f, 0));
         ground.addImage(Cloud);
-
-        // make a suspended platform
-        Shape platformShape = new BoxShape(6, 0.5f);
-        StaticBody platform1 = new StaticBody(this, platformShape);
-        platform1.setPosition(new Vec2(-8, -4f));
-        platform1.addImage(Cloud);
-
 
         //sets the arrow and health label
         JLabel score = new JLabel("Arrows = 0");
@@ -31,11 +25,13 @@ public class GameWorld extends World {
 
         //Creates Character
         Character = new Character(this, score, Health);
-        Character.setPosition(new Vec2(0, -11));
+        Character.setPosition(new Vec2(0, 3));
 
         //Displays score with collisions
-        ArrowPickup Collisions = new ArrowPickup(Character);
+        characterCollisions Collisions = new characterCollisions(Character, this);
         Character.addCollisionListener(Collisions);
+
+        Quiver quiver = new Quiver(Character.getWorld(), ground);
 
     }
 

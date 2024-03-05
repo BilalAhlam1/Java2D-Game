@@ -18,7 +18,6 @@ public class Game{
         //1. make an empty game world
         //2. populate it with bodies (ex: platforms, collectibles, characters)
         gameWorld = new GameWorld();
-        Character Character = gameWorld.getCharacter();
 
         //3. make a view to look into the game world
         GameView view = new GameView(gameWorld, 800, 500);

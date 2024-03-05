@@ -34,11 +34,18 @@ public class ArrowPickup implements CollisionListener {
             Character.setScoreLabel();
             Character.setSpawn();
 
-        } else if (e.getOtherBody() instanceof Enemies) {
+        } else if (e.getOtherBody() instanceof Enemy) {
             Character.reduceHealth(25);
-            Character.setHealth();
             System.out.println(Character.getHealthPoints());
             if (Character.getHealthPoints() <= 0){
+                Character.reset();
+            }
+        }else if (e.getOtherBody() instanceof Explosion){
+            //reduce character health by 5 and update health on user view when in contact with the bomb
+            Character.reduceHealth(100);
+            System.out.println(Character.getHealthPoints());
+            if (Character.getHealthPoints() <= 0){
+                //if character health is 0 or below, reset the character
                 Character.reset();
             }
         }

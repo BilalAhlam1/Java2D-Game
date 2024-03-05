@@ -50,7 +50,7 @@ public class GameView extends UserView {
         //Add Game Score and Health to the user view
         this.add(Character.getArrows());
         this.add(Character.getHealth());
-        this.add(EnemyDamage.getEnemyHealth());
+        //this.add(EnemyDamage.getEnemyHealth());
     }
     @Override
     protected void paintBackground(Graphics2D g) {

@@ -12,10 +12,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class EnemyDamage implements CollisionListener {
-    private final Enemies Enemies;
+    private final Enemy Enemy;
     private final Character character;
     private final UserView view;
-    private static final JLabel EnemyHealth = new JLabel();
+    //private static final JLabel EnemyHealth = new JLabel();
 
     private static final AudioInputStream Death;
 
@@ -26,6 +26,7 @@ public class EnemyDamage implements CollisionListener {
             throw new RuntimeException(e);
         }
     }
+
     private static final Clip Clip;
 
     static {
@@ -37,8 +38,8 @@ public class EnemyDamage implements CollisionListener {
         }
     }
 
-    public EnemyDamage(Enemies Enemies, Character character, UserView view) throws LineUnavailableException, IOException {
-        this.Enemies = Enemies;
+    public EnemyDamage(Enemy Enemy, Character character, UserView view) throws LineUnavailableException, IOException {
+        this.Enemy = Enemy;
         this.character = character;
         this.view = view;
 
@@ -47,25 +48,45 @@ public class EnemyDamage implements CollisionListener {
     @Override
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Ammunition) {
-            Enemies.reduceHealth();
-            Point frameLocationOnScreen = view.getLocationOnScreen();
-            float frameX = Enemies.getPosition().x - frameLocationOnScreen.x;
-            float frameY = Enemies.getPosition().y - frameLocationOnScreen.y;
-            EnemyHealth.setBounds((int) frameX, (int) frameY, 50, 20);
-            EnemyHealth.setText("" + Enemies.getHealth());
-            System.out.println(Enemies.getHealth());
-            if (Enemies.getHealth() <= 0){
-                EnemyHealth.removeAll();
-                Enemies.destroy();
+            Enemy.reduceHealth(25);
+            //Point frameLocationOnScreen = view.getLocationOnScreen();
+            //float frameX = Enemy.getPosition().x - frameLocationOnScreen.x;
+            //float frameY = Enemy.getPosition().y - frameLocationOnScreen.y;
+            //EnemyHealth.setBounds((int) frameX, (int) frameY, 50, 20);
+            //EnemyHealth.setText("" + Enemy.getHealth());
+            System.out.println(Enemy.getHealth());
+
+            //if the enemy health is 0, remove enemy
+            if (Enemy.getHealth() <= 0) {
+                Enemy.kill();
                 Clip.setFramePosition(0);
                 Clip.start();
-                //character.setArrowCount(character.getArrowCount() + 5);
-                //character.setScoreLabel();
+
+                //gives character health
+                if (character.getHealthPoints() < 100) {
+                    character.setHealthPoints(character.getHealthPoints() + 5);
+                }
+            }
+        } else if (e.getOtherBody() instanceof Explosion) {
+            Enemy.reduceHealth(100);
+            //Point frameLocationOnScreen = view.getLocationOnScreen();
+            //float frameX = Enemy.getPosition().x - frameLocationOnScreen.x;
+            //float frameY = Enemy.getPosition().y - frameLocationOnScreen.y;
+            //EnemyHealth.setBounds((int) frameX, (int) frameY, 50, 20);
+            //EnemyHealth.setText("" + Enemy.getHealth());
+            System.out.println(Enemy.getHealth());
+
+            //if the enemy health is 0, remove enemy
+            if (Enemy.getHealth() <= 0) {
+                Enemy.kill();
+                Clip.setFramePosition(0);
+                Clip.start();
+
+                //gives character health
+                if (character.getHealthPoints() < 100) {
+                    character.setHealthPoints(character.getHealthPoints() + 5);
+                }
             }
         }
-    }
-
-    public static JLabel getEnemyHealth() {
-        return EnemyHealth;
     }
 }

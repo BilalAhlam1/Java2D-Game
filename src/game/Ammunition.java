@@ -8,9 +8,6 @@ public class Ammunition extends DynamicBody {
 
     public Ammunition(World w) {
         super(w, shape);
-        this.getFixtureList().remove(0);
-        GhostlyFixture ghostlyFixture = new GhostlyFixture(this, shape);
         this.isBullet();
-
     }
 }

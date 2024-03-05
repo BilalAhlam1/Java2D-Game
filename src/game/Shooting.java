@@ -50,6 +50,10 @@ public class Shooting implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
         //Create a bomb if right click
         if (e.getButton() == MouseEvent.BUTTON3) {
             //create an Ammunition object
@@ -102,10 +106,6 @@ public class Shooting implements MouseListener {
             removeBullet(Arrow);
         }
     }
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
 
     public void removeBullet(Ammunition Bullet){
         ActionListener a = new ActionListener() {
@@ -138,10 +138,13 @@ public class Shooting implements MouseListener {
     }
 
     public void setExplosion(Ammunition Bomb) {
-        Damage explode = new Damage(Character);
-        Bomb.addCollisionListener(explode);
+        //Damage explode = new Damage(Character);
+        //Bomb.addCollisionListener(explode);
         Bomb.removeAllImages();
-        Bomb.addImage(broken);
+        Explosion explosion1 = new Explosion(world, Bomb);
+        //Bomb.addImage(broken);
+        Bomb.destroy();
+        //explosion1.addCollisionListener(explode);
         clip.setFramePosition(0);
         clip.start();
         System.out.println("BOOM");
@@ -151,8 +154,8 @@ public class Shooting implements MouseListener {
             public void actionPerformed(ActionEvent ae) {
 
                 //Remove the Bomb object
-                Bomb.removeAllCollisionListeners();
-                Bomb.destroy();
+                explosion1.removeAllCollisionListeners();
+                explosion1.destroy();
             }
         };
         Timer timer2 = new Timer(2000, c);

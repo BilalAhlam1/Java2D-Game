@@ -79,13 +79,13 @@ public class Levels {
             }
             //loads enemy on a condition
             if (Random < Difficulty){
-                Enemies enemies = new Enemies(world, ground);
-                EnemyDamage enemyDamage = new EnemyDamage(enemies, character, view);
-                enemies.addCollisionListener(enemyDamage);
+                Enemy Enemy = new Enemy(world, ground);
+                EnemyDamage enemyDamage = new EnemyDamage(Enemy, character, view);
+                Enemy.addCollisionListener(enemyDamage);
+
             }
         }
     }
-
     public void createUniqueNumbers(){
         int currentIndex = 0;
 

@@ -40,6 +40,7 @@ public class Character extends Walker {
 
     public void reduceHealth(int n){
         HealthPoints = HealthPoints - n;
+        setHealth();
     }
 
     public int getHealthPoints() {
@@ -48,6 +49,7 @@ public class Character extends Walker {
 
     public void setHealthPoints(int HealthPoints) {
         this.HealthPoints = HealthPoints;
+        setHealth();
     }
 
 

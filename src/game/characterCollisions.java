@@ -29,7 +29,7 @@ public class characterCollisions implements CollisionListener {
             e.getOtherBody().destroy();
 
             //update the score
-            Character.setScoreLabel();
+            Character.setArrowLabel();
 
         } else if (e.getOtherBody() instanceof Quiver) {
 
@@ -40,7 +40,7 @@ public class characterCollisions implements CollisionListener {
             e.getOtherBody().destroy();
 
             //update the score
-            Character.setScoreLabel();
+            Character.setArrowLabel();
             Character.setSpawn();
 
             //Creates 3 levels

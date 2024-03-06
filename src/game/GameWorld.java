@@ -3,7 +3,6 @@ import city.cs.engine.*;
 import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
-import java.awt.*;
 
 public class GameWorld extends World {
 
@@ -22,9 +21,10 @@ public class GameWorld extends World {
         //sets the arrow and health label
         JLabel score = new JLabel("Arrows = 0");
         JLabel Health = new JLabel("Health = 100");
+        JLabel lives = new JLabel("Lives = 3");
 
         //Creates Character
-        Character = new Character(this, score, Health);
+        Character = new Character(this, score, Health, lives);
         Character.setPosition(new Vec2(0, 3));
 
         //Displays score with collisions

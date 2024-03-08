@@ -13,40 +13,51 @@ public class Enemy extends Walker {
     private int Health = 100;
 
     //set the initial speed
-    private int speed = 9;
+    private final int speed = 8;
     private static final BodyImage enemySprite = new BodyImage("data/Loot/Seperate/tile387.png", 4f);
     public Enemy(World w, StaticBody platform) {
         super(w, Enemies);
         addImage(enemySprite);
-        setPosition(new Vec2(platform.getPosition().x - 3, platform.getPosition().y + 2));
 
-        // Move the character in alternating speeds every 2 seconds
-        move(platform, this);
+        //sets the primary position of the enemy before walking
+        setPosition(new Vec2(platform.getPosition().x, platform.getPosition().y + 2));
+
+        // Move the character in alternating speeds
+        move(this, platform);
+        this.startWalking(speed);
     }
 
-    public void move(StaticBody platform, Walker enemy){
+    public void move(Walker enemy, StaticBody platform){
+        //enemy walks in alternating speeds if outside the range of the platform
         ActionListener a = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                enemy.startWalking(speed);
-                speed = speed * -1;
+                if (enemy.getPosition().x > platform.getPosition().x + 3){
+                    enemy.startWalking(-speed);
+
+                } else if (enemy.getPosition().x < platform.getPosition().x - 3) {
+                    enemy.startWalking(speed);
+                }
             }
         };
 
         //explodes the bomb every second
-        Timer timer1 = new Timer(1000, a);
+        Timer timer1 = new Timer(15, a);
         timer1.start();
     }
 
     public void reduceHealth(int n) {
+        //reduce enemy health by n
         Health = Health - n;
     }
 
     public int getHealth() {
+        //getter method to return enemy health
         return Health;
     }
 
     public void kill(){
+        //remove enemy
         this.destroy();
         this.removeAllCollisionListeners();
     }

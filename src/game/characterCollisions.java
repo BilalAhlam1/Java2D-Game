@@ -7,14 +7,21 @@ import javax.sound.sampled.LineUnavailableException;
 import java.io.IOException;
 
 
-public class characterCollisions implements CollisionListener {
+public class CharacterCollisions implements CollisionListener {
     private final Character Character;
+
+    //Last known position of the platform
     private float lastYpos = 0;
+
+    //Difficulty Level
     private float Difficulty = 0;
     private final GameWorld world;
     private GameView view;
+
+    //Level number for progress bar
     private int levelNum = -1;
-    public characterCollisions(Character c, GameWorld world){
+
+    public CharacterCollisions(Character c, GameWorld world){
         this.Character = c;
         this.world = world;
     }
@@ -48,19 +55,24 @@ public class characterCollisions implements CollisionListener {
                 makeLevel();
             }
 
+            //increments level number
+            levelNum++;
+
             //updates number of levels for progress bar
             Character.setLevelNum(levelNum);
 
         } else if (e.getOtherBody() instanceof Enemy) {
-            Character.reduceHealth(25);
-            System.out.println(Character.getHealthPoints());
+            //reduce health by 50 on contact with enemy
+            Character.reduceHealth(50);
+
+            //if health decreases to or below 0, reset character
             if (Character.getHealthPoints() <= 0){
                 Character.reset();
             }
         }else if (e.getOtherBody() instanceof Explosion){
             //reduce character health by 50 and update health on user view when in contact with the bomb
             Character.reduceHealth(50);
-            System.out.println(Character.getHealthPoints());
+
             if (Character.getHealthPoints() <= 0){
                 //if character health is 0 or below, reset the character
                 Character.reset();
@@ -71,7 +83,7 @@ public class characterCollisions implements CollisionListener {
     public void makeLevel(){
         Levels level = new Levels(Character,lastYpos, world, Difficulty);
 
-        //Created platforms
+        //Creates platforms
         try {
             level.MakeLevel();
         } catch (LineUnavailableException | IOException ex) {
@@ -81,10 +93,7 @@ public class characterCollisions implements CollisionListener {
         // Gets the position of the highest platform
         lastYpos = level.getMaxLevel();
 
-        // Increases difficulty for every level by 20%
+        // Increases difficulty(spawn rates) for every level by roughly 20%
         Difficulty += 0.2F;
-
-        //increments level number
-        levelNum++;
     }
 }

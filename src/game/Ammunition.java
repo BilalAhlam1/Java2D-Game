@@ -3,11 +3,15 @@ package game;
 import city.cs.engine.*;
 
 public class Ammunition extends DynamicBody {
+
+    //Create a circle shape for the ammunition object
     private static final Shape shape = new CircleShape(1);
 
-
     public Ammunition(World w) {
+        //create DynamicBody
         super(w, shape);
-        this.isBullet();
+
+        //Set the value of the bullet attribute on this body to detect all collisions between steps
+        this.setBullet(true);
     }
 }

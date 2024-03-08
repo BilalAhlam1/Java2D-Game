@@ -14,8 +14,8 @@ import java.io.IOException;
 public class EnemyDamage implements CollisionListener {
     private final Enemy Enemy;
     private final Character character;
-    //private static final JLabel EnemyHealth = new JLabel();
 
+    //Enemy dying sound
     private static final AudioInputStream Death;
 
     static {
@@ -26,6 +26,7 @@ public class EnemyDamage implements CollisionListener {
         }
     }
 
+    //sound is set to a clip
     private static final Clip Clip;
 
     static {
@@ -46,15 +47,10 @@ public class EnemyDamage implements CollisionListener {
     @Override
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Ammunition) {
+            //enemy's health reduces by 25 in collision with ammunition objects like Arrows
             Enemy.reduceHealth(25);
-            //Point frameLocationOnScreen = view.getLocationOnScreen();
-            //float frameX = Enemy.getPosition().x - frameLocationOnScreen.x;
-            //float frameY = Enemy.getPosition().y - frameLocationOnScreen.y;
-            //EnemyHealth.setBounds((int) frameX, (int) frameY, 50, 20);
-            //EnemyHealth.setText("" + Enemy.getHealth());
-            System.out.println(Enemy.getHealth());
 
-            //if the enemy health is 0, remove enemy
+            //if the enemy health is 0, remove enemy, set clip to frame 0 and play
             if (Enemy.getHealth() <= 0) {
                 Enemy.kill();
                 Clip.setFramePosition(0);
@@ -66,24 +62,14 @@ public class EnemyDamage implements CollisionListener {
                 }
             }
         } else if (e.getOtherBody() instanceof Explosion) {
+            //enemy's health reduces by 100 in collision with explosions - bomb
             Enemy.reduceHealth(100);
-            //Point frameLocationOnScreen = view.getLocationOnScreen();
-            //float frameX = Enemy.getPosition().x - frameLocationOnScreen.x;
-            //float frameY = Enemy.getPosition().y - frameLocationOnScreen.y;
-            //EnemyHealth.setBounds((int) frameX, (int) frameY, 50, 20);
-            //EnemyHealth.setText("" + Enemy.getHealth());
-            System.out.println(Enemy.getHealth());
 
-            //if the enemy health is 0, remove enemy
+            //if the enemy health is 0, remove enemy, set clip to frame 0 and play
             if (Enemy.getHealth() <= 0) {
                 Enemy.kill();
                 Clip.setFramePosition(0);
                 Clip.start();
-
-                //gives character health
-                if (character.getHealthPoints() < 100) {
-                    character.setHealthPoints(character.getHealthPoints() + 5);
-                }
             }
         }
     }

@@ -2,8 +2,6 @@ package game;
 
 import city.cs.engine.DebugViewer;
 import city.cs.engine.UserView;
-import city.cs.engine.World;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +9,14 @@ import java.io.IOException;
 
 public class GameView extends UserView {
     private final Image background = new ImageIcon("data/Clouds_GIF.gif").getImage();
+
     public GameView(GameWorld w, int width, int height) throws LineUnavailableException, IOException {
         super(w, width, height);
 
-        //positions the view at the characters starting position
-        //setCentre(Game.getGameWorld().getCharacter().getPosition());
+        //get the character
         Character Character = Game.getGameWorld().getCharacter();
 
+        //make a frame
         JFrame frame = new JFrame("City Game");
 
         //Calls the function to follow the character and load the scene(levels)
@@ -37,12 +36,11 @@ public class GameView extends UserView {
         // finally, make the frame visible
         frame.setVisible(true);
 
-
         Shooting MouseHandler = new Shooting(w, this, Character);
         frame.addMouseListener(MouseHandler);
 
         //Control Character
-        frame.addKeyListener(new Control(Character, this, w));
+        frame.addKeyListener(new Movement(Character, this, w));
 
         //optional: uncomment this to make a debugging view
         JFrame debugView = new DebugViewer(w, 500, 500);
@@ -54,8 +52,6 @@ public class GameView extends UserView {
         this.add(Character.getArrows());
         this.add(Character.getHealth());
         this.add(Character.getLivesLabel());
-
-        //this.add(EnemyDamage.getEnemyHealth());
     }
 
     @Override

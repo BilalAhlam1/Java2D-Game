@@ -1,21 +1,16 @@
 package game;
 
 import city.cs.engine.UserView;
-import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
-
-import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
-import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class Scene extends JPanel {
     private final UserView view;
     private final Character Character;
-    private JProgressBar progressBar;
+    private final JProgressBar progressBar;
 
     public Scene(Character Character, UserView view) {
         this.view = view;
@@ -41,9 +36,9 @@ public class Scene extends JPanel {
                 progressBar.setValue(Character.getLevelNum());
 
                 //resets the character if it falls below the levels
-                if (Character.getPosition().y < -20) {
-                    Character.reset();
-                }
+                //if (Character.getPosition().y < -20) {
+                    //Character.reset();
+                //}
             }
         };
         Timer timer = new Timer(15, al);

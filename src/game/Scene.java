@@ -29,16 +29,16 @@ public class Scene extends JPanel {
         ActionListener al = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Gameview follows the character
+                // Game view follows the character
                 view.setView(new Vec2(0, Character.getPosition().y), 20);
 
                 //checks the level and updates progress bar
                 progressBar.setValue(Character.getLevelNum());
 
                 //resets the character if it falls below the levels
-                //if (Character.getPosition().y < -20) {
-                    //Character.reset();
-                //}
+                if (Character.getPosition().y < -20) {
+                    Character.reset();
+                }
             }
         };
         Timer timer = new Timer(15, al);

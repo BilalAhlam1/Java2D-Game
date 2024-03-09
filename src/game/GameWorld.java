@@ -3,7 +3,6 @@ import city.cs.engine.*;
 import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
-import java.awt.*;
 
 public class GameWorld extends World {
 
@@ -20,23 +19,20 @@ public class GameWorld extends World {
         ground.addImage(Cloud);
 
         //sets the arrow and health label
-        JLabel score = new JLabel("Arrows = 0");
+        JLabel Arrows = new JLabel("Arrows = 0");
         JLabel Health = new JLabel("Health = 100");
-
-        ImageIcon image = new ImageIcon("data/Loot/Seperate/Heart.png");
-        Image scaledImage = image.getImage().getScaledInstance(-1, 20, Image.SCALE_SMOOTH);
-        ImageIcon hearts = new ImageIcon(scaledImage);
-
         JLabel lives = new JLabel("lives = 3");
+        JLabel score = new JLabel("Score = 0");
 
         //Creates Character
-        Character = new Character(this, score, Health, lives);
+        Character = new Character(this, Arrows, Health, lives, score);
         Character.setPosition(new Vec2(0, 3));
 
         //Displays score with collisions
         CharacterCollisions Collisions = new CharacterCollisions(Character, this);
         Character.addCollisionListener(Collisions);
 
+        //Spawn arrows at spawn
         Quiver quiver = new Quiver(Character.getWorld(), ground);
 
     }

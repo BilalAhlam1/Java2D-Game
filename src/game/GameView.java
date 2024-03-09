@@ -16,7 +16,7 @@ public class GameView extends UserView {
         //get the character
         Character Character = Game.getGameWorld().getCharacter();
 
-        //make a frame
+        //make a JFrame
         JFrame frame = new JFrame("City Game");
 
         //Calls the function to follow the character and load the scene(levels)
@@ -52,6 +52,7 @@ public class GameView extends UserView {
         this.add(Character.getArrows());
         this.add(Character.getHealth());
         this.add(Character.getLivesLabel());
+        this.add(Character.getScore());
     }
 
     @Override

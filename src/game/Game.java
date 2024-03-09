@@ -24,7 +24,6 @@ public class Game{
 
         //start the world and set gravity
         gameWorld.setGravity(20);
-        gameWorld.getSimulationSettings().setTargetFrameRate(60);
         gameWorld.start();
 
     }

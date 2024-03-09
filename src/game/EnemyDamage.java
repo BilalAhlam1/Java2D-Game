@@ -2,12 +2,7 @@ package game;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
-import city.cs.engine.UserView;
-import city.cs.engine.World;
-
 import javax.sound.sampled.*;
-import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -38,7 +33,7 @@ public class EnemyDamage implements CollisionListener {
         }
     }
 
-    public EnemyDamage(Enemy Enemy, Character character) throws LineUnavailableException, IOException {
+    public EnemyDamage(Enemy Enemy, Character character){
         this.Enemy = Enemy;
         this.character = character;
 
@@ -50,16 +45,15 @@ public class EnemyDamage implements CollisionListener {
             //enemy's health reduces by 25 in collision with ammunition objects like Arrows
             Enemy.reduceHealth(25);
 
-            //if the enemy health is 0, remove enemy, set clip to frame 0 and play
+            //if the enemy health is 0, remove enemy, set clip to frame 0 and play, set score
             if (Enemy.getHealth() <= 0) {
                 Enemy.kill();
                 Clip.setFramePosition(0);
                 Clip.start();
 
-                //gives character health
-                if (character.getHealthPoints() < 100) {
-                    character.setHealthPoints(character.getHealthPoints() + 5);
-                }
+                //Sets score and JLabel
+                character.setScoreNumber(character.getScoreNumber() + 1);
+                character.getScore().setText("Score = " + character.getScoreNumber());
             }
         } else if (e.getOtherBody() instanceof Explosion) {
             //enemy's health reduces by 100 in collision with explosions - bomb

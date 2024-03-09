@@ -142,10 +142,11 @@ public class Shooting implements MouseListener {
         Bomb.removeAllImages();
         //replace bomb with the explosion
         Explosion explosion1 = new Explosion(world, Bomb);
+
+        //destroy the bomb object and play sound-clip
         Bomb.destroy();
         clip.setFramePosition(0);
         clip.start();
-        System.out.println("BOOM");
 
         ActionListener c = new ActionListener() {
             @Override
@@ -156,6 +157,7 @@ public class Shooting implements MouseListener {
             }
         };
         Timer timer2 = new Timer(2000, c);
+
         //Doesn't repeat the timer
         timer2.setRepeats(false);
         timer2.start();

@@ -23,10 +23,14 @@ public class Character extends Walker {
     //Number of lives
     private int lives = 3;
 
-    //Labels for arrows, health and number of lives
+    //Score
+    private int scoreNumber = -1;
+
+    //Labels for arrows, health, number of lives and the Score
     private final JLabel Arrows;
     private final JLabel Health;
     private final JLabel LivesLabel;
+    private final JLabel Score;
 
     //the level number currently in play
     private int levelNum = 0;
@@ -35,7 +39,7 @@ public class Character extends Walker {
     private static final BodyImage image = new BodyImage("data/Adventurer/Sprites/adventurer-idleRight-01.png", 4f);
     //private static final BodyImage lives = new BodyImage("data/Loot/Seperate/Heart.png", 4f);
 
-    public Character(GameWorld w, JLabel Arrows, JLabel Health, JLabel lives) {
+    public Character(GameWorld w, JLabel Arrows, JLabel Health, JLabel lives, JLabel Score) {
         //creates a walker object
         super(w, CharacterShape);
 
@@ -43,6 +47,7 @@ public class Character extends Walker {
         this.Arrows = Arrows;
         this.Health = Health;
         this.LivesLabel = lives;
+        this.Score = Score;
 
         //adds spawn idle image to character
         addImage(image);
@@ -53,8 +58,12 @@ public class Character extends Walker {
 
     public void setJLabels(){
 
+        //set Score
+        Score.setBounds(10,10,120,20);
+        Score.setFont(new Font("Arial", Font.BOLD, 20));
+
         //set Arrows
-        Arrows.setBounds(10,10,120,20);
+        Arrows.setBounds(140,10,120,20);
         Arrows.setFont(new Font("Arial", Font.BOLD, 20));
 
         //set Health
@@ -66,6 +75,21 @@ public class Character extends Walker {
         LivesLabel.setForeground(Color.RED);
         LivesLabel.setBounds(550, 10, 120, 20);
         LivesLabel.setFont(new Font("Arial", Font.BOLD, 20));
+    }
+
+    public void setScoreNumber(int scoreNumber) {
+        //sets the score number
+        this.scoreNumber = scoreNumber;
+    }
+
+    public int getScoreNumber() {
+        //returns the score number
+        return scoreNumber;
+    }
+
+    public JLabel getScore() {
+        //returns the score JLabel
+        return Score;
     }
 
     public int getLives() {
@@ -113,13 +137,6 @@ public class Character extends Walker {
         //return the value of health remaining
         return HealthPoints;
     }
-
-    public void setHealthPoints(int HealthPoints) {
-        //set the value of health remaining and update this on the frame
-        this.HealthPoints = HealthPoints;
-        setHealth();
-    }
-
 
     public void setArrowLabel() {
         //update arrows label

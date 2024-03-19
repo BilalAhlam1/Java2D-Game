@@ -1,20 +1,21 @@
 package game;
 
 import javax.sound.sampled.LineUnavailableException;
-
-import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 /**
  * Your main game entry point
  */
-public class Game{
+public class Game {
 
     private static GameWorld gameWorld;
 
-    /** Initialise a new Game. */
+    /**
+     * Initialise a new Game.
+     */
     public Game() throws LineUnavailableException, IOException {
-
         //1. make an empty game world
         //2. populate it with bodies (ex: platforms, collectibles, characters)
         gameWorld = new GameWorld();
@@ -25,7 +26,21 @@ public class Game{
         //start the world and set gravity
         gameWorld.setGravity(20);
         gameWorld.start();
+    }
 
+    public static void MainMenu() throws LineUnavailableException, IOException {
+        Menu menu = new Menu();
+        menu.Play.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new Game();
+                } catch (LineUnavailableException | IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        });
     }
 
     public static GameWorld getGameWorld() {
@@ -33,19 +48,8 @@ public class Game{
     }
 
     /** Run the game. */
-    public static void main(String[] args){
-        //Game game = new Game();
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    new Game();
-                } catch (LineUnavailableException | IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
+    public static void main(String[] args) throws LineUnavailableException, IOException {
+        MainMenu();
     }
 }
 

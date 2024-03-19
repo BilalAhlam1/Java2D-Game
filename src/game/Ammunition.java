@@ -7,7 +7,7 @@ public class Ammunition extends DynamicBody {
     //Create a circle shape for the ammunition object
     private static final Shape shape = new CircleShape(1);
 
-    public Ammunition(World w) {
+    public Ammunition(GameWorld w) {
         //create DynamicBody
         super(w, shape);
 

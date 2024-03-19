@@ -16,7 +16,6 @@ public class CharacterCollisions implements CollisionListener {
     //Difficulty Level
     private float Difficulty = 0;
     private final GameWorld world;
-    private GameView view;
 
     //Level number for progress bar
     private int levelNum = -1;
@@ -46,7 +45,7 @@ public class CharacterCollisions implements CollisionListener {
             //destroy collided object
             e.getOtherBody().destroy();
 
-            //update the score
+            //update the number of arrows and spawn position
             Character.setArrowLabel();
             Character.setSpawn();
 
@@ -55,11 +54,13 @@ public class CharacterCollisions implements CollisionListener {
                 makeLevel();
             }
 
-            //increments level number
+            //increments level number and score
             levelNum++;
+            Character.setScoreNumber(Character.getScoreNumber() + 1);
 
-            //updates number of levels for progress bar
+            //updates number of levels for progress bar, and score label
             Character.setLevelNum(levelNum);
+            Character.getScore().setText("Score = " + Character.getScoreNumber());
 
         } else if (e.getOtherBody() instanceof Enemy) {
             //reduce health by 50 on contact with enemy

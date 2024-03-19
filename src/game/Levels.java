@@ -41,6 +41,7 @@ public class Levels {
             ground.setPosition(new Vec2(uniqueNumbers[i], Ypos + 7 * i));
             ground.addImage(Cloud);
 
+
             //sets the position of the last platform and loads Arrows
             if (i == 9){
                 Quiver quiver = new Quiver(world, ground);

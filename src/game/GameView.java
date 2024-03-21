@@ -17,7 +17,7 @@ public class GameView extends UserView {
         Character Character = Game.getGameWorld().getCharacter();
 
         //make a JFrame
-        JFrame frame = new JFrame("City Game");
+        JFrame frame = new JFrame("Links Adventure");
 
         //Calls the function to follow the character and load the scene(levels)
         Scene Movement = new Scene(Character, this);

@@ -31,40 +31,7 @@ public class Game {
     }
 
     public static void MainMenu() throws LineUnavailableException, IOException {
-        Menu menu = new Menu();
-        menu.Play.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    new Game();
-                } catch (LineUnavailableException | IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                menu.dispose();
-            }
-        });
-
-        menu.Help.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menu.setHelp();
-            }
-        });
-
-        menu.Back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                menu.setMenu();
-            }
-        });
-
-        menu.Quit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-    }
+        Menu menu = new Menu();}
 
     public static GameWorld getGameWorld() {
         return gameWorld;

@@ -2,21 +2,33 @@ package game;
 
 import city.cs.engine.UserView;
 
+import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Menu extends JFrame {
     public static final String TITLE = "Links Adventure";
     private JLabel welcomeLabel = new JLabel(TITLE, SwingConstants.CENTER);
     private ImageIcon backgroundImage = new ImageIcon("data/Clouds_GIF.gif");
     private JLabel background = new JLabel(backgroundImage);
-    JButton Play = new JButton("Play");;
+    JButton Play = new JButton("Play");
+    JButton NewGame = new JButton("New Game");
+    JButton LoadGame = new JButton("Load Saved Game");
+    JButton LoadChapter = new JButton("Chapter");
+    JButton Chapter1 = new JButton("Chapter 1 - A Breeze");
     JButton Help = new JButton("Help");
     JButton Quit = new JButton("Quit");
     JButton Back = new JButton("Back");
 
     public Menu() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        // don't let the frame be resized
+        setResizable(false);
+        pack();
         setSize(400, 400);
         setLayout(new BorderLayout());
         setVisible(true);
@@ -25,6 +37,67 @@ public class Menu extends JFrame {
 
         setMenu();
 
+        //PLAY
+        Play.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setPlay();
+            }
+        });
+
+        NewGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new Game();
+                } catch (LineUnavailableException | IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                dispose(); //remove main menu
+            }
+        });
+
+        LoadChapter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setChapter();
+            }
+        });
+
+        Chapter1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new Game();
+                } catch (LineUnavailableException | IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                dispose(); //remove main menu
+            }
+        });
+
+        //HELP Button
+        Help.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setHelp();
+            }
+        });
+
+        Back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setMenu();
+            }
+        });
+
+        //QUIT
+        Quit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
     }
 
     public void setHelp(){
@@ -49,6 +122,46 @@ public class Menu extends JFrame {
         background.add(Shoot);
         background.add(Back);
 
+    }
+
+    public void setPlay(){
+        background.removeAll();
+
+        Back.setBounds(5, 5, 100, 30);
+
+        JLabel Play = new JLabel("Play", SwingConstants.CENTER);
+        Play.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+        Play.setBounds(-40, 40, 500, 30);
+
+        // Set the button position on the frame
+        NewGame.setBounds(150, 130, 100, 30);
+        LoadGame.setBounds(150, 160, 100, 30);
+        LoadChapter.setBounds(150, 190, 100, 30);
+
+        background.add(Play);
+        background.add(NewGame);
+        background.add(LoadGame);
+        background.add(LoadChapter);
+        background.add(Back);
+    }
+
+    public void setChapter() {
+        background.removeAll();
+
+        Back.setBounds(5, 5, 100, 30);
+
+        JLabel Chapter = new JLabel("Chapter", SwingConstants.CENTER);
+        Chapter.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
+        Chapter.setBounds(-40, 40, 500, 30);
+
+        // Set the button position on the frame
+        Chapter1.setBounds(150, 130, 100, 30);
+        //Chapter1.setBounds(150, 160, 100, 30);
+        //Chapter2.setBounds(150, 190, 100, 30);
+
+        background.add(Back);
+        background.add(Chapter);
+        background.add(Chapter1);
     }
 
     public void setMenu(){

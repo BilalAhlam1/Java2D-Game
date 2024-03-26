@@ -1,7 +1,5 @@
 package game;
 
-import city.cs.engine.UserView;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +20,7 @@ public class Menu extends JFrame {
     JButton Help = new JButton("Help");
     JButton Quit = new JButton("Quit");
     JButton Back = new JButton("Back");
+    private JPanel MainMenu;
 
     public Menu() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -131,7 +130,7 @@ public class Menu extends JFrame {
 
         JLabel Play = new JLabel("Play", SwingConstants.CENTER);
         Play.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        Play.setBounds(-40, 40, 500, 30);
+        Play.setBounds(-45, 40, 500, 30);
 
         // Set the button position on the frame
         NewGame.setBounds(150, 130, 100, 30);
@@ -152,10 +151,10 @@ public class Menu extends JFrame {
 
         JLabel Chapter = new JLabel("Chapter", SwingConstants.CENTER);
         Chapter.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        Chapter.setBounds(-40, 40, 500, 30);
+        Chapter.setBounds(-45, 40, 500, 30);
 
         // Set the button position on the frame
-        Chapter1.setBounds(150, 130, 100, 30);
+        Chapter1.setBounds(75, 130, 250, 30);
         //Chapter1.setBounds(150, 160, 100, 30);
         //Chapter2.setBounds(150, 190, 100, 30);
 

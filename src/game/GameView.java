@@ -5,6 +5,8 @@ import city.cs.engine.UserView;
 import javax.sound.sampled.LineUnavailableException;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class GameView extends UserView {
@@ -46,13 +48,13 @@ public class GameView extends UserView {
         JFrame debugView = new DebugViewer(w, 500, 500);
 
         frame.getContentPane();
-        this.setLayout(null);
+        setLayout(null);
 
         //Add Game Score and Health to the user view
-        this.add(Character.getArrows());
-        this.add(Character.getHealth());
-        this.add(Character.getLivesLabel());
-        this.add(Character.getScore());
+        add(Character.getArrows());
+        add(Character.getHealth());
+        add(Character.getLivesLabel());
+        add(Character.getScore());
     }
 
     @Override

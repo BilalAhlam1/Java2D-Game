@@ -33,7 +33,7 @@ public class Levels {
         int isPurple = -1;
 
         //create the platforms
-        for (int i = 1; i < 10; i++){
+        for (int i = 1; i < 6; i++){
 
             Shape platform = new BoxShape(6, 0.5f);
             StaticBody ground = new StaticBody(world, platform);
@@ -43,7 +43,7 @@ public class Levels {
 
 
             //sets the position of the last platform and loads Arrows
-            if (i == 9){
+            if (i == 5){
                 Quiver quiver = new Quiver(world, ground);
                 MaxLevel = Ypos + 7 * i;
             } else {
@@ -51,7 +51,7 @@ public class Levels {
                 float Random = (float) Math.random();
 
                 // chance of Arrows spawning
-                if (Random > 0.8) {
+                if (Random > 0.9) {
                     Arrows arrows = new Arrows(world, ground);
                 }
 
@@ -62,6 +62,7 @@ public class Levels {
                     ground.addImage(purpleCloud);
                     isPurple = i;
                 }
+
                 //loads enemy on a condition
                 if (Random < Difficulty) {
                     Enemy Enemy = new Enemy(world, ground);

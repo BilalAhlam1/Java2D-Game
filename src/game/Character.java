@@ -37,6 +37,7 @@ public class Character extends Walker {
 
     //spawn character image
     private static final BodyImage image = new BodyImage("data/Adventurer/Sprites/adventurer-idleRight-01.png", 4f);
+
     //private static final BodyImage lives = new BodyImage("data/Loot/Seperate/Heart.png", 4f);
 
     public Character(GameWorld w, JLabel Arrows, JLabel Health, JLabel lives, JLabel Score) {

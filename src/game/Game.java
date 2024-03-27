@@ -29,7 +29,7 @@ public class Game {
         }
     }
 
-    private static GameWorld gameWorld;
+    private static GameWorld GameLevel;
 
     /**
      * Initialise a new Game.
@@ -37,18 +37,18 @@ public class Game {
     public Game() throws LineUnavailableException, IOException {
         //1. make an empty game world
         //2. populate it with bodies (ex: platforms, collectibles, characters)
-        gameWorld = new GameWorld();
+        GameLevel = new Chapter1();
 
         //3. make a view to look into the game world
-        GameView view = new GameView(gameWorld, 800, 500);
+        GameView view = new GameView(GameLevel, 800, 500);
 
         //start the world and set gravity
-        gameWorld.setGravity(20);
-        gameWorld.start();
+        GameLevel.setGravity(20);
+        GameLevel.start();
     }
 
     public static GameWorld getGameWorld() {
-        return gameWorld;
+        return GameLevel;
     }
 
     /** Run the game. */

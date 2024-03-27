@@ -11,6 +11,8 @@ import java.io.IOException;
 
 public class GameView extends UserView {
     private final Image background = new ImageIcon("data/Clouds_GIF.gif").getImage();
+    private final Image heart = new ImageIcon("data/Loot/Seperate/Heart.png").getImage();
+    private final Image newImage = heart.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
 
     public GameView(GameWorld w, int width, int height) throws LineUnavailableException, IOException {
         super(w, width, height);
@@ -61,5 +63,8 @@ public class GameView extends UserView {
     protected void paintBackground(Graphics2D g) {
         //adds the background onto the user view
         g.drawImage(background, 0, 0, this);
+        for (int i = 0; i < 3; i++){
+            g.drawImage(newImage, 20 * i, 330, this);
+        }
     }
 }

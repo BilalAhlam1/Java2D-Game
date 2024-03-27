@@ -15,14 +15,12 @@ public class CharacterCollisions implements CollisionListener {
 
     //Difficulty Level
     private float Difficulty = 0;
-    private final GameWorld world;
 
     //Level number for progress bar
     private int levelNum = -1;
 
-    public CharacterCollisions(Character c, GameWorld world){
+    public CharacterCollisions(Character c){
         this.Character = c;
-        this.world = world;
     }
     @Override
     public void collide(CollisionEvent e) {
@@ -49,11 +47,6 @@ public class CharacterCollisions implements CollisionListener {
             Character.setArrowLabel();
             Character.setSpawn();
 
-            //Creates 3 levels
-            if (levelNum < 3) {
-                makeLevel();
-            }
-
             //increments level number and score
             levelNum++;
             Character.setScoreNumber(Character.getScoreNumber() + 1);
@@ -79,22 +72,5 @@ public class CharacterCollisions implements CollisionListener {
                 Character.reset();
             }
         }
-    }
-
-    public void makeLevel(){
-        Levels level = new Levels(Character,lastYpos, world, Difficulty);
-
-        //Creates platforms
-        try {
-            level.MakeLevel();
-        } catch (LineUnavailableException | IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        // Gets the position of the highest platform
-        lastYpos = level.getMaxLevel();
-
-        // Increases difficulty(spawn rates) for every level by roughly 20%
-        Difficulty += 0.2F;
     }
 }

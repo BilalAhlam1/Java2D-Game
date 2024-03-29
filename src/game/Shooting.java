@@ -21,32 +21,14 @@ public class Shooting implements MouseListener {
     private static final BodyImage bomb = new BodyImage("data/Loot/Seperate/tile373.png", 4f);
     private static final BodyImage broken = new BodyImage("data/Loot/Seperate/tile373broken.png", 4f);
     private static final BodyImage bulletImage = new BodyImage("data/Loot/Seperate/Arrow.png", 4f);
-    private static final AudioInputStream explosion;
 
-    static {
-        try {
-            explosion = AudioSystem.getAudioInputStream(new File("data/Sounds/Explosion.wav"));
-        } catch (UnsupportedAudioFileException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static final Clip clip;
-
-    static {
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    SoundClip explosionSound = new SoundClip("data/Sounds/Explosion.wav");
 
 
-    public Shooting(GameWorld w, GameView v, Character Character ) throws LineUnavailableException, IOException {
+    public Shooting(GameWorld w, GameView v, Character Character ) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         world = w;
         view = v;
         this.Character = Character;
-        clip.open(explosion);
     }
 
     @Override
@@ -145,8 +127,7 @@ public class Shooting implements MouseListener {
 
         //destroy the bomb object and play sound-clip
         Bomb.destroy();
-        clip.setFramePosition(0);
-        clip.start();
+        explosionSound.play();
 
         ActionListener c = new ActionListener() {
             @Override

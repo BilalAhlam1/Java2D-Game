@@ -4,6 +4,7 @@ import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
 
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.IOException;
 
 
@@ -18,9 +19,11 @@ public class CharacterCollisions implements CollisionListener {
 
     //Level number for progress bar
     private int levelNum = -1;
+    private Game game;
 
-    public CharacterCollisions(Character c){
+    public CharacterCollisions(Character c, Game game){
         this.Character = c;
+        this.game = game;
     }
     @Override
     public void collide(CollisionEvent e) {
@@ -63,7 +66,7 @@ public class CharacterCollisions implements CollisionListener {
             if (Character.getHealthPoints() <= 0){
                 Character.reset();
             }
-        }else if (e.getOtherBody() instanceof Explosion){
+        } else if (e.getOtherBody() instanceof Explosion){
             //reduce character health by 50 and update health on user view when in contact with the bomb
             Character.reduceHealth(50);
 
@@ -71,6 +74,8 @@ public class CharacterCollisions implements CollisionListener {
                 //if character health is 0 or below, reset the character
                 Character.reset();
             }
+        } else if (e.getOtherBody() instanceof Portal) {
+            game.goToNextChapter();
         }
     }
 }

@@ -11,8 +11,6 @@ import java.util.Objects;
 public class Movement extends KeyAdapter {
 
     Walker Character;
-    UserView view;
-    World world;
 
     //Character Movement images
     private static final BodyImage runRight = new BodyImage("data/Adventurer/Sprites/adventurer-run-00.png", 4f);
@@ -20,39 +18,15 @@ public class Movement extends KeyAdapter {
     private static final BodyImage jump = new BodyImage("data/Adventurer/Sprites/adventurer-fall-00.png", 4f);
     private static final BodyImage idleRight = new BodyImage("data/Adventurer/Sprites/adventurer-idle-00.png", 4f);
     private static final BodyImage idleLeft = new BodyImage("data/Adventurer/Sprites/adventurer-idleLeft-01.png", 4f);
-    private static final AudioInputStream Jump;
 
-    static {
-        try {
-            Jump = AudioSystem.getAudioInputStream(new File("data/Sounds/jump.wav"));
-        } catch (UnsupportedAudioFileException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static final Clip clip;
-
-    static {
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    SoundClip JumpSound = new SoundClip("data/Sounds/jump.wav");
 
 
     //Last movement key. Used to add the appropriate orientated image to the character
     public String preKey = null;
 
-    public Movement(Walker StudentWalker, UserView View, World world){
+    public Movement(Walker StudentWalker) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         this.Character = StudentWalker;
-        this.view = View;
-        this.world = world;
-        try {
-            clip.open(Jump);
-        } catch (LineUnavailableException | IOException ex) {
-            throw new RuntimeException(ex);
-        }
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -77,8 +51,7 @@ public class Movement extends KeyAdapter {
             //Jump
         } else if (Key == KeyEvent.VK_UP || Key == KeyEvent.VK_W) {
             Character.jump(20);
-            clip.setFramePosition(0);
-            clip.start();
+            JumpSound.play();
             //replace Character image
             Character.removeAllImages();
             Character.addImage(jump);
@@ -110,5 +83,9 @@ public class Movement extends KeyAdapter {
                 Character.addImage(idleRight);
             }
         }
+    }
+
+    public void updateCharacter(Character character){
+        this.Character = character;
     }
 }

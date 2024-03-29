@@ -1,5 +1,7 @@
 package game;
 
+import city.cs.engine.StepEvent;
+import city.cs.engine.StepListener;
 import city.cs.engine.UserView;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
@@ -7,41 +9,28 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Scene extends JPanel {
+public class Scene implements StepListener {
     private final UserView view;
     private final Character Character;
-    private final JProgressBar progressBar;
 
     public Scene(Character Character, UserView view) {
         this.view = view;
         this.Character = Character;
-
-        //GameView follows the character
-        Camera();
-
-        // Create and add progress bar
-        progressBar = new JProgressBar(JProgressBar.VERTICAL,0, 4); // Assuming max value is 100
-        progressBar.setStringPainted(true); // Display the value
-        this.add(progressBar, BorderLayout.SOUTH);
     }
 
-    public void Camera() {
-        ActionListener al = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Game view follows the character
-                view.setView(new Vec2(0, Character.getPosition().y), 20);
+    @Override
+    public void preStep(StepEvent stepEvent) {
 
-                //checks the level and updates progress bar
-                progressBar.setValue(Character.getLevelNum());
+    }
 
-                //resets the character if it falls below the levels
-                if (Character.getPosition().y < -20) {
-                    Character.reset();
-                }
-            }
-        };
-        Timer timer = new Timer(15, al);
-        timer.start();
+    @Override
+    public void postStep(StepEvent stepEvent) {
+        // Game view follows the character
+        view.setView(new Vec2(0, Character.getPosition().y), 20);
+
+        //resets the character if it falls below the levels
+        if (Character.getPosition().y < -20) {
+            Character.reset();
+        }
     }
 }

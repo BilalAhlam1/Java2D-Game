@@ -29,7 +29,6 @@ public class Character extends Walker {
     //Labels for arrows, health, number of lives and the Score
     private final JLabel Arrows;
     private final JLabel Health;
-    private final JLabel LivesLabel;
     private final JLabel Score;
 
     //the level number currently in play
@@ -40,14 +39,13 @@ public class Character extends Walker {
 
     //private static final BodyImage lives = new BodyImage("data/Loot/Seperate/Heart.png", 4f);
 
-    public Character(GameWorld w, JLabel Arrows, JLabel Health, JLabel lives, JLabel Score) {
+    public Character(GameWorld w, JLabel Arrows, JLabel Health, JLabel Score) {
         //creates a walker object
         super(w, CharacterShape);
 
         //assigns parameters to variables
         this.Arrows = Arrows;
         this.Health = Health;
-        this.LivesLabel = lives;
         this.Score = Score;
 
         //adds spawn idle image to character
@@ -71,11 +69,6 @@ public class Character extends Walker {
         Health.setForeground(Color.GREEN);
         Health.setBounds(665, 10, 120, 20);
         Health.setFont(new Font("Arial", Font.BOLD, 20));
-
-        //set Lives
-        LivesLabel.setForeground(Color.RED);
-        LivesLabel.setBounds(550, 10, 120, 20);
-        LivesLabel.setFont(new Font("Arial", Font.BOLD, 20));
     }
 
     public void setScoreNumber(int scoreNumber) {
@@ -96,16 +89,6 @@ public class Character extends Walker {
     public int getLives() {
         //return number of lives
         return lives;
-    }
-
-    public JLabel getLivesLabel() {
-        //return lives JLabel
-        return LivesLabel;
-    }
-
-    public void setLives(){
-        //Update Lives
-        LivesLabel.setText("Lives = " + getLives());
     }
 
     public int getLevelNum() {
@@ -167,7 +150,6 @@ public class Character extends Walker {
         this.setPosition(spawnPosition);
         setHealth();
         setArrowLabel();
-        setLives();
 
         //if the number of lives reaches 0, the game ends
         if (lives == 0){

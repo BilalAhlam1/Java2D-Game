@@ -1,6 +1,7 @@
 package game;
 
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -48,8 +49,8 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new Game();
-                } catch (LineUnavailableException | IOException ex) {
+                    new Game(1);
+                } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }
                 dispose(); //remove main menu
@@ -67,8 +68,8 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new Game();
-                } catch (LineUnavailableException | IOException ex) {
+                    new Game(1);
+                } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }
                 dispose(); //remove main menu

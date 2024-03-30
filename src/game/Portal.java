@@ -14,10 +14,6 @@ public class Portal extends StaticBody{
         //Creates Dynamic Body
         super(w, Portal);
 
-        //Create a ghostlyFixture for the portal
-        this.getFixtureList().removeFirst().destroy();
-        GhostlyFixture ghostlyFixture = new GhostlyFixture(this, Portal);
-
         //adds image to the dynamic body
         addImage(PortalImage);
 

@@ -1,8 +1,5 @@
 package game;
 import city.cs.engine.*;
-import city.cs.engine.Shape;
-import org.jbox2d.common.Vec2;
-import javax.swing.*;
 
 public abstract class GameWorld extends World {
 
@@ -12,14 +9,17 @@ public abstract class GameWorld extends World {
     public GameWorld(){
         super(60);
 
-        //sets the arrow and health label
-        JLabel Arrows = new JLabel("Arrows = 0");
-        JLabel Health = new JLabel("Health = 100");
-        JLabel score = new JLabel("Score = 0");
-
         //Creates Character
-        Character = new Character(this, Arrows, Health, score);
+        Character = new Character(this);
 
+    }
+
+    //Set Statistics
+    public void setStatistics(int Arrows, int Score, int Health, int Lives){
+        Character.setArrowCount(Arrows);
+        Character.setScoreCount(Score);
+        Character.setHealthCount(Health);
+        Character.setLives(Lives);
     }
 
     public Character getCharacter() {

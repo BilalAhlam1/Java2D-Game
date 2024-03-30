@@ -11,7 +11,7 @@ import java.io.IOException;
 public class Menu extends JFrame {
     public static final String TITLE = "Links Adventure";
     private JLabel welcomeLabel = new JLabel(TITLE, SwingConstants.CENTER);
-    private ImageIcon backgroundImage = new ImageIcon("data/Clouds_GIF.gif");
+    private ImageIcon backgroundImage = new ImageIcon("data//Background/Clouds_GIF.gif");
     private JLabel background = new JLabel(backgroundImage);
     JButton Play = new JButton("Play");
     JButton NewGame = new JButton("New Game");

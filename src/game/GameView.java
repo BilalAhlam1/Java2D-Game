@@ -9,14 +9,21 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GameView extends UserView {
-    private final Image background = new ImageIcon("data/Clouds_GIF.gif").getImage();
+    private final Image chapter1Background = new ImageIcon("data/Background/Clouds_GIF.gif").getImage();
+    private final Image chapter2Background = new ImageIcon("data/Background/moon world gif.gif").getImage();
+    private final Image chapter3Background = new ImageIcon("data/Background/flying island gif.gif").getImage();
     private final Image heart = new ImageIcon("data/Loot/Seperate/Heart.png").getImage();
     private final Image newImage = heart.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
     private final Movement movement;
-    private final Character Character;
+    private Character Character;
+    private final Scene Camera;
+    private final Shooting shooting;
+    private int Chapter;
 
-    public GameView(GameWorld w, int width, int height) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public GameView(GameWorld w, int Chapter, int width, int height) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         super(w, width, height);
+
+        this.Chapter = Chapter;
 
         //get the character
         Character = w.getCharacter();
@@ -25,8 +32,8 @@ public class GameView extends UserView {
         JFrame frame = new JFrame("Links Adventure");
 
         //Calls the function to follow the character and load the scene(levels)
-        Scene Movement = new Scene(Character, this);
-        w.addStepListener(Movement);
+        Camera = new Scene(Character, this);
+        w.addStepListener(Camera);
         frame.add(this);
 
         // enable the frame to quit the application
@@ -41,8 +48,8 @@ public class GameView extends UserView {
         // finally, make the frame visible
         frame.setVisible(true);
 
-        Shooting MouseHandler = new Shooting(w, this, Character);
-        frame.addMouseListener(MouseHandler);
+        shooting = new Shooting(w, this, Character);
+        frame.addMouseListener(shooting);
 
         movement = new Movement(Character);
         //Control Character
@@ -55,10 +62,27 @@ public class GameView extends UserView {
         setLayout(null);
 
         //Add Game Score and Health to the user view
-        add(Character.getArrows());
-        add(Character.getHealth());
-        add(Character.getScore());
+        //add(w.getStatistics().getArrows());
+        //add(w.getStatistics().getHealth());
+        //add(w.getStatistics().getScore());
     }
+
+    public void updateCharacter(Character character){
+        this.Character = character;
+    }
+
+    public void setChapter(int chapter) {
+        Chapter = chapter;
+    }
+
+    public Scene getCamera() {
+        return Camera;
+    }
+
+    public Shooting getShooting() {
+        return shooting;
+    }
+
     public Movement getMovement() {
         return movement;
     }
@@ -66,9 +90,19 @@ public class GameView extends UserView {
     @Override
     protected void paintBackground(Graphics2D g) {
         //adds the background onto the user view
-        g.drawImage(background, 0, 0, this);
-        for (int i = 0; i < Character.getLives(); i++){
-            g.drawImage(newImage, 20 * i, 10, this);
+        if (Chapter == 1) {
+            g.drawImage(chapter1Background, 0, 0, this);
+        } else if (Chapter == 2) {
+            g.drawImage(chapter2Background, -10, -15, this);
         }
+        for (int i = 0; i < Character.getLives(); i++){
+            g.drawImage(newImage, 25 * i, 10, this);
+        }
+
+        Font font = new Font("Arial", Font.BOLD, 20);
+        g.setFont(font);
+        g.drawString("Arrows = " + Character.getArrowCount(), 100, 30);
+        g.drawString("Score = " + Character.getScoreCount(), 350, 30);
+        g.drawString("Health = " + Character.getHealthCount(), 665, 30);
     }
 }

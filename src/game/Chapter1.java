@@ -20,7 +20,6 @@ public class Chapter1 extends GameWorld{
     private static final BodyImage ShootingMessage2 = new BodyImage("data/GameMessages/ShootingMessage2.png", 1f);
     public Chapter1(Game game){
         super();
-
         getCharacter().setPosition(new Vec2(0, 3));
 
         //Displays score with collisions
@@ -64,7 +63,7 @@ public class Chapter1 extends GameWorld{
         //Purple Cloud
         Shape shape4 = new BoxShape(6, 0.5f);
         StaticBody BouncyPlatform = new StaticBody(this, shape4);
-        BouncyPlatform.setPosition(new Vec2(6f, 24));
+        BouncyPlatform.setPosition(new Vec2(8f, 24));
         BouncyPlatform.addImage(Cloud);
         SolidFixture platformFixture = new SolidFixture(BouncyPlatform, shape4);
         platformFixture.setRestitution(3);

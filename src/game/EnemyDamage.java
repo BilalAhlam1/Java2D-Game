@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class EnemyDamage implements CollisionListener {
     private final Enemy Enemy;
-    private final Character character;
+    private final Character character;;
 
     //Enemy dying sound
     private static final AudioInputStream Death;
@@ -46,6 +46,7 @@ public class EnemyDamage implements CollisionListener {
             //enemy's health reduces by 25 in collision with ammunition objects like Arrows
             Enemy.reduceHealth(25);
 
+
             //if the enemy health is 0, remove enemy, set clip to frame 0 and play, set score
             if (Enemy.getHealth() <= 0) {
                 Enemy.kill();
@@ -53,8 +54,7 @@ public class EnemyDamage implements CollisionListener {
                 Clip.start();
 
                 //Sets score and JLabel
-                character.setScoreNumber(character.getScoreNumber() + 1);
-                character.getScore().setText("Score = " + character.getScoreNumber());
+                character.setScoreCount(character.getScoreCount() + 1);
             }
         } else if (e.getOtherBody() instanceof Explosion) {
             //enemy's health reduces by 100 in collision with explosions - bomb

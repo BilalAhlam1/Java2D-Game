@@ -20,7 +20,6 @@ public class Game {
 
     private static GameWorld GameLevel;
     private static GameView view;
-    private static Movement movement;
 
     /**
      * Initialise a new Game.
@@ -30,33 +29,46 @@ public class Game {
         //Initialise Chapter
         if (Chapter == 1) {
             GameLevel = new Chapter1(this);
+
+            //Make a view
+            view = new GameView(GameLevel, Chapter, 800, 500);
         } else if (Chapter == 2) {
-            GameLevel = new Chapter1(this);
+            GameLevel = new Chapter2(this,0, 0, 100, 3);
+
+            //Make a view
+            view = new GameView(GameLevel, Chapter, 800, 500);
         }
-
-        //Make a view
-        view = new GameView(GameLevel, 800, 500);
-
-        //movement = new Movement(GameLevel.getCharacter());
-        //view.addKeyListener(movement);
 
         //start the world and set gravity
         GameLevel.setGravity(20);
         GameLevel.start();
     }
 
-    public void goToNextChapter(){
+    public void goToNextChapter(int Arrows, int Score, int Health, int Lives){
         if (GameLevel instanceof Chapter1){
             GameLevel.stop();
-            GameLevel = new Chapter2(this);
+            GameLevel = new Chapter2(this, Arrows, Score, Health, Lives);
 
-            view.setWorld(GameLevel);
-            view.getMovement().updateCharacter(GameLevel.getCharacter());
+            view.setChapter(2);
+            updateWorld();
 
-            //start the world and set gravity
-            GameLevel.setGravity(20);
+            //start the world
             GameLevel.start();
         }
+    }
+
+    public void updateWorld(){
+        view.setWorld(GameLevel);
+        view.getCamera().updateCharacter(GameLevel.getCharacter());
+        GameLevel.addStepListener(view.getCamera());
+        view.getMovement().updateCharacter(GameLevel.getCharacter());
+        view.getShooting().setWorld(GameLevel);
+        view.getShooting().setView(view);
+        view.getShooting().updateCharacter(GameLevel.getCharacter());
+        view.updateCharacter(GameLevel.getCharacter());
+
+        //set gravity
+        GameLevel.setGravity(20);
     }
 
     public static void mainMenu(){

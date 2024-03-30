@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 public class Scene implements StepListener {
     private final UserView view;
-    private final Character Character;
+    private Character Character;
 
     public Scene(Character Character, UserView view) {
         this.view = view;
@@ -32,5 +32,9 @@ public class Scene implements StepListener {
         if (Character.getPosition().y < -20) {
             Character.reset();
         }
+    }
+
+    public void updateCharacter(Character character){
+        this.Character = character;
     }
 }

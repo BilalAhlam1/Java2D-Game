@@ -15,9 +15,9 @@ import java.io.IOException;
 
 public class Shooting implements MouseListener {
 
-    private final GameWorld world;
-    private final GameView view;
-    private final Character Character;
+    private GameWorld world;
+    private UserView view;
+    private Character Character;
     private static final BodyImage bomb = new BodyImage("data/Loot/Seperate/tile373.png", 4f);
     private static final BodyImage broken = new BodyImage("data/Loot/Seperate/tile373broken.png", 4f);
     private static final BodyImage bulletImage = new BodyImage("data/Loot/Seperate/Arrow.png", 4f);
@@ -25,7 +25,7 @@ public class Shooting implements MouseListener {
     SoundClip explosionSound = new SoundClip("data/Sounds/Explosion.wav");
 
 
-    public Shooting(GameWorld w, GameView v, Character Character ) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public Shooting(GameWorld w, UserView v, Character Character) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         world = w;
         view = v;
         this.Character = Character;
@@ -167,6 +167,19 @@ public class Shooting implements MouseListener {
         Vec2 force = direction.mul(speed);
         ammo.setLinearVelocity(force);
     }
+
+    public void updateCharacter(Character character){
+        this.Character = character;
+    }
+
+    public void setWorld(GameWorld w){
+        this.world = w;
+    }
+
+    public void setView(UserView view) {
+        this.view = view;
+    }
+
     @Override
     public void mouseReleased(MouseEvent e) {
 

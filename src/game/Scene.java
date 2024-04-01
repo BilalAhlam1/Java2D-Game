@@ -1,8 +1,6 @@
 package game;
 
-import city.cs.engine.StepEvent;
-import city.cs.engine.StepListener;
-import city.cs.engine.UserView;
+import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +27,19 @@ public class Scene implements StepListener {
         view.setView(new Vec2(0, Character.getPosition().y), 20);
 
         //resets the character if it falls below the levels
-        if (Character.getPosition().y < -20) {
+        if (Character.getPosition().y < -20 ||Character.getHealthCount() <= 0) {
             Character.reset();
+        }
+
+        //Fall Damage
+        if (Character.getLinearVelocity().y < -20 && Character.getLinearVelocity().x > - 30){
+            if (!Character.getBodiesInContact().isEmpty()){
+                Character.reduceHealth(10);
+            }
+        } else if (Character.getLinearVelocity().y < -30){
+            if (!Character.getBodiesInContact().isEmpty()){
+                Character.reduceHealth(20);
+            }
         }
     }
 

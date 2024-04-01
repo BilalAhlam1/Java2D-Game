@@ -121,6 +121,7 @@ public class GameView extends UserView {
         g.setFont(font2);
         g.drawString("Score = " + Character.getScoreCount(), 350, 30);
 
+        //HealthBar
         g.setColor(Color.BLACK);
         g.drawRect(575, 10, 200, 30);
         g.setColor(Color.GREEN);

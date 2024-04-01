@@ -18,6 +18,7 @@ public class Menu extends JFrame {
     JButton LoadGame = new JButton("Load Saved Game");
     JButton LoadChapter = new JButton("Chapter");
     JButton Chapter1 = new JButton("Chapter 1 - A Breeze");
+    JButton Chapter2 = new JButton("Chapter 2 - MoonFall");
     JButton Help = new JButton("Help");
     JButton Quit = new JButton("Quit");
     JButton Back = new JButton("Back");
@@ -76,6 +77,18 @@ public class Menu extends JFrame {
             }
         });
 
+        Chapter2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new Game(2);
+                } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
+                    throw new RuntimeException(ex);
+                }
+                dispose(); //remove main menu
+            }
+        });
+
         //HELP Button
         Help.addActionListener(new ActionListener() {
             @Override
@@ -117,9 +130,14 @@ public class Menu extends JFrame {
         Shoot.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
         Shoot.setBounds(-40, 100, 500, 30);
 
+        JLabel Exit = new JLabel("Exit To Main Menu - ESC Key", SwingConstants.CENTER);
+        Exit.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
+        Exit.setBounds(-40, 120, 500, 30);
+
         background.add(Controls);
         background.add(movement);
         background.add(Shoot);
+        background.add(Exit);
         background.add(Back);
 
     }
@@ -156,12 +174,12 @@ public class Menu extends JFrame {
 
         // Set the button position on the frame
         Chapter1.setBounds(75, 130, 250, 30);
-        //Chapter1.setBounds(150, 160, 100, 30);
-        //Chapter2.setBounds(150, 190, 100, 30);
+        Chapter2.setBounds(75, 180, 250, 30);
 
         background.add(Back);
         background.add(Chapter);
         background.add(Chapter1);
+        background.add(Chapter2);
     }
 
     public void setMenu(){

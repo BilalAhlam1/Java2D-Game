@@ -2,6 +2,7 @@ package game;
 import city.cs.engine.*;
 
 import javax.sound.sampled.*;
+import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -10,7 +11,8 @@ import java.util.Objects;
 
 public class Movement extends KeyAdapter {
 
-    Walker Character;
+    private Walker Character;
+    private JFrame frame;
 
     //Character Movement images
     private static final BodyImage runRight = new BodyImage("data/Adventurer/Sprites/adventurer-run-00.png", 4f);
@@ -25,8 +27,9 @@ public class Movement extends KeyAdapter {
     //Last movement key. Used to add the appropriate orientated image to the character
     public String preKey = null;
 
-    public Movement(Walker StudentWalker) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
-        this.Character = StudentWalker;
+    public Movement(Character character, JFrame frame) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+        this.Character = character;
+        this.frame = frame;
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -55,6 +58,9 @@ public class Movement extends KeyAdapter {
             //replace Character image
             Character.removeAllImages();
             Character.addImage(jump);
+        } else if (Key == KeyEvent.VK_ESCAPE) {
+            frame.dispose();
+            Menu menu = new Menu();
         }
     }
 

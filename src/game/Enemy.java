@@ -11,23 +11,45 @@ public class Enemy extends Walker {
     private static final Shape Enemies =  new BoxShape(1, 2);
     //set the initial health
     private int Health = 100;
+    private final Character character;
+    private GameWorld w;
 
-    //set the initial speed
-    private final int speed = 8;
     private static final BodyImage enemySprite = new BodyImage("data/Loot/Seperate/tile387.png", 4f);
-    public Enemy(World w, StaticBody platform) {
+    private static final BodyImage enemyBullet = new BodyImage("data/Loot/Seperate/tile421.png", 4f);
+    public Enemy(GameWorld w, StaticBody platform, Character character) {
         super(w, Enemies);
-        addImage(enemySprite);
+        this.character = character;
+        this.w = w;
 
-        //sets the primary position of the enemy before walking
-        setPosition(new Vec2(platform.getPosition().x, platform.getPosition().y + 2));
-
-        // Move the character in alternating speeds
-        move(this, platform);
-        this.startWalking(speed);
     }
 
-    public void move(Walker enemy, StaticBody platform){
+    public void fly(Walker enemy, int speed){
+        //enemy walks in alternating speeds if outside the range of the platform
+        ActionListener a = ae -> {
+
+            //Apply y-directional force
+
+            // Calculate the direction vector from Character
+            Vec2 direction = character.getPosition();
+            direction.normalize(); // Normalize the direction vector to unit length
+
+            // Apply a force in the direction of the Character
+            Vec2 force = direction.mul(-speed);
+            enemy.setLinearVelocity(force);
+
+            //Apply x-directional force
+            if (character.getPosition().x > enemy.getPosition().x){
+                enemy.startWalking(speed);
+            } else if (character.getPosition().x < enemy.getPosition().x) {
+                enemy.startWalking(-speed);
+            }
+        };
+        Timer timer1 = new Timer(15, a);
+        timer1.start();
+    }
+
+
+    public void move(Walker enemy, StaticBody platform, int speed){
         //enemy walks in alternating speeds if outside the range of the platform
         ActionListener a = new ActionListener() {
             @Override
@@ -40,8 +62,6 @@ public class Enemy extends Walker {
                 }
             }
         };
-
-        //explodes the bomb every second
         Timer timer1 = new Timer(15, a);
         timer1.start();
     }
@@ -54,6 +74,10 @@ public class Enemy extends Walker {
     public int getHealth() {
         //getter method to return enemy health
         return Health;
+    }
+
+    public Shape getEnemies(){
+        return Enemies;
     }
 
     public void kill(){

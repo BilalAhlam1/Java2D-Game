@@ -3,6 +3,10 @@ package game;
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 
 public class CharacterCollisions implements CollisionListener {
     private final Character Character;
@@ -36,10 +40,6 @@ public class CharacterCollisions implements CollisionListener {
             //update the number of arrows and spawn position
             Character.setSpawn();
 
-            //increments level number and score
-            levelNum++;
-            Character.setScoreCount(Character.getScoreCount() + 1);
-
         } else if (e.getOtherBody() instanceof Enemy) {
             //reduce health by 50 on contact with enemy
             Character.reduceHealth(50);
@@ -56,8 +56,33 @@ public class CharacterCollisions implements CollisionListener {
                 //if character health is 0 or below, reset the character
                 Character.reset();
             }
+
         } else if (e.getOtherBody() instanceof Portal) {
+
+            Character.setScoreCount(Character.getScoreCount()+1);
             game.goToNextChapter(Character.getArrowCount(), Character.getScoreCount(), Character.getHealthCount(), Character.getLives());
+
+        } else if (e.getOtherBody() instanceof AntiGravity) {
+
+
+            Character.setGravityScale(0);
+            Character.setAntiGravity(true);
+
+            e.getOtherBody().destroy();
+            ActionListener c = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent ae) {
+
+                    Character.setGravityScale(1);
+                    Character.setAntiGravity(false);
+                    ((AntiGravity) e.getOtherBody()).reset();
+                }
+            };
+            Timer timer2 = new Timer(2000, c);
+
+            //Doesn't repeat the timer
+            timer2.setRepeats(false);
+            timer2.start();
         }
     }
 }

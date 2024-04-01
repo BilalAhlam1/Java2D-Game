@@ -12,7 +12,7 @@ public class Character extends Walker {
     private static final Shape CharacterShape =  new BoxShape(1, 2);
 
     //Number of arrows held in inventory
-    private int ArrowCount;
+    private int ArrowCount = 0;
 
     //original spawn position
     private Vec2 spawnPosition = new Vec2(0, 3);
@@ -29,7 +29,7 @@ public class Character extends Walker {
     //spawn character image
     private static final BodyImage image = new BodyImage("data/Adventurer/Sprites/adventurer-idleRight-01.png", 4f);
 
-    //private static final BodyImage lives = new BodyImage("data/Loot/Seperate/Heart.png", 4f);
+    private Boolean isAntiGravity = false;
 
     public Character(GameWorld w) {
         //creates a walker object
@@ -37,6 +37,14 @@ public class Character extends Walker {
 
         //adds spawn idle image to character
         addImage(image);
+    }
+
+    public void setAntiGravity(Boolean antiGravity) {
+        isAntiGravity = antiGravity;
+    }
+
+    public Boolean getAntiGravity() {
+        return isAntiGravity;
     }
 
     public void setHealthCount(int healthCount) {

@@ -96,7 +96,7 @@ public class Chapter1 extends GameWorld{
         StaticBody platform5 = new StaticBody(this, shape6);
         platform5.setPosition(new Vec2(10f, 42));
         platform5.addImage(Cloud);
-        Enemy Enemy = new Enemy(this, platform5);
+        Enemy Enemy = new Zombie(this, platform5, getCharacter());
         EnemyDamage enemyDamage = new EnemyDamage(Enemy, getCharacter());
         Enemy.addCollisionListener(enemyDamage);
 

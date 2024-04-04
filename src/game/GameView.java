@@ -14,14 +14,15 @@ import java.io.IOException;
 public class GameView extends UserView {
 
     //CHAPTER1 BACKGROUND
-    private final Image chapter1Background = new ImageIcon("data/Background/Clouds_GIF.gif").getImage();
+    private final Image chapter1 = new ImageIcon("data/Background/Mountain.png").getImage();
+    private final Image chapter1Background = chapter1.getScaledInstance(900, 600, Image.SCALE_DEFAULT);
 
     //CHAPTER2 BACKGROUND
-    private final Image chapter2 = new ImageIcon("data/Background/moon world gif.gif").getImage();
-    private final Image chapter2Background = chapter2.getScaledInstance(900, 600, Image.SCALE_DEFAULT);
+    private final Image chapter2Background = new ImageIcon("data/Background/Clouds_GIF.gif").getImage();
 
     //CHAPTER3 BACKGROUND
-    private final Image chapter3Background = new ImageIcon("data/Background/flying island gif.gif").getImage();
+    private final Image chapter3 = new ImageIcon("data/Background/moon world gif.gif").getImage();
+    private final Image chapter3Background = chapter3.getScaledInstance(900, 600, Image.SCALE_DEFAULT);
 
     //LIVE COUNT
     private final Image heart = new ImageIcon("data/Loot/Seperate/Heart.png").getImage();
@@ -143,6 +144,8 @@ public class GameView extends UserView {
             g.drawImage(chapter1Background, 0, 0, this);
         } else if (Chapter == 2) {
             g.drawImage(chapter2Background, -10, -15, this);
+        } else if (Chapter == 3) {
+            g.drawImage(chapter3Background, -10, -15, this);
         }
     }
 }

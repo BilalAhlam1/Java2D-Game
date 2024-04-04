@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Chapter2 extends GameWorld{
-    private static final BodyImage Cloud = new BodyImage("data/Blue Cloud.png", 7f);
+    private static final BodyImage Cloud = new BodyImage("data/Cloud.png", 7f);
     private static final BodyImage purpleCloud = new BodyImage("data/Purple Cloud.png", 7f);
     private static final BodyImage TimeYourJumpsMessage = new BodyImage("data/GameMessages/TimeYourJumps.png", 2f);
     private static final BodyImage DirectArrowsMessage = new BodyImage("data/GameMessages/DirectArrows.png", 1f);
@@ -99,7 +99,7 @@ public class Chapter2 extends GameWorld{
         StaticBody platform7 = new StaticBody(this, shape8);
         platform7.setPosition(new Vec2(-8f, 81));
         platform7.addImage(Cloud);
-        Enemy enemy1 = new Zombie(this, platform7, getCharacter());
+        Enemy enemy1 = new Guardian(this, platform7, getCharacter());
         EnemyDamage enemyDamage1 = new EnemyDamage(enemy1, getCharacter());
         enemy1.addCollisionListener(enemyDamage1);
 

@@ -37,6 +37,11 @@ public class Game {
 
             //Make a view
             view = new GameView(GameLevel, Chapter, 800, 500);
+        } else if (Chapter == 3) {
+            GameLevel = new Chapter3(this,0, 0, 100, 3);
+
+            //Make a view
+            view = new GameView(GameLevel, Chapter, 800, 500);
         }
 
         //start the world and set gravity
@@ -54,6 +59,17 @@ public class Game {
 
             //start the world
             GameLevel.start();
+        } else if (GameLevel instanceof Chapter2){
+            GameLevel.stop();
+            GameLevel = new Chapter3(this, Arrows, Score, Health, Lives);
+
+            view.setChapter(3);
+            updateWorld();
+
+            //start the world
+            GameLevel.start();
+        } else if (GameLevel instanceof Chapter3){
+            ((Chapter3) GameLevel).makePlatforms();
         }
     }
 

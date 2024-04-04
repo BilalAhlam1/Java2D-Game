@@ -19,6 +19,7 @@ public class Menu extends JFrame {
     JButton LoadChapter = new JButton("Chapter");
     JButton Chapter1 = new JButton("Chapter 1 - A Breeze");
     JButton Chapter2 = new JButton("Chapter 2 - MoonFall");
+    JButton Chapter3 = new JButton("Chapter 3 - Mountaineer");
     JButton Help = new JButton("Help");
     JButton Quit = new JButton("Quit");
     JButton Back = new JButton("Back");
@@ -82,6 +83,18 @@ public class Menu extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     new Game(2);
+                } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
+                    throw new RuntimeException(ex);
+                }
+                dispose(); //remove main menu
+            }
+        });
+
+        Chapter3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new Game(3);
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -175,11 +188,13 @@ public class Menu extends JFrame {
         // Set the button position on the frame
         Chapter1.setBounds(75, 130, 250, 30);
         Chapter2.setBounds(75, 180, 250, 30);
+        Chapter3.setBounds(75, 230, 250, 30);
 
         background.add(Back);
         background.add(Chapter);
         background.add(Chapter1);
         background.add(Chapter2);
+        background.add(Chapter3);
     }
 
     public void setMenu(){

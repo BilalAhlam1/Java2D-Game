@@ -2,6 +2,7 @@ package game;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
+import city.cs.engine.StaticBody;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,9 +11,6 @@ import java.awt.event.ActionListener;
 
 public class CharacterCollisions implements CollisionListener {
     private final Character Character;
-
-    //Level number for progress bar
-    private int levelNum = -1;
     private final Game game;
 
     public CharacterCollisions(Character c, Game game){
@@ -44,22 +42,14 @@ public class CharacterCollisions implements CollisionListener {
             //reduce health by 50 on contact with enemy
             Character.reduceHealth(50);
 
-            //if health decreases to or below 0, reset character
-            if (Character.getHealthCount() <= 0){
-                Character.reset();
-            }
         } else if (e.getOtherBody() instanceof Explosion){
             //reduce character health by 50 and update health on user view when in contact with the bomb
             Character.reduceHealth(50);
 
-            if (Character.getHealthCount() <= 0){
-                //if character health is 0 or below, reset the character
-                Character.reset();
-            }
-
         } else if (e.getOtherBody() instanceof Portal) {
 
             Character.setScoreCount(Character.getScoreCount()+1);
+            e.getOtherBody().destroy();
             game.goToNextChapter(Character.getArrowCount(), Character.getScoreCount(), Character.getHealthCount(), Character.getLives());
 
         } else if (e.getOtherBody() instanceof AntiGravity) {

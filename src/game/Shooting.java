@@ -99,7 +99,7 @@ public class Shooting implements MouseListener {
         };
 
         //removes the bomb after 5 seconds
-        Timer timer1 = new Timer(5000, a);
+        Timer timer1 = new Timer(2000, a);
         //Doesn't repeat the timer
         timer1.setRepeats(false);
         timer1.start();

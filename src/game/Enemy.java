@@ -33,9 +33,15 @@ public class Enemy extends Walker {
             Vec2 direction = character.getPosition();
             direction.normalize(); // Normalize the direction vector to unit length
 
-            // Apply a force in the direction of the Character
-            Vec2 force = direction.mul(-speed);
-            enemy.setLinearVelocity(force);
+            if (character.getPosition().y > enemy.getPosition().y){
+                // Apply a force in the direction of the Character
+                Vec2 force = direction.mul(speed);
+                enemy.setLinearVelocity(force);
+            } else if (character.getPosition().y < enemy.getPosition().y) {
+                // Apply a force in the direction of the Character
+                Vec2 force = direction.mul(-speed);
+                enemy.setLinearVelocity(force);
+            }
 
             //Apply x-directional force
             if (character.getPosition().x > enemy.getPosition().x){

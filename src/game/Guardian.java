@@ -3,6 +3,9 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
+import javax.swing.*;
+import java.awt.event.ActionListener;
+
 public class Guardian extends Enemy{
     private static final BodyImage enemySprite = new BodyImage("data/Loot/Seperate/tile379.png", 4f);
     public Guardian(GameWorld w, StaticBody platform, Character character) {
@@ -13,6 +16,7 @@ public class Guardian extends Enemy{
         Fixture fixture = new SolidFixture(this, getEnemies(), 1000);
 
         this.setPosition(new Vec2(platform.getPosition().x, platform.getPosition().y + 3));
+
         fly(this, 1);
     }
 }

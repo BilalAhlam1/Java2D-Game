@@ -19,15 +19,7 @@ public class CharacterCollisions implements CollisionListener {
     }
     @Override
     public void collide(CollisionEvent e) {
-        if (e.getOtherBody() instanceof Arrows) {
-
-            // If character collides with arrows, arrow inventory increments
-            Character.setArrowCount(Character.getArrowCount() + 1);
-
-            //destroy collided object
-            e.getOtherBody().destroy();
-
-        } else if (e.getOtherBody() instanceof Quiver) {
+        if (e.getOtherBody() instanceof Quiver) {
 
             // If character collides with a quiver, arrow inventory increments by 3
             Character.setArrowCount(Character.getArrowCount() + 3);
@@ -49,6 +41,7 @@ public class CharacterCollisions implements CollisionListener {
         } else if (e.getOtherBody() instanceof Portal) {
 
             Character.setScoreCount(Character.getScoreCount()+1);
+            Character.setSpawn();
             e.getOtherBody().destroy();
             game.goToNextChapter(Character.getArrowCount(), Character.getScoreCount(), Character.getHealthCount(), Character.getLives());
 

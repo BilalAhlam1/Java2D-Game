@@ -91,14 +91,18 @@ public class Character extends Walker {
     }
 
     public void reset(){
-        //resets the characters arrow count, health, position and de-increments the number of lives
+        //resets the characters arrow count, health, position, de-increments the number of lives and score
         ArrowCount = 0;
         this.healthCount = 100;
         lives = lives - 1;
+        if (scoreCount > 0) {
+            scoreCount = scoreCount - 1;
+        }
         this.setPosition(spawnPosition);
 
         //if the number of lives reaches 0, the game ends
         if (lives == 0){
+            System.out.println("Died");
             System.exit(0);
         }
     }

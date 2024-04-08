@@ -51,8 +51,20 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new Game(1);
+                    new Game(1, 0, 0, 100, 3);
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
+                    throw new RuntimeException(ex);
+                }
+                dispose(); //remove main menu
+            }
+        });
+
+        LoadGame.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    new loadGame();
+                } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
                 dispose(); //remove main menu
@@ -70,7 +82,7 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new Game(1);
+                    new Game(1, 0, 0, 100, 3);
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -82,7 +94,7 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new Game(2);
+                    new Game(2, 0, 0, 100, 3);
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -94,7 +106,7 @@ public class Menu extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    new Game(3);
+                    new Game(3, 0, 0, 100, 3);
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }

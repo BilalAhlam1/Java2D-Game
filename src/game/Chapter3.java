@@ -14,6 +14,11 @@ public class Chapter3 extends GameWorld{
     public Chapter3(Game game, int Arrows, int Score, int Health, int Lives) {
         super();
 
+        //Make an array of positions,
+        //set objects and empty array
+        //if array is empty run condition to make platforms
+
+        //setChapter(3);
         //Move Statistics from previous level to current Level
         setStatistics(Arrows, Score, Health, Lives);
 
@@ -34,15 +39,12 @@ public class Chapter3 extends GameWorld{
     }
 
     public void makePlatforms(){
+        setChapter(3);
         //Create an array of unique x values for the platforms
         createUniqueNumbers();
 
         //if the most recent platform is bouncy, it's index is stored
         int isPurple = -1;
-
-        //Create 3 Levels
-        //for (int j = 0; j < 3; j++) {
-
 
         //create the platforms
         for (int i = 1; i < 6; i++) {
@@ -68,15 +70,22 @@ public class Chapter3 extends GameWorld{
                 }
 
                 //chance of bouncy cloud spawning and checks if the previous three platforms were bouncy
-                if (Random > 0.2 && Random < 0.3 && i > isPurple + 2) {
+                else if (Random > 0.7 && Random < 0.8 && i > isPurple + 2) {
                     platformFixture.setRestitution(3);
                     ground.removeAllImages();
                     ground.addImage(purpleCloud);
                     isPurple = i;
                 }
-
+                else if (Random > 0.65 && Random < 0.7) {
+                    AntiGravity antiGravity = new AntiGravity(this, ground, getCharacter());
+                }
+                else if (Random > 0.25 && Random < 0.4 && Random < Difficulty) {
+                    Enemy Guardian = new Guardian(this, ground, getCharacter());
+                    EnemyDamage guardianDamage = new EnemyDamage(Guardian, getCharacter());
+                    Guardian.addCollisionListener(guardianDamage);
+                }
                 //loads enemy on a condition
-                if (Random < Difficulty) {
+                if (Random < 0.25 && Random > 0.4 && Random < Difficulty) {
                     Enemy Enemy = new Zombie(this, ground, getCharacter());
                     EnemyDamage enemyDamage = new EnemyDamage(Enemy, getCharacter());
                     Enemy.addCollisionListener(enemyDamage);

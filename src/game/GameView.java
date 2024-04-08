@@ -41,6 +41,9 @@ public class GameView extends UserView {
     private final Scene Camera;
     private final Shooting shooting;
     private int Chapter;
+    private final JFrame frame;
+    private final int[] Seconds = {60};
+    private Timer timer1;
 
     public GameView(GameWorld w, int Chapter, int width, int height) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         super(w, width, height);
@@ -51,7 +54,7 @@ public class GameView extends UserView {
         Character = w.getCharacter();
 
         //make a JFrame
-        JFrame frame = new JFrame("Links Adventure");
+        frame = new JFrame("Links Adventure");
 
         //Calls the function to follow the character and load the scene(levels)
         Camera = new Scene(Character, this);
@@ -73,15 +76,38 @@ public class GameView extends UserView {
         shooting = new Shooting(w, this, Character);
         frame.addMouseListener(shooting);
 
-        movement = new Movement(Character, frame);
+        movement = new Movement(Character, frame, w);
         //Control Character
         frame.addKeyListener(movement);
+
+        //Start Timer in chapter 3
+        if (Chapter == 3) {
+            startTimer();
+        }
+
 
         //optional: uncomment this to make a debugging view
         //JFrame debugView = new DebugViewer(w, 500, 500);
 
         frame.getContentPane();
         setLayout(null);
+    }
+
+    public void startTimer(){
+        ActionListener a = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                Seconds[0]--;
+                if (Seconds[0] == 0){
+                    new Menu();
+                    frame.dispose();
+                    timer1.stop();
+                }
+            }
+        };
+
+        timer1 = new Timer(1000, a);
+        timer1.start();
     }
 
     public void updateCharacter(Character character){
@@ -130,6 +156,11 @@ public class GameView extends UserView {
 
         g.setColor(Color.BLACK);
         g.drawString("Health", 640, 30);
+
+        //Display Timer
+        if (Chapter == 3){
+            g.drawString("" + Seconds[0], 350, 60);
+        }
 
         //Displays Anti Gravity in inventory if in use
         if (Character.getAntiGravity()){

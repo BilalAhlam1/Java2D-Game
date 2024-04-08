@@ -3,33 +3,35 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class Chapter2 extends GameWorld{
     private static final BodyImage Cloud = new BodyImage("data/Cloud.png", 7f);
     private static final BodyImage purpleCloud = new BodyImage("data/Purple Cloud.png", 7f);
     private static final BodyImage TimeYourJumpsMessage = new BodyImage("data/GameMessages/TimeYourJumps.png", 2f);
     private static final BodyImage DirectArrowsMessage = new BodyImage("data/GameMessages/DirectArrows.png", 1f);
+    private final Vec2[] Coordinates = new Vec2[]{new Vec2(-6f, 0), new Vec2(-8f, 81)};
     public Chapter2(Game game, int Arrows, int Score, int Health, int Lives){
         super();
+
+        setChapter(2);
+
 
         //Move Statistics from previous level to current Level
         setStatistics(Arrows, Score, Health, Lives);
 
         //Set Character Position
-        getCharacter().setPosition(new Vec2(0, 3));
+        getCharacter().setPosition(new Vec2(-6f, 0));
 
         //Displays score with collisions
         CharacterCollisions Collisions = new CharacterCollisions(getCharacter(), game);
         getCharacter().addCollisionListener(Collisions);
 
-        //make a starting platform
-        Shape shape1 = new BoxShape(6, 0.5f);
-        StaticBody platform1 = new StaticBody(this, shape1);
-        platform1.setPosition(new Vec2(-6f, 0));
-        platform1.addImage(Cloud);
+        //Spawn Basic platforms
+        for (Vec2 coordinate : Coordinates) {
+            Shape shape1 = new BoxShape(6, 0.5f);
+            StaticBody platform1 = new StaticBody(this, shape1);
+            platform1.setPosition(coordinate);
+            platform1.addImage(Cloud);
+        }
 
         //Time Your Jumps Message
         Shape TimeJumps = new BoxShape(6, 0.5f);
@@ -46,6 +48,7 @@ public class Chapter2 extends GameWorld{
         platform2.addImage(Cloud);
         movePlatform(platform2, 60, 0);
 
+        //Arrows
         Shape shape3 = new BoxShape(6, 0.5f);
         StaticBody platform3 = new StaticBody(this, shape3);
         platform3.setPosition(new Vec2(6f, 14));
@@ -94,30 +97,27 @@ public class Chapter2 extends GameWorld{
         //Resupply arrows if empty
         ResupplyArrows(this, platform6);
 
-        //ENEMY PLATFORM
-        Shape shape8 = new BoxShape(6, 0.5f);
-        StaticBody platform7 = new StaticBody(this, shape8);
-        platform7.setPosition(new Vec2(-8f, 81));
-        platform7.addImage(Cloud);
-        Enemy enemy1 = new Guardian(this, platform7, getCharacter());
-        EnemyDamage enemyDamage1 = new EnemyDamage(enemy1, getCharacter());
-        enemy1.addCollisionListener(enemyDamage1);
-
-
+        //Enemy platform
+        //Move platform
         Shape shape9 = new BoxShape(6, 0.5f);
         StaticBody platform8 = new StaticBody(this, shape9);
         platform8.setPosition(new Vec2(10f, 89));
         platform8.addImage(Cloud);
         movePlatform(platform8, 20, -8);
 
-        Enemy enemy2 = new Guardian(this, platform8, getCharacter());
-        EnemyDamage enemyDamage2 = new EnemyDamage(enemy2, getCharacter());
-        enemy2.addCollisionListener(enemyDamage2);
+        Enemy enemy1 = new Guardian(this, platform8, getCharacter());
+        EnemyDamage enemyDamage1 = new EnemyDamage(enemy1, getCharacter());
+        enemy1.addCollisionListener(enemyDamage1);
 
+        //Portal
         Shape shape10 = new BoxShape(6, 0.5f);
         StaticBody platform9 = new StaticBody(this, shape10);
         platform9.setPosition(new Vec2(10f, 105));
         platform9.addImage(Cloud);
         Portal portal = new Portal(this, platform9);
+
+        Enemy enemy2 = new Guardian(this, platform9, getCharacter());
+        EnemyDamage enemyDamage2 = new EnemyDamage(enemy2, getCharacter());
+        enemy2.addCollisionListener(enemyDamage2);
     }
 }

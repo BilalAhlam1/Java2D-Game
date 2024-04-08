@@ -5,12 +5,15 @@ import org.jbox2d.common.Vec2;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class GameWorld extends World {
 
     //Load platform image
     private static final BodyImage Cloud = new BodyImage("data/Cloud.png", 7f);
     private final Character Character;
+    private int Chapter = 1;
     public GameWorld(){
         super(60);
 
@@ -81,5 +84,13 @@ public abstract class GameWorld extends World {
 
     public Character getCharacter() {
         return Character;
+    }
+
+    public void setChapter(int Chapter) {
+        this.Chapter = Chapter;
+    }
+
+    public int getChapterName() {
+        return Chapter;
     }
 }

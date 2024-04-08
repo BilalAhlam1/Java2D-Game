@@ -24,21 +24,21 @@ public class Game {
     /**
      * Initialise a new Game.
      */
-    public Game(int Chapter) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public Game(int Chapter, int Arrows, int Score, int Health, int Lives) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
 
         //Initialise Chapter
         if (Chapter == 1) {
-            GameLevel = new Chapter1(this);
+            GameLevel = new Chapter1(this, Arrows,  Score,  Health,  Lives);
 
             //Make a view
             view = new GameView(GameLevel, Chapter, 800, 500);
         } else if (Chapter == 2) {
-            GameLevel = new Chapter2(this,0, 0, 100, 3);
+            GameLevel = new Chapter2(this, Arrows,  Score,  Health,  Lives);
 
             //Make a view
             view = new GameView(GameLevel, Chapter, 800, 500);
         } else if (Chapter == 3) {
-            GameLevel = new Chapter3(this,0, 0, 100, 3);
+            GameLevel = new Chapter3(this, Arrows,  Score,  Health,  Lives);
 
             //Make a view
             view = new GameView(GameLevel, Chapter, 800, 500);
@@ -47,6 +47,10 @@ public class Game {
         //start the world and set gravity
         GameLevel.setGravity(20);
         GameLevel.start();
+    }
+
+    public GameWorld getGameLevel() {
+        return GameLevel;
     }
 
     public void goToNextChapter(int Arrows, int Score, int Health, int Lives){
@@ -64,6 +68,7 @@ public class Game {
             GameLevel = new Chapter3(this, Arrows, Score, Health, Lives);
 
             view.setChapter(3);
+            view.startTimer();
             updateWorld();
 
             //start the world
@@ -88,7 +93,7 @@ public class Game {
     }
 
     public static void mainMenu(){
-        Menu menu = new Menu();
+        new Menu();
         BackGroundMusic.play();
         BackGroundMusic.loop();
     }

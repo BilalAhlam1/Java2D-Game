@@ -10,7 +10,7 @@ public class Portal extends StaticBody{
     //ArrowImage
     private static final BodyImage PortalImage = new BodyImage("data/Loot/Seperate/tile259.png", 4f);
 
-    public Portal(World w, StaticBody staticBody) {
+    public Portal(World w, Vec2 staticBody) {
         //Creates Dynamic Body
         super(w, Portal);
 
@@ -18,6 +18,6 @@ public class Portal extends StaticBody{
         addImage(PortalImage);
 
         //set the position of the body to the given platform
-        setPosition(new Vec2(staticBody.getPosition().x, staticBody.getPosition().y + 2));
+        setPosition(new Vec2(staticBody.x, staticBody.y + 2));
     }
 }

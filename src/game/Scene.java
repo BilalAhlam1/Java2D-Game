@@ -28,6 +28,7 @@ public class Scene implements StepListener {
 
         //resets the character if it falls below the levels
         if (Character.getPosition().y < -20 ||Character.getHealthCount() <= 0) {
+            Character.setLinearVelocity(new Vec2(0, 3));
             Character.reset();
         }
 

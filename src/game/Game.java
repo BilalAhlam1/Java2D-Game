@@ -31,18 +31,19 @@ public class Game {
             GameLevel = new Chapter1(this, Arrows,  Score,  Health,  Lives);
 
             //Make a view
-            view = new GameView(GameLevel, Chapter, 800, 500);
+            //view = new GameView(GameLevel, Chapter, 800, 500);
         } else if (Chapter == 2) {
             GameLevel = new Chapter2(this, Arrows,  Score,  Health,  Lives);
 
             //Make a view
-            view = new GameView(GameLevel, Chapter, 800, 500);
+            //view = new GameView(GameLevel, Chapter, 800, 500);
         } else if (Chapter == 3) {
             GameLevel = new Chapter3(this, Arrows,  Score,  Health,  Lives);
 
             //Make a view
-            view = new GameView(GameLevel, Chapter, 800, 500);
+            //view = new GameView(GameLevel, Chapter, 800, 500);
         }
+        view = new GameView(GameLevel, Chapter, 800, 500);
 
         //start the world and set gravity
         GameLevel.setGravity(20);

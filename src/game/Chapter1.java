@@ -92,7 +92,7 @@ public class Chapter1 extends GameWorld {
         StaticBody platform5 = new StaticBody(this, shape6);
         platform5.setPosition(new Vec2(10f, 42));
         platform5.addImage(Mountain);
-        Enemy Enemy = new Zombie(this, platform5, getCharacter());
+        Enemy Enemy = new Zombie(this, platform5.getPosition(), getCharacter());
         EnemyDamage enemyDamage = new EnemyDamage(Enemy, getCharacter());
         Enemy.addCollisionListener(enemyDamage);
 
@@ -101,7 +101,7 @@ public class Chapter1 extends GameWorld {
         StaticBody platform6 = new StaticBody(this, shape7);
         platform6.setPosition(new Vec2(-8f, 48));
         platform6.addImage(Mountain);
-        Portal portal = new Portal(this, platform6);
+        Portal portal = new Portal(this, platform6.getPosition());
 
     }
 }

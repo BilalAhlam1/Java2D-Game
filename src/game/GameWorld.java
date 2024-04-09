@@ -52,8 +52,8 @@ public abstract class GameWorld extends World {
             }
         };
 
-        //Two second Cool down
-        Timer timer1 = new Timer(2000, a);
+        //Checks every second
+        Timer timer1 = new Timer(1000, a);
         timer1.start();
     }
 

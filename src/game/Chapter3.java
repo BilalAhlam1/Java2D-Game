@@ -58,7 +58,7 @@ public class Chapter3 extends GameWorld{
 
             //sets the position of the last platform and loads Arrows
             if (i == 5) {
-                Portal portal = new Portal(this, ground);
+                Portal portal = new Portal(this, ground.getPosition());
                 MaxLevel = Ypos + 8 * i;
             } else {
 
@@ -77,16 +77,16 @@ public class Chapter3 extends GameWorld{
                     isPurple = i;
                 }
                 else if (Random > 0.65 && Random < 0.7) {
-                    AntiGravity antiGravity = new AntiGravity(this, ground, getCharacter());
+                    AntiGravity antiGravity = new AntiGravity(this, ground.getPosition(), getCharacter());
                 }
                 else if (Random > 0.25 && Random < 0.4 && Random < Difficulty) {
-                    Enemy Guardian = new Guardian(this, ground, getCharacter());
+                    Enemy Guardian = new Guardian(this, ground.getPosition(), getCharacter());
                     EnemyDamage guardianDamage = new EnemyDamage(Guardian, getCharacter());
                     Guardian.addCollisionListener(guardianDamage);
                 }
                 //loads enemy on a condition
                 if (Random < 0.25 && Random > 0.4 && Random < Difficulty) {
-                    Enemy Enemy = new Zombie(this, ground, getCharacter());
+                    Enemy Enemy = new Zombie(this, ground.getPosition(), getCharacter());
                     EnemyDamage enemyDamage = new EnemyDamage(Enemy, getCharacter());
                     Enemy.addCollisionListener(enemyDamage);
                 }

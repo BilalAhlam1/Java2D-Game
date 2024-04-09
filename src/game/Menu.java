@@ -23,7 +23,6 @@ public class Menu extends JFrame {
     JButton Help = new JButton("Help");
     JButton Quit = new JButton("Quit");
     JButton Back = new JButton("Back");
-    private JPanel MainMenu;
 
     public Menu() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

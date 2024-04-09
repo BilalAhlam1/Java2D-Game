@@ -79,7 +79,7 @@ public class Chapter2 extends GameWorld{
         StaticBody platform4 = new StaticBody(this, shape5);
         platform4.setPosition(new Vec2(0f, 22));
         platform4.addImage(Cloud);
-        Enemy enemy = new Zombie(this, platform4, getCharacter());
+        Enemy enemy = new Zombie(this, platform4.getPosition(), getCharacter());
         EnemyDamage enemyDamage = new EnemyDamage(enemy, getCharacter());
         enemy.addCollisionListener(enemyDamage);
 
@@ -88,7 +88,7 @@ public class Chapter2 extends GameWorld{
         StaticBody platform5 = new StaticBody(this, shape6);
         platform5.setPosition(new Vec2(-10f, 31));
         platform5.addImage(Cloud);
-        PowerUps antiGravity = new AntiGravity(this, platform5, getCharacter());
+        PowerUps antiGravity = new AntiGravity(this, platform5.getPosition(), getCharacter());
 
         Shape shape7 = new BoxShape(6, 0.5f);
         StaticBody platform6 = new StaticBody(this, shape7);
@@ -105,7 +105,7 @@ public class Chapter2 extends GameWorld{
         platform8.addImage(Cloud);
         movePlatform(platform8, 20, -8);
 
-        Enemy enemy1 = new Guardian(this, platform8, getCharacter());
+        Enemy enemy1 = new Guardian(this, platform8.getPosition(), getCharacter());
         EnemyDamage enemyDamage1 = new EnemyDamage(enemy1, getCharacter());
         enemy1.addCollisionListener(enemyDamage1);
 
@@ -114,9 +114,9 @@ public class Chapter2 extends GameWorld{
         StaticBody platform9 = new StaticBody(this, shape10);
         platform9.setPosition(new Vec2(10f, 105));
         platform9.addImage(Cloud);
-        Portal portal = new Portal(this, platform9);
+        Portal portal = new Portal(this, platform9.getPosition());
 
-        Enemy enemy2 = new Guardian(this, platform9, getCharacter());
+        Enemy enemy2 = new Guardian(this, platform9.getPosition(), getCharacter());
         EnemyDamage enemyDamage2 = new EnemyDamage(enemy2, getCharacter());
         enemy2.addCollisionListener(enemyDamage2);
     }

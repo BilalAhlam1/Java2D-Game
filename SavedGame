@@ -1,1 +1,11 @@
-Chapter:,2,Character xPosition,6.9955,Character yPosition,107.8511,Character Health,100,Character Lives,1,Character Arrows,0,Character Score,3,
+Chapter:,3
+Character xPosition,7.7264056
+Character yPosition,162.515
+Character Health,70
+Character Lives,3
+Character Arrows,6,
+Character Score,9
+EnemyList Bodies,
+GuardianList Bodies,
+PortalList Bodies,3.0, 202.0
+AntiGravityList Bodies,9.0, 154.0, 8.0, 130.0

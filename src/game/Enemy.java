@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Enemy extends Walker {
+public abstract class Enemy extends Walker {
     private static final Shape Enemies =  new BoxShape(1, 2);
     //set the initial health
     private int Health = 100;
@@ -16,7 +16,7 @@ public class Enemy extends Walker {
 
     private static final BodyImage enemySprite = new BodyImage("data/Loot/Seperate/tile387.png", 4f);
     private static final BodyImage enemyBullet = new BodyImage("data/Loot/Seperate/tile421.png", 4f);
-    public Enemy(GameWorld w, StaticBody platform, Character character) {
+    public Enemy(GameWorld w, Vec2 platform, Character character) {
         super(w, Enemies);
         this.character = character;
         this.w = w;
@@ -55,15 +55,15 @@ public class Enemy extends Walker {
     }
 
 
-    public void move(Walker enemy, StaticBody platform, int speed){
+    public void move(Walker enemy, Vec2 platform, int speed){
         //enemy walks in alternating speeds if outside the range of the platform
         ActionListener a = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                if (enemy.getPosition().x > platform.getPosition().x + 3){
+                if (enemy.getPosition().x > platform.x + 3){
                     enemy.startWalking(-speed);
 
-                } else if (enemy.getPosition().x < platform.getPosition().x - 3) {
+                } else if (enemy.getPosition().x < platform.x - 3) {
                     enemy.startWalking(speed);
                 }
             }
@@ -91,4 +91,6 @@ public class Enemy extends Walker {
         this.destroy();
         this.removeAllCollisionListeners();
     }
+
+    public abstract Vec2 getPlatformPosition();
 }

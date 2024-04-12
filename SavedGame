@@ -1,11 +1,14 @@
 Chapter:,3
-Character xPosition,7.7264056
-Character yPosition,162.515
-Character Health,70
+Time Left,115
+Character xPosition,-9.347442
+Character yPosition,18.515
+Character Health,50
 Character Lives,3
-Character Arrows,6,
-Character Score,9
+Character Arrows,0,
+Character Score,4
 EnemyList Bodies,
 GuardianList Bodies,
-PortalList Bodies,3.0, 202.0
-AntiGravityList Bodies,9.0, 154.0, 8.0, 130.0
+PortalList Bodies,-1.0, 42.0
+AntiGravityList Bodies,
+QuiverList Bodies,-6.0, 26.0
+PlatformList Bodies,-1.0, 40.0, -9.0, 32.0, -6.0, 24.0, -11.000001, 16.0, 2.0, 8.0, 0.0, 0.0, -21.0, 0.0, 21.0, 0.0

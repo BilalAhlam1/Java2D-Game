@@ -23,7 +23,7 @@ public class Chapter1 extends GameWorld {
         Vec2[] BouncyPlatformCoordinates = new Vec2[]{new Vec2(8f, 24)};
         Vec2[] ZombieCoordinates = new Vec2[]{new Vec2(8f, 24)};
 
-        setChapter(1);
+        //setChapter(1);
         setStatistics(Arrows, Score, Health, Lives);
         //setPlatformCoordinates(PlatformCoordinates);
         getCharacter().setPosition(new Vec2(0, 3));
@@ -70,7 +70,7 @@ public class Chapter1 extends GameWorld {
         StaticBody platform4 = new StaticBody(this, shape5);
         platform4.setPosition(new Vec2(-8f, 36));
         platform4.addImage(Mountain);
-        Quiver quiver = new Quiver(this, platform4);
+        Quiver quiver = new Quiver(this, platform4.getPosition());
 
         //HOW TO SHOOT
         Shape ShootText = new BoxShape(6, 0.5f);

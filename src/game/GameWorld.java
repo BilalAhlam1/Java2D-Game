@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public abstract class GameWorld extends World {
 
@@ -14,6 +15,7 @@ public abstract class GameWorld extends World {
     private static final BodyImage Cloud = new BodyImage("data/Cloud.png", 7f);
     private final Character Character;
     private int Chapter = 1;
+    private float currentYPos = 0;
     public GameWorld(){
         super(60);
 
@@ -44,7 +46,7 @@ public abstract class GameWorld extends World {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 if (getCharacter().getArrowCount() == 0 && !quiverCollected[0]) {
-                    Quiver quiver = new Quiver(world, platform);
+                    Quiver quiver = new Quiver(world, platform.getPosition());
                     quiverCollected[0] = true;
                 } else if (getCharacter().getArrowCount() > 0) {
                     quiverCollected[0] = false;
@@ -74,6 +76,14 @@ public abstract class GameWorld extends World {
         timer1.start();
     }
 
+    public void removeStaticBodies(){
+        List<StaticBody> staticBody = this.getStaticBodies();
+        for (int i  = 0; i < getStaticBodies().size(); i++){
+            getStaticBodies().removeFirst();
+        }
+        System.out.println(staticBody);
+    }
+
     //Set Statistics
     public void setStatistics(int Arrows, int Score, int Health, int Lives){
         Character.setArrowCount(Arrows);
@@ -92,5 +102,13 @@ public abstract class GameWorld extends World {
 
     public int getChapterName() {
         return Chapter;
+    }
+
+    public float getCurrentYPos() {
+        return currentYPos;
+    }
+
+    public void setCurrentYPos(float currentYPos) {
+        this.currentYPos = currentYPos;
     }
 }

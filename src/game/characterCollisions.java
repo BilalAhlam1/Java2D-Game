@@ -2,16 +2,29 @@ package game;
 
 import city.cs.engine.CollisionEvent;
 import city.cs.engine.CollisionListener;
+import city.cs.engine.SoundClip;
 import city.cs.engine.StaticBody;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 
 public class CharacterCollisions implements CollisionListener {
     private final Character Character;
     private final Game game;
+    static SoundClip PortalCollision;
+
+    static {
+        try {
+            PortalCollision = new SoundClip("data/Sounds/PortalCollision.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public CharacterCollisions(Character c, Game game){
         this.Character = c;
@@ -43,6 +56,7 @@ public class CharacterCollisions implements CollisionListener {
             Character.setScoreCount(Character.getScoreCount()+1);
             Character.setSpawn();
             e.getOtherBody().destroy();
+            PortalCollision.play();
             game.goToNextChapter(Character.getArrowCount(), Character.getScoreCount(), Character.getHealthCount(), Character.getLives());
 
         } else if (e.getOtherBody() instanceof AntiGravity) {

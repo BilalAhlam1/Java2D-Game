@@ -1,5 +1,7 @@
 package game;
 
+import city.cs.engine.SoundClip;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -24,7 +26,37 @@ public class Menu extends JFrame {
     JButton Quit = new JButton("Quit");
     JButton Back = new JButton("Back");
 
+    static SoundClip BackGroundMusic;
+
+    static {
+        try {
+            BackGroundMusic = new SoundClip("data/Sounds/Menu Music.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    static SoundClip GameMusic;
+
+    static {
+        try {
+            GameMusic = new SoundClip("data/Sounds/GameMusic.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    static SoundClip ButtonClick;
+
+    static {
+        try {
+            ButtonClick = new SoundClip("data/Sounds/ButtonClick.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Menu() {
+        GameMusic.stop();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         // don't let the frame be resized
@@ -37,12 +69,15 @@ public class Menu extends JFrame {
         add(background);
 
         setMenu();
+        BackGroundMusic.play();
+        BackGroundMusic.loop();
 
         //PLAY
         Play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 setPlay();
+                ButtonClick.play();
             }
         });
 
@@ -54,6 +89,9 @@ public class Menu extends JFrame {
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }
+                ButtonClick.play();
+                GameMusic.loop();
+                BackGroundMusic.stop();
                 dispose(); //remove main menu
             }
         });
@@ -66,6 +104,9 @@ public class Menu extends JFrame {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+                ButtonClick.play();
+                GameMusic.loop();
+                BackGroundMusic.stop();
                 dispose(); //remove main menu
             }
         });
@@ -73,6 +114,7 @@ public class Menu extends JFrame {
         LoadChapter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ButtonClick.play();
                 setChapter();
             }
         });
@@ -85,6 +127,9 @@ public class Menu extends JFrame {
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }
+                ButtonClick.play();
+                GameMusic.loop();
+                BackGroundMusic.stop();
                 dispose(); //remove main menu
             }
         });
@@ -97,6 +142,9 @@ public class Menu extends JFrame {
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }
+                ButtonClick.play();
+                GameMusic.loop();
+                BackGroundMusic.stop();
                 dispose(); //remove main menu
             }
         });
@@ -109,6 +157,9 @@ public class Menu extends JFrame {
                 } catch (LineUnavailableException | IOException | UnsupportedAudioFileException ex) {
                     throw new RuntimeException(ex);
                 }
+                ButtonClick.play();
+                GameMusic.loop();
+                BackGroundMusic.stop();
                 dispose(); //remove main menu
             }
         });
@@ -117,6 +168,7 @@ public class Menu extends JFrame {
         Help.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ButtonClick.play();
                 setHelp();
             }
         });
@@ -124,6 +176,7 @@ public class Menu extends JFrame {
         Back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ButtonClick.play();
                 setMenu();
             }
         });
@@ -132,6 +185,7 @@ public class Menu extends JFrame {
         Quit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                ButtonClick.play();
                 System.exit(0);
             }
         });

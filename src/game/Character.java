@@ -3,8 +3,11 @@ import city.cs.engine.*;
 import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class Character extends Walker {
 
@@ -30,6 +33,25 @@ public class Character extends Walker {
     private static final BodyImage image = new BodyImage("data/Adventurer/Sprites/adventurer-idleRight-01.png", 4f);
 
     private Boolean isAntiGravity = false;
+
+    static SoundClip CharacterHit;
+
+    static {
+        try {
+            CharacterHit = new SoundClip("data/Sounds/CharacterHurt.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    static SoundClip CharacterDeath;
+
+    static {
+        try {
+            CharacterDeath = new SoundClip("data/Sounds/CharacterDeath.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public Character(GameWorld w) {
         //creates a walker object
@@ -83,6 +105,7 @@ public class Character extends Walker {
     public void reduceHealth(int n){
         //reduce health by the set value 'n' and update this on the frame
         healthCount = healthCount - n;
+        CharacterHit.play();
     }
 
     public int getHealthCount() {
@@ -92,6 +115,7 @@ public class Character extends Walker {
 
     public void reset(){
         //resets the characters arrow count, health, position, de-increments the number of lives and score
+        CharacterDeath.play();
         ArrowCount = 0;
         this.healthCount = 100;
         lives = lives - 1;

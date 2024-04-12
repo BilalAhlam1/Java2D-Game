@@ -42,10 +42,10 @@ public class GameView extends UserView {
     private final Shooting shooting;
     private int Chapter;
     private final JFrame frame;
-    private final int[] Seconds = {60};
+    private final int[] Seconds = {30};
     private Timer timer1;
 
-    public GameView(GameWorld w, int Chapter, int width, int height) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public GameView(Game game, GameWorld w, int Chapter, int width, int height) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         super(w, width, height);
 
         this.Chapter = Chapter;
@@ -76,12 +76,19 @@ public class GameView extends UserView {
         shooting = new Shooting(w, this, Character);
         frame.addMouseListener(shooting);
 
-        movement = new Movement(Character, frame, w);
+        movement = new Movement(Character, frame, game, this);
         //Control Character
         frame.addKeyListener(movement);
 
         //Start Timer in chapter 3
-        if (Chapter == 3) {
+        if (Chapter == 1) {
+            Seconds[0] = 30;
+            startTimer();
+        } else if (Chapter == 2){
+            Seconds[0] = 45;
+            startTimer();
+        } else if (Chapter == 3){
+            Seconds[0] = 120;
             startTimer();
         }
 
@@ -118,6 +125,10 @@ public class GameView extends UserView {
         Chapter = chapter;
     }
 
+    public int getChapter() {
+        return Chapter;
+    }
+
     public Scene getCamera() {
         return Camera;
     }
@@ -128,6 +139,18 @@ public class GameView extends UserView {
 
     public Movement getMovement() {
         return movement;
+    }
+
+    public int getSeconds() {
+        return Seconds[0];
+    }
+
+    public Timer getTimer1() {
+        return timer1;
+    }
+
+    public void setSeconds(int seconds) {
+        Seconds[0] = seconds;
     }
 
     @Override
@@ -158,9 +181,8 @@ public class GameView extends UserView {
         g.drawString("Health", 640, 30);
 
         //Display Timer
-        if (Chapter == 3){
-            g.drawString("" + Seconds[0], 350, 60);
-        }
+        g.drawString("" + Seconds[0], 375, 60);
+
 
         //Displays Anti Gravity in inventory if in use
         if (Character.getAntiGravity()){

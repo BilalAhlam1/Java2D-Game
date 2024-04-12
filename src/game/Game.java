@@ -8,16 +8,6 @@ import java.io.IOException;
  * Your main game entry point
  */
 public class Game {
-    static SoundClip BackGroundMusic;
-
-    static {
-        try {
-            BackGroundMusic = new SoundClip("data/Sounds/Background Music.wav");
-        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private static GameWorld GameLevel;
     private static GameView view;
 
@@ -29,21 +19,14 @@ public class Game {
         //Initialise Chapter
         if (Chapter == 1) {
             GameLevel = new Chapter1(this, Arrows,  Score,  Health,  Lives);
-
-            //Make a view
-            //view = new GameView(GameLevel, Chapter, 800, 500);
         } else if (Chapter == 2) {
             GameLevel = new Chapter2(this, Arrows,  Score,  Health,  Lives);
-
-            //Make a view
-            //view = new GameView(GameLevel, Chapter, 800, 500);
         } else if (Chapter == 3) {
             GameLevel = new Chapter3(this, Arrows,  Score,  Health,  Lives);
-
-            //Make a view
-            //view = new GameView(GameLevel, Chapter, 800, 500);
         }
-        view = new GameView(GameLevel, Chapter, 800, 500);
+
+        //Make a view
+        view = new GameView(this, GameLevel, Chapter, 800, 500);
 
         //start the world and set gravity
         GameLevel.setGravity(20);
@@ -59,6 +42,7 @@ public class Game {
             GameLevel.stop();
             GameLevel = new Chapter2(this, Arrows, Score, Health, Lives);
 
+            view.setSeconds(45);
             view.setChapter(2);
             updateWorld();
 
@@ -68,8 +52,8 @@ public class Game {
             GameLevel.stop();
             GameLevel = new Chapter3(this, Arrows, Score, Health, Lives);
 
+            view.setSeconds(120);
             view.setChapter(3);
-            view.startTimer();
             updateWorld();
 
             //start the world
@@ -89,14 +73,17 @@ public class Game {
         view.getShooting().updateCharacter(GameLevel.getCharacter());
         view.updateCharacter(GameLevel.getCharacter());
 
+        //GameLevel.removeStaticBodies();
         //set gravity
         GameLevel.setGravity(20);
     }
 
+    public GameView getView() {
+        return view;
+    }
+
     public static void mainMenu(){
         new Menu();
-        BackGroundMusic.play();
-        BackGroundMusic.loop();
     }
 
     /** Run the game. */

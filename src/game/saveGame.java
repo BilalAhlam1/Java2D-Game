@@ -8,29 +8,37 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class saveGame {
     private final GameWorld GameChapter;
+    private final GameView view;
     private String PortalList;
     private String AntiGravityList;
     private String ZombieList;
     private String GuardianList;
+    private String QuiverList;
+    private String PlatformList;
+    private int Seconds;
 
-    public saveGame(JFrame frame, GameWorld GameChapter) throws IOException {
-        this.GameChapter = GameChapter;
+    public saveGame(JFrame frame, Game game, GameView view) throws IOException {
+        this.GameChapter = game.getGameLevel();
+        this.view = view;
         GameChapter.stop();
+        view.getTimer1().stop();
         var SaveGame = JOptionPane.showConfirmDialog(null, "Would You Like To Save Game");
         if (SaveGame == 0) {
             JOptionPane.showMessageDialog(null, "Game Saved");
-            saveBodies();
             saveFile();
             GameChapter.start();
+            view.getTimer1().start();
         } else if (SaveGame == 1) {
             frame.dispose();
             new Menu();
         } else if (SaveGame == 2){
             GameChapter.start();
+            view.getTimer1().start();
         }
     }
     public void clearFile() {
@@ -53,6 +61,8 @@ public class saveGame {
         List<Float> Zombie = new ArrayList<Float>();
         List<Float> Portal = new ArrayList<Float>();
         List<Float> AntiGravity  = new ArrayList<Float>();
+        List<Float> Quiver  = new ArrayList<Float>();
+        List<Float> Platforms  = new ArrayList<Float>();
 
 
         for (DynamicBody dynamicBody : DynamicBodies) {
@@ -65,14 +75,30 @@ public class saveGame {
             }
         }
         for (StaticBody staticBody : StaticBodies) {
-            if (staticBody instanceof Portal) {
-                Portal.add(staticBody.getPosition().x);
-                Portal.add(staticBody.getPosition().y);
-            } else if (staticBody instanceof AntiGravity) {
-                AntiGravity.add(staticBody.getPosition().x);
-                AntiGravity.add(staticBody.getPosition().y);
+            switch (staticBody) {
+                case Portal portal -> {
+                    Portal.add(staticBody.getPosition().x);
+                    Portal.add(staticBody.getPosition().y);
+                }
+                case AntiGravity antiGravity -> {
+                    AntiGravity.add(staticBody.getPosition().x);
+                    AntiGravity.add(staticBody.getPosition().y - 2);
+                }
+                case Quiver quiver -> {
+                    Quiver.add(staticBody.getPosition().x);
+                    Quiver.add(staticBody.getPosition().y);
+                }
+                case null, default -> {
+                    assert staticBody != null;
+                    Platforms.add(staticBody.getPosition().x);
+                    Platforms.add(staticBody.getPosition().y);
+                }
             }
         }
+
+        //remove the right bracket
+        //remove the left bracket
+        Seconds = view.getSeconds();
 
         ZombieList = Zombie.toString()
                 .replace("[", "")  //remove the right bracket
@@ -90,13 +116,23 @@ public class saveGame {
                 .replace("[", "")  //remove the right bracket
                 .replace("]", "")  //remove the left bracket
                 .trim();           //remove trailing spaces from partially initialized arrays
+        QuiverList = Quiver.toString()
+                .replace("[", "")  //remove the right bracket
+                .replace("]", "")  //remove the left bracket
+                .trim();           //remove trailing spaces from partially initialized arrays
+        PlatformList = Platforms.toString()
+                .replace("[", "")  //remove the right bracket
+                .replace("]", "")  //remove the left bracket
+                .trim();           //remove trailing spaces from partially initialized arrays
     }
 
         public void saveFile() throws IOException {
+        saveBodies();
         clearFile();
         boolean append = false;
         try (FileWriter writer = new FileWriter("SavedGame", append)) {
-            writer.write("Chapter:" + "," + GameChapter.getChapterName() + "\n");
+            writer.write("Chapter:" + "," + view.getChapter() + "\n");
+            writer.write("Time Left" + "," + Seconds + "\n");
             writer.write("Character xPosition" + "," + GameChapter.getCharacter().getPosition().x + "\n");
             writer.write("Character yPosition" + "," + GameChapter.getCharacter().getPosition().y + "\n");
             writer.write("Character Health" + "," + GameChapter.getCharacter().getHealthCount() + "\n");
@@ -107,6 +143,8 @@ public class saveGame {
             writer.write("GuardianList Bodies" + "," + GuardianList + "\n");
             writer.write("PortalList Bodies" + "," +  PortalList + "\n");
             writer.write("AntiGravityList Bodies" + "," +  AntiGravityList + "\n");
+            writer.write("QuiverList Bodies" + "," +  QuiverList + "\n");
+            writer.write("PlatformList Bodies" + "," +  PlatformList + "\n");
         }
     }
 }

@@ -5,7 +5,7 @@ import org.jbox2d.common.Vec2;
 
 public class Chapter3 extends GameWorld{
     private final float[] uniqueNumbers = new float[10];
-    private float Ypos = 0;
+    //private float currentYPos = 0;
     private float MaxLevel = 0;
     private double Difficulty = 0;
     private static final BodyImage Cloud = new BodyImage("data/Blue Cloud.png", 7f);
@@ -39,7 +39,7 @@ public class Chapter3 extends GameWorld{
     }
 
     public void makePlatforms(){
-        setChapter(3);
+        //setChapter(3);
         //Create an array of unique x values for the platforms
         createUniqueNumbers();
 
@@ -52,53 +52,51 @@ public class Chapter3 extends GameWorld{
             Shape groundShape = new BoxShape(6, 0.5f);
             StaticBody ground = new StaticBody(this, groundShape);
             SolidFixture platformFixture = new SolidFixture(ground, groundShape);
-            ground.setPosition(new Vec2(uniqueNumbers[i], Ypos + 8 * i));
+            ground.setPosition(new Vec2(uniqueNumbers[i], getCurrentYPos() + 8 * i));
             ground.addImage(Cloud);
 
 
             //sets the position of the last platform and loads Arrows
             if (i == 5) {
                 Portal portal = new Portal(this, ground.getPosition());
-                MaxLevel = Ypos + 8 * i;
+                setCurrentYPos(getCurrentYPos() + 8 * i);
             } else {
 
                 float Random = (float) Math.random();
 
                 // chance of Arrows spawning
-                if (Random > 0.8) {
+                if (Random > 0.6) {
                     ResupplyArrows(this, ground);
                 }
 
                 //chance of bouncy cloud spawning and checks if the previous three platforms were bouncy
-                else if (Random > 0.7 && Random < 0.8 && i > isPurple + 2) {
+                else if (Random > 0.5 && Random < 0.6 && i > isPurple + 2) {
                     platformFixture.setRestitution(3);
                     ground.removeAllImages();
                     ground.addImage(purpleCloud);
                     isPurple = i;
                 }
-                else if (Random > 0.65 && Random < 0.7) {
+                else if (Random > 0 && Random < 0.2) {
                     AntiGravity antiGravity = new AntiGravity(this, ground.getPosition(), getCharacter());
                 }
-                else if (Random > 0.25 && Random < 0.4 && Random < Difficulty) {
+                else if (Random > 0.2 && Random < 0.35 && Random < Difficulty) {
                     Enemy Guardian = new Guardian(this, ground.getPosition(), getCharacter());
                     EnemyDamage guardianDamage = new EnemyDamage(Guardian, getCharacter());
                     Guardian.addCollisionListener(guardianDamage);
                 }
                 //loads enemy on a condition
-                if (Random < 0.25 && Random > 0.4 && Random < Difficulty) {
+                if (Random > 0.35 && Random < 0.5 && Random < Difficulty) {
                     Enemy Enemy = new Zombie(this, ground.getPosition(), getCharacter());
                     EnemyDamage enemyDamage = new EnemyDamage(Enemy, getCharacter());
                     Enemy.addCollisionListener(enemyDamage);
                 }
             }
         }
-
-        // Gets the position of the highest platform
-        Ypos = MaxLevel;
-
         // Increases difficulty(spawn rates) for every level by roughly 20%
         Difficulty += 0.2F;
     }
+
+
     public void createUniqueNumbers () {
         int currentIndex = 0;
 

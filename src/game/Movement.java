@@ -13,7 +13,9 @@ public class Movement extends KeyAdapter {
 
     private Walker Character;
     private final JFrame frame;
-    private GameWorld gameWorld;
+    private final GameWorld gameWorld;
+    private final GameView view;
+    private final Game game;
 
     //Character Movement images
     private static final BodyImage runRight = new BodyImage("data/Adventurer/Sprites/adventurer-run-00.png", 4f);
@@ -28,10 +30,12 @@ public class Movement extends KeyAdapter {
     //Last movement key. Used to add the appropriate orientated image to the character
     public String preKey = null;
 
-    public Movement(Character character, JFrame frame, GameWorld gameWorld) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
+    public Movement(Character character, JFrame frame, Game game, GameView view) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         this.Character = character;
         this.frame = frame;
-        this.gameWorld = gameWorld;
+        this.gameWorld = game.getGameLevel();
+        this.game = game;
+        this.view = view;
     }
     @Override
     public void keyPressed(KeyEvent e) {
@@ -61,10 +65,8 @@ public class Movement extends KeyAdapter {
             Character.removeAllImages();
             Character.addImage(jump);
         } else if (Key == KeyEvent.VK_ESCAPE) {
-            //frame.dispose();
-            //Menu menu = new Menu();
             try {
-                new saveGame(frame, gameWorld);
+                new saveGame(frame, game, view);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

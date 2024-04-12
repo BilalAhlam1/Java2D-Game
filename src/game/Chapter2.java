@@ -12,7 +12,7 @@ public class Chapter2 extends GameWorld{
     public Chapter2(Game game, int Arrows, int Score, int Health, int Lives){
         super();
 
-        setChapter(2);
+        //setChapter(2);
 
 
         //Move Statistics from previous level to current Level

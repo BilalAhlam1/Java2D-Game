@@ -23,6 +23,24 @@ public class Shooting implements MouseListener {
     private static final BodyImage bulletImage = new BodyImage("data/Loot/Seperate/Arrow.png", 4f);
 
     SoundClip explosionSound = new SoundClip("data/Sounds/Explosion.wav");
+    static SoundClip ArrowShot;
+
+    static {
+        try {
+            ArrowShot = new SoundClip("data/Sounds/ArrowShot.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    static SoundClip BombThrow;
+
+    static {
+        try {
+            BombThrow = new SoundClip("data/Sounds/ThrowingBomb.wav");
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     public Shooting(GameWorld w, UserView v, Character Character) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
@@ -54,6 +72,8 @@ public class Shooting implements MouseListener {
             //set the direction and speed of the bomb
             setPosition(worldPoint, Bomb, 15.0f);
 
+            BombThrow.play();
+
             //set a timer and explode the bomb
             timer(Bomb);
         } //Create a Bullet if left click
@@ -70,8 +90,10 @@ public class Shooting implements MouseListener {
             //world coordinates using a method provided by the view class:
             Vec2 worldPoint = view.viewToWorld(mousePoint);
 
-            //set the direction and speed of the bomb
+            //set the direction and speed of the arrow
             setPosition(worldPoint, Arrow, 1000f);
+
+            ArrowShot.play();
 
             // Calculate angle between bullet position and mouse pointer
             Vec2 bulletPosition = Arrow.getPosition();

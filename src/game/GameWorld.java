@@ -5,9 +5,6 @@ import org.jbox2d.common.Vec2;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
 
 public abstract class GameWorld extends World {
 
@@ -16,6 +13,7 @@ public abstract class GameWorld extends World {
     private final Character Character;
     private int Chapter = 1;
     private float currentYPos = 0;
+    private int Enemies = 0;
     public GameWorld(){
         super(60);
 
@@ -76,14 +74,6 @@ public abstract class GameWorld extends World {
         timer1.start();
     }
 
-    public void removeStaticBodies(){
-        List<StaticBody> staticBody = this.getStaticBodies();
-        for (int i  = 0; i < getStaticBodies().size(); i++){
-            getStaticBodies().removeFirst();
-        }
-        System.out.println(staticBody);
-    }
-
     //Set Statistics
     public void setStatistics(int Arrows, int Score, int Health, int Lives){
         Character.setArrowCount(Arrows);
@@ -100,7 +90,7 @@ public abstract class GameWorld extends World {
         this.Chapter = Chapter;
     }
 
-    public int getChapterName() {
+    public int getChapter() {
         return Chapter;
     }
 
@@ -110,5 +100,16 @@ public abstract class GameWorld extends World {
 
     public void setCurrentYPos(float currentYPos) {
         this.currentYPos = currentYPos;
+    }
+
+    public boolean isChapterComplete(){
+        return Enemies == Character.getEnemiesKilled();
+    }
+    public void setEnemies(int enemies) {
+        Enemies = enemies;
+    }
+
+    public int getEnemies() {
+        return Enemies;
     }
 }

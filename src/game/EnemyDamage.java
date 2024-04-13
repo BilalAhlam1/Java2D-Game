@@ -55,6 +55,7 @@ public class EnemyDamage implements CollisionListener {
 
                 //Sets score and JLabel
                 character.setScoreCount(character.getScoreCount() + 1);
+                character.setEnemiesKilled(character.getEnemiesKilled() + 1);
             }
         } else if (e.getOtherBody() instanceof Explosion) {
             //enemy's health reduces by 100 in collision with explosions - bomb

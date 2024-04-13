@@ -106,9 +106,26 @@ public class GameView extends UserView {
             public void actionPerformed(ActionEvent ae) {
                 Seconds[0]--;
                 if (Seconds[0] == 0){
-                    new Menu();
+                    if (Chapter == 3) {
+                        Menu menu = new Menu();
+                        frame.dispose();
+                        timer1.stop();
+                        menu.setScoreMessage(3, Character.getScoreCount());
+                    } else {
+                        frame.dispose();
+                        timer1.stop();
+                        try {
+                            new Game(Chapter, 0, Character.getScoreCount() - 1, 100, Character.getLives());
+                        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+                if (Character.getLives() == 0){
+                    Character.setLives(-1);
+                    Menu menu = new Menu();
+                    menu.setScoreMessage(Chapter, Character.getScoreCount());
                     frame.dispose();
-                    timer1.stop();
                 }
             }
         };

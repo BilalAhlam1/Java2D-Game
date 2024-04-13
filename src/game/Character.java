@@ -11,6 +11,8 @@ import java.io.IOException;
 
 public class Character extends Walker {
 
+    private GameWorld world;
+
     //Character shape
     private static final Shape CharacterShape =  new BoxShape(1, 2);
 
@@ -28,6 +30,8 @@ public class Character extends Walker {
 
     //Score
     private int scoreCount = 0;
+
+    private int EnemiesKilled = 0;
 
     //spawn character image
     private static final BodyImage image = new BodyImage("data/Adventurer/Sprites/adventurer-idleRight-01.png", 4f);
@@ -56,6 +60,7 @@ public class Character extends Walker {
     public Character(GameWorld w) {
         //creates a walker object
         super(w, CharacterShape);
+        this.world = w;
 
         //adds spawn idle image to character
         addImage(image);
@@ -123,12 +128,6 @@ public class Character extends Walker {
             scoreCount = scoreCount - 1;
         }
         this.setPosition(spawnPosition);
-
-        //if the number of lives reaches 0, the game ends
-        if (lives == 0){
-            System.out.println("Died");
-            System.exit(0);
-        }
     }
 
     public void setSpawn(){
@@ -136,4 +135,11 @@ public class Character extends Walker {
         spawnPosition = this.getPosition();
     }
 
+    public void setEnemiesKilled(int enemiesKilled) {
+        EnemiesKilled = enemiesKilled;
+    }
+
+    public int getEnemiesKilled() {
+        return EnemiesKilled;
+    }
 }

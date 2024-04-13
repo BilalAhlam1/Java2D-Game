@@ -13,7 +13,6 @@ public class Movement extends KeyAdapter {
 
     private Walker Character;
     private final JFrame frame;
-    private final GameWorld gameWorld;
     private final GameView view;
     private final Game game;
 
@@ -33,7 +32,6 @@ public class Movement extends KeyAdapter {
     public Movement(Character character, JFrame frame, Game game, GameView view) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         this.Character = character;
         this.frame = frame;
-        this.gameWorld = game.getGameLevel();
         this.game = game;
         this.view = view;
     }

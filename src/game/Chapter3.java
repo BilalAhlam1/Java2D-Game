@@ -6,7 +6,7 @@ import org.jbox2d.common.Vec2;
 public class Chapter3 extends GameWorld{
     private final float[] uniqueNumbers = new float[10];
     //private float currentYPos = 0;
-    private float MaxLevel = 0;
+    private final float MaxLevel = 0;
     private double Difficulty = 0;
     private static final BodyImage Cloud = new BodyImage("data/Blue Cloud.png", 7f);
     private static final BodyImage purpleCloud = new BodyImage("data/Purple Cloud.png", 7f);
@@ -39,7 +39,9 @@ public class Chapter3 extends GameWorld{
     }
 
     public void makePlatforms(){
-        //setChapter(3);
+        getCharacter().setEnemiesKilled(0);
+        setEnemies(0);
+        setChapter(3);
         //Create an array of unique x values for the platforms
         createUniqueNumbers();
 
@@ -47,7 +49,7 @@ public class Chapter3 extends GameWorld{
         int isPurple = -1;
 
         //create the platforms
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < 10; i++) {
 
             Shape groundShape = new BoxShape(6, 0.5f);
             StaticBody ground = new StaticBody(this, groundShape);
@@ -57,7 +59,7 @@ public class Chapter3 extends GameWorld{
 
 
             //sets the position of the last platform and loads Arrows
-            if (i == 5) {
+            if (i == 9) {
                 Portal portal = new Portal(this, ground.getPosition());
                 setCurrentYPos(getCurrentYPos() + 8 * i);
             } else {
@@ -83,12 +85,14 @@ public class Chapter3 extends GameWorld{
                     Enemy Guardian = new Guardian(this, ground.getPosition(), getCharacter());
                     EnemyDamage guardianDamage = new EnemyDamage(Guardian, getCharacter());
                     Guardian.addCollisionListener(guardianDamage);
+                    setEnemies(getEnemies() + 1);
                 }
                 //loads enemy on a condition
                 if (Random > 0.35 && Random < 0.5 && Random < Difficulty) {
                     Enemy Enemy = new Zombie(this, ground.getPosition(), getCharacter());
                     EnemyDamage enemyDamage = new EnemyDamage(Enemy, getCharacter());
                     Enemy.addCollisionListener(enemyDamage);
+                    setEnemies(getEnemies() + 1);
                 }
             }
         }

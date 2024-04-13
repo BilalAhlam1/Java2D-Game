@@ -262,6 +262,33 @@ public class Menu extends JFrame {
         background.add(Chapter3);
     }
 
+    public void setScoreMessage(int chapter, int Score) {
+        background.removeAll();
+
+        Back.setBounds(5, 5, 100, 30);
+
+
+        JLabel gameComplete = new JLabel("You Have Completed The Game!", SwingConstants.CENTER);
+        gameComplete.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
+        gameComplete.setBounds(-40, 40, 500, 30);
+
+        JLabel gameIncomplete = new JLabel("Better Luck Next Time", SwingConstants.CENTER);
+        gameIncomplete.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 30));
+        gameIncomplete.setBounds(-40, 40, 500, 20);
+
+        JLabel scoreMessage = new JLabel("Your Score is: " + Score, SwingConstants.CENTER);
+        scoreMessage.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        scoreMessage.setBounds(-40, 120, 500, 30);
+
+        background.add(Back);
+        if (chapter == 3) {
+            background.add(gameComplete);
+        } else {
+            background.add(gameIncomplete);
+        }
+        background.add(scoreMessage);
+    }
+
     public void setMenu(){
         background.removeAll();
         welcomeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));

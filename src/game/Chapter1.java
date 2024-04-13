@@ -23,8 +23,11 @@ public class Chapter1 extends GameWorld {
         Vec2[] BouncyPlatformCoordinates = new Vec2[]{new Vec2(8f, 24)};
         Vec2[] ZombieCoordinates = new Vec2[]{new Vec2(8f, 24)};
 
-        //setChapter(1);
+        setChapter(1);
         setStatistics(Arrows, Score, Health, Lives);
+        setEnemies(1);
+
+
         //setPlatformCoordinates(PlatformCoordinates);
         getCharacter().setPosition(new Vec2(0, 3));
 

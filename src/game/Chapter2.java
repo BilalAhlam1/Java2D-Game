@@ -8,15 +8,14 @@ public class Chapter2 extends GameWorld{
     private static final BodyImage purpleCloud = new BodyImage("data/Purple Cloud.png", 7f);
     private static final BodyImage TimeYourJumpsMessage = new BodyImage("data/GameMessages/TimeYourJumps.png", 2f);
     private static final BodyImage DirectArrowsMessage = new BodyImage("data/GameMessages/DirectArrows.png", 1f);
-    private final Vec2[] Coordinates = new Vec2[]{new Vec2(-6f, 0), new Vec2(-8f, 81)};
+
     public Chapter2(Game game, int Arrows, int Score, int Health, int Lives){
         super();
 
-        //setChapter(2);
-
-
+        setChapter(2);
         //Move Statistics from previous level to current Level
         setStatistics(Arrows, Score, Health, Lives);
+        setEnemies(3);
 
         //Set Character Position
         getCharacter().setPosition(new Vec2(-6f, 0));
@@ -26,7 +25,8 @@ public class Chapter2 extends GameWorld{
         getCharacter().addCollisionListener(Collisions);
 
         //Spawn Basic platforms
-        for (Vec2 coordinate : Coordinates) {
+        Vec2[] coordinates = new Vec2[]{new Vec2(-6f, 0), new Vec2(-8f, 81)};
+        for (Vec2 coordinate : coordinates) {
             Shape shape1 = new BoxShape(6, 0.5f);
             StaticBody platform1 = new StaticBody(this, shape1);
             platform1.setPosition(coordinate);

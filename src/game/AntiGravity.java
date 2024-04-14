@@ -4,7 +4,7 @@ import city.cs.engine.BodyImage;
 import city.cs.engine.World;
 import org.jbox2d.common.Vec2;
 /**
- * Creates an instantiation of PowerUps, giving the object for the zero gravity ability
+ * Inherits PowerUps, creating an object for a zero gravity ability
  */
 public class AntiGravity extends PowerUps{
     private static final BodyImage AntiGravityImage = new BodyImage("data/Loot/Seperate/tile281.png", 4f);

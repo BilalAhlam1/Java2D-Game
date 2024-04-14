@@ -2,32 +2,41 @@ package game;
 
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Initialises an Enemy Of Type Walker
+ */
 public abstract class Enemy extends Walker {
     private static final Shape Enemies =  new BoxShape(1, 2);
-    //set the initial health
+    //Enemy Shape
     private int Health = 100;
+    //Health
     private final Character character;
-    private GameWorld w;
+    //Character Class
 
-    private static final BodyImage enemySprite = new BodyImage("data/Loot/Seperate/tile387.png", 4f);
-    private static final BodyImage enemyBullet = new BodyImage("data/Loot/Seperate/tile421.png", 4f);
-    public Enemy(GameWorld w, Vec2 platform, Character character) {
+    /**
+     * Constructor Initialises Enemy
+     * <p>Sets the Walker For the Enemy And Sets The Character Class</p>
+     * @param w GameWorld Class
+     * @param character Character Class
+     */
+    public Enemy(GameWorld w, Character character) {
         super(w, Enemies);
         this.character = character;
-        this.w = w;
-
     }
 
+    /**
+     * Gives The Enemy Ability to Follow Character
+     * <p>Projects Enemy Towards The Character Position At a Set Trajectory And Speed Using a Timer</p>
+     * @param enemy Enemy Class
+     * @param speed Speed Of Trajectory
+     */
     public void fly(Walker enemy, int speed){
         //enemy walks in alternating speeds if outside the range of the platform
         ActionListener a = ae -> {
-
-            //Apply y-directional force
 
             // Calculate the direction vector from Character
             Vec2 direction = character.getPosition();
@@ -55,6 +64,13 @@ public abstract class Enemy extends Walker {
     }
 
 
+    /**
+     * Gives The Enemy a Fixed Movement Method
+     * <p>Enemy Walks In Alternating Directions At a Set Speed And Position</p>
+     * @param enemy Enemy Class
+     * @param platform Platform Position
+     * @param speed Speed of Movement
+     */
     public void move(Walker enemy, Vec2 platform, int speed){
         //enemy walks in alternating speeds if outside the range of the platform
         ActionListener a = new ActionListener() {
@@ -72,25 +88,42 @@ public abstract class Enemy extends Walker {
         timer1.start();
     }
 
+    /**
+     * Reduce Enemy Health
+     * <p>Reduce Enemy Health By The Set n Amount</p>
+     * @param n Decrease Health by n
+     */
     public void reduceHealth(int n) {
-        //reduce enemy health by n
         Health = Health - n;
     }
 
+    /**
+     * Return Health Of Enemy
+     * @return int Health
+     */
     public int getHealth() {
-        //getter method to return enemy health
         return Health;
     }
 
+    /**
+     * Returns Enemy Shape
+     * @return BoxShape
+     */
     public Shape getEnemies(){
         return Enemies;
     }
 
+    /**
+     * Removes Enemy Body And Collision Listener
+     */
     public void kill(){
-        //remove enemy
         this.destroy();
         this.removeAllCollisionListeners();
     }
 
+    /**
+     * Get Enemy Position
+     * @return Enemy Coordinate Position
+     */
     public abstract Vec2 getPlatformPosition();
 }

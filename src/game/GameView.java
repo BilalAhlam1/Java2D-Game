@@ -1,8 +1,6 @@
 package game;
 
 import city.cs.engine.*;
-import city.cs.engine.Shape;
-
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
@@ -11,40 +9,66 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ * Initialises GameView With The UserView
+ */
 public class GameView extends UserView {
-
-    //CHAPTER1 BACKGROUND
     private final Image chapter1 = new ImageIcon("data/Background/Mountain.png").getImage();
     private final Image chapter1Background = chapter1.getScaledInstance(900, 600, Image.SCALE_DEFAULT);
+    //Chapter 1 Background
 
-    //CHAPTER2 BACKGROUND
     private final Image chapter2Background = new ImageIcon("data/Background/Clouds_GIF.gif").getImage();
+    //Chapter 2 Background
 
-    //CHAPTER3 BACKGROUND
     private final Image chapter3 = new ImageIcon("data/Background/moon world gif.gif").getImage();
     private final Image chapter3Background = chapter3.getScaledInstance(900, 600, Image.SCALE_DEFAULT);
+    //Chapter 3 Background
 
-    //LIVE COUNT
     private final Image heart = new ImageIcon("data/Loot/Seperate/Heart.png").getImage();
     private final Image heartImage = heart.getScaledInstance(40, 40, Image.SCALE_DEFAULT);
+    //Lives
 
-    //ARROW COUNT
     private final Image arrow = new ImageIcon("data/Loot/Seperate/tile132.png").getImage();
     private final Image arrowImage = arrow.getScaledInstance(60, 60, Image.SCALE_DEFAULT);
+    //Arrows
 
-    //POWER-UPS
     private static final Image AntiGravity = new ImageIcon("data/Loot/Seperate/tile281.png").getImage();
     private final Image AntiGravityImage = AntiGravity.getScaledInstance(60, 60, Image.SCALE_DEFAULT);
+    //Power - Ups
 
     private final Movement movement;
-    private Character Character;
-    private final Scene Camera;
-    private final Shooting shooting;
-    private int Chapter;
-    private final JFrame frame;
-    private final int[] Seconds = {30};
-    private Timer timer1;
+    //Movement Class
 
+    private Character Character;
+    //Character Class
+
+    private final Scene Camera;
+    //Scene Class
+
+    private final Shooting shooting;
+    //Shooting Class
+
+    private int Chapter;
+    //Current Chapter
+
+    private final JFrame frame;
+    //Game Frame
+
+    private final int[] Seconds = {30};
+    //Timer Seconds
+
+    private Timer timer1;
+    //Timer
+
+    /**
+     * Constructor Initialises GameView
+     * <p>Sets The Frame And In-Game Timer</p>
+     * @param game Game Class
+     * @param w GameWorld Class
+     * @param Chapter Chapter To Launch
+     * @param width UserView Width
+     * @param height UserView Height
+     */
     public GameView(Game game, GameWorld w, int Chapter, int width, int height) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         super(w, width, height);
 
@@ -85,33 +109,39 @@ public class GameView extends UserView {
             Seconds[0] = 30;
             startTimer();
         } else if (Chapter == 2){
-            Seconds[0] = 45;
+            Seconds[0] = 60;
             startTimer();
         } else if (Chapter == 3){
             Seconds[0] = 120;
             startTimer();
         }
 
-
-        //optional: uncomment this to make a debugging view
-        //JFrame debugView = new DebugViewer(w, 500, 500);
-
         frame.getContentPane();
         setLayout(null);
     }
 
+    /**
+     * CountDown Timer
+     * <p>Restarts Game If Timer Reaches 0, Under Chapters Other Than 3. Main Menu Launches If Chapter is 3 And Countdown Completes</p>
+     */
     public void startTimer(){
         ActionListener a = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
+                //De-Increments Seconds
                 Seconds[0]--;
                 if (Seconds[0] == 0){
+
+                    //When Chapter is 3, Countdown Launches Main menu and Score
                     if (Chapter == 3) {
                         Menu menu = new Menu();
                         frame.dispose();
                         timer1.stop();
                         menu.setScoreMessage(3, Character.getScoreCount());
-                    } else {
+                    }
+
+                    //Countdown Launches a New Game If Else
+                    else {
                         frame.dispose();
                         timer1.stop();
                         try {
@@ -121,6 +151,8 @@ public class GameView extends UserView {
                         }
                     }
                 }
+
+                //Launches Main Menu And Score Board If Lives Reach 0
                 if (Character.getLives() == 0){
                     Character.setLives(-1);
                     Menu menu = new Menu();
@@ -130,46 +162,87 @@ public class GameView extends UserView {
             }
         };
 
+        //Repeats Every Second
         timer1 = new Timer(1000, a);
         timer1.start();
     }
 
+    /**
+     * Setter For a New Character Class
+     * @param character New Character Class
+     */
     public void updateCharacter(Character character){
         this.Character = character;
     }
 
+    /**
+     * Setter For The Current Chapter
+     * @param chapter Current Chapter
+     */
     public void setChapter(int chapter) {
         Chapter = chapter;
     }
 
+    /**
+     * Getter For The Current Chapter
+     * @return Current Chapter
+     */
     public int getChapter() {
         return Chapter;
     }
 
+    /**
+     * Getter For The Step Listener Camera
+     * @return Current Step Listener
+     */
     public Scene getCamera() {
         return Camera;
     }
 
+    /**
+     * Getter For The Shooting Class
+     * @return Current Shooting Class
+     */
     public Shooting getShooting() {
         return shooting;
     }
 
+    /**
+     * Getter For The Movement Class
+     * @return Current Movement Class
+     */
     public Movement getMovement() {
         return movement;
     }
 
+    /**
+     * Getter For The Current Second
+     * @return Current Second
+     */
     public int getSeconds() {
         return Seconds[0];
     }
 
+    /**
+     * Getter For The Timer Method
+     * @return Timer Method
+     */
     public Timer getTimer1() {
         return timer1;
     }
 
+    /**
+     * Setter For The Current Seconds
+     * @param seconds Current Countdown Seconds
+     */
     public void setSeconds(int seconds) {
         Seconds[0] = seconds;
     }
 
+    /**
+     * Foreground Statistics
+     * <p>Draw Lives, Arrows, Score, Health, Timer And Anti-Gravity Statistics</p>
+     */
     @Override
     protected void paintForeground(Graphics2D g) {
         super.paintForeground(g);
@@ -207,6 +280,10 @@ public class GameView extends UserView {
         }
     }
 
+    /**
+     * Game Background
+     * <p>Sets Background For Each Chapter</p>
+     */
     @Override
     protected void paintBackground(Graphics2D g) {
         //adds the background onto the user view

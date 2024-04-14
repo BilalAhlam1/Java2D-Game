@@ -3,45 +3,70 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
+/**
+ * Provides platforms, enemies and pickup objects for the third chapter in the world
+ */
 public class Chapter3 extends GameWorld{
     private final float[] uniqueNumbers = new float[10];
-    //private float currentYPos = 0;
-    private final float MaxLevel = 0;
+    //Array of unique X-Coordinate Values
     private double Difficulty = 0;
+    //Difficulty value
     private static final BodyImage Cloud = new BodyImage("data/Blue Cloud.png", 7f);
+    //Cloud Platform
     private static final BodyImage purpleCloud = new BodyImage("data/Purple Cloud.png", 7f);
+    //Bouncy Platform
+    private static final BodyImage HowHighCanYouFlyMessage = new BodyImage("data/GameMessages/HowHighCanYouFlyMessage.png", 2f);
+    //Message
 
+    /**
+     * Constructor Loads/generates more complex platforms, alternating positions, more enemies and power ups through auto generation
+     * @param game Game Class
+     * @param Arrows Arrows Count
+     * @param Score Score Count
+     * @param Health Health Count
+     * @param Lives Lives Count
+     */
     public Chapter3(Game game, int Arrows, int Score, int Health, int Lives) {
         super();
 
-        //Make an array of positions,
-        //set objects and empty array
-        //if array is empty run condition to make platforms
-
-        //setChapter(3);
         //Move Statistics from previous level to current Level
         setStatistics(Arrows, Score, Health, Lives);
 
-        //could have the camera keep moving
+        //Set Character Position
         getCharacter().setPosition(new Vec2(0, 3));
 
         //Displays score with collisions
         CharacterCollisions Collisions = new CharacterCollisions(getCharacter(), game);
         getCharacter().addCollisionListener(Collisions);
 
-        //make a starting platform
+        //Message
+        Shape Message = new BoxShape(6, 0.5f);
+        StaticBody MessageBody = new StaticBody(this, Message);
+        MessageBody.getFixtureList().removeFirst().destroy();
+        GhostlyFixture MessageFixture = new GhostlyFixture(MessageBody, Message);
+        MessageBody.setPosition(new Vec2(0f, -4));
+        MessageBody.addImage(HowHighCanYouFlyMessage);
+
+        //Make a Starting Platform
         Shape shape1 = new BoxShape(6, 0.5f);
         StaticBody platform1 = new StaticBody(this, shape1);
         platform1.setPosition(new Vec2(0f, 0));
         platform1.addImage(Cloud);
 
+        //Generate Platforms
         makePlatforms();
     }
 
+    /**
+     * Auto Generates Platforms with different object types dependent on the difficulty
+     * <p>Creates Platforms, Enemies, Power Ups and Arrows, Through Auto-Generated Positions And Spawn Rates, Which Are Dependant On the
+     * Difficulty, Which Increments After Each Sub Chapter</p>
+     */
     public void makePlatforms(){
+
         getCharacter().setEnemiesKilled(0);
         setEnemies(0);
-        setChapter(3);
+
         //Create an array of unique x values for the platforms
         createUniqueNumbers();
 
@@ -54,14 +79,14 @@ public class Chapter3 extends GameWorld{
             Shape groundShape = new BoxShape(6, 0.5f);
             StaticBody ground = new StaticBody(this, groundShape);
             SolidFixture platformFixture = new SolidFixture(ground, groundShape);
-            ground.setPosition(new Vec2(uniqueNumbers[i], getCurrentYPos() + 8 * i));
+            ground.setPosition(new Vec2(uniqueNumbers[i], getMaxPlatformPosition() + 8 * i));
             ground.addImage(Cloud);
 
 
             //sets the position of the last platform and loads Arrows
             if (i == 9) {
                 Portal portal = new Portal(this, ground.getPosition());
-                setCurrentYPos(getCurrentYPos() + 8 * i);
+                setMaxPlatformPosition(getMaxPlatformPosition() + 8 * i);
             } else {
 
                 float Random = (float) Math.random();
@@ -79,7 +104,7 @@ public class Chapter3 extends GameWorld{
                     isPurple = i;
                 }
                 else if (Random > 0 && Random < 0.2) {
-                    AntiGravity antiGravity = new AntiGravity(this, ground.getPosition(), getCharacter());
+                    AntiGravity antiGravity = new AntiGravity(this, ground.getPosition());
                 }
                 else if (Random > 0.2 && Random < 0.35 && Random < Difficulty) {
                     Enemy Guardian = new Guardian(this, ground.getPosition(), getCharacter());
@@ -101,6 +126,10 @@ public class Chapter3 extends GameWorld{
     }
 
 
+    /**
+     * Generates unique numbers
+     * <p>Generates Unique Numbers For X Positions Of The Platforms</p>
+     */
     public void createUniqueNumbers () {
         int currentIndex = 0;
 
@@ -118,11 +147,20 @@ public class Chapter3 extends GameWorld{
         }
     }
 
+    /**
+     * Generates a random number
+     * @return returns a float between 11 and -11
+     */
     private static float generateRandomNumber () {
         //generates random number between 11 and -11
         return (float) Math.floor(Math.random() * ((float) 11 - (float) -11 + 1) + (float) -11);
     }
 
+    /**
+     * Checks if the value is unique
+     * <p>Checks Value Against The Array, To Check If They Are Equal</p>
+     * @return True if value is equal, and false if else
+     */
     private static boolean contains ( float[] array, int length, float value){
         //returns true if the value is in the array
         for (int i = 0; i < length; i++) {

@@ -6,19 +6,28 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Initialises GameWorld Of Type World
+ */
 public abstract class GameWorld extends World {
-
-    //Load platform image
     private static final BodyImage Cloud = new BodyImage("data/Cloud.png", 7f);
+    //Platform
     private final Character Character;
-    private int Chapter = 1;
-    private float currentYPos = 0;
+    //Character Class
+    private float MaxPlatformPosition = 0;
+    //Current Maximum Y Position Of The Platform
     private int Enemies = 0;
+    //Number Of Enemies
+
+    /**
+     * Constructor Initialises GameWorld
+     * <p>Character And Walls Are Initialised</p>
+     */
     public GameWorld(){
         super(60);
 
         //make walls
-        Shape wallShape1 = new BoxShape(0.5f, 100);
+        Shape wallShape1 = new BoxShape(0.5f, 200);
         StaticBody wall1 = new StaticBody(this, wallShape1);
         wall1.getFixtureList().getFirst().destroy();
         SolidFixture wall1Fixture = new SolidFixture(wall1, wallShape1);
@@ -26,7 +35,7 @@ public abstract class GameWorld extends World {
         wall1.setPosition(new Vec2(21f, 0));
 
         //make walls
-        Shape wallShape2 = new BoxShape(0.5f, 100);
+        Shape wallShape2 = new BoxShape(0.5f, 200);
         StaticBody wall2 = new StaticBody(this, wallShape2);
         wall2.getFixtureList().getFirst().destroy();
         SolidFixture wall2Fixture = new SolidFixture(wall2, wallShape2);
@@ -38,6 +47,12 @@ public abstract class GameWorld extends World {
 
     }
 
+    /**
+     * Respawn Arrows
+     * <p>Respawn arrows by checking if the current inventory is empty every second</p>
+     * @param world World Class
+     * @param platform Platform Position To Spawn
+     */
     public void ResupplyArrows(World world, StaticBody platform){
         final Boolean[] quiverCollected = {false};
         ActionListener a = new ActionListener() {
@@ -57,6 +72,13 @@ public abstract class GameWorld extends World {
         timer1.start();
     }
 
+    /**
+     * Move platforms
+     * <p>Change platform position in an alternating fixed distance</p>
+     * @param platform Static Body To Move
+     * @param XDistance X Distance to Change
+     * @param YDistance Y Distance To Change
+     */
     public void movePlatform(StaticBody platform, int XDistance, int YDistance){
         final int[] x = {-XDistance};
         final int[] y = {-YDistance};
@@ -74,7 +96,10 @@ public abstract class GameWorld extends World {
         timer1.start();
     }
 
-    //Set Statistics
+    /**
+     * Sets The Statistics
+     * <p>Sets the statistics from the previous or loaded chapter</p>
+     */
     public void setStatistics(int Arrows, int Score, int Health, int Lives){
         Character.setArrowCount(Arrows);
         Character.setScoreCount(Score);
@@ -82,33 +107,51 @@ public abstract class GameWorld extends World {
         Character.setLives(Lives);
     }
 
+    /**
+     * Getter to return character
+     * @return Character Class
+     */
     public Character getCharacter() {
         return Character;
     }
 
-    public void setChapter(int Chapter) {
-        this.Chapter = Chapter;
+    /**
+     * Getter to return platform position
+     * @return Y position of highest platform
+     */
+    public float getMaxPlatformPosition() {
+        return MaxPlatformPosition;
     }
 
-    public int getChapter() {
-        return Chapter;
+    /**
+     * Setter to set the new y position of the highest platform
+     */
+    public void setMaxPlatformPosition(float MaxPlatformPosition) {
+        this.MaxPlatformPosition = MaxPlatformPosition;
     }
 
-    public float getCurrentYPos() {
-        return currentYPos;
-    }
-
-    public void setCurrentYPos(float currentYPos) {
-        this.currentYPos = currentYPos;
-    }
-
+    /**
+     * Returns a boolean for all enemies killed
+     * <p>Boolean to check if the characters kills are equivalent to the number of enemies</p>
+     * @return True for all enemies killed.
+     * False if not
+     */
     public boolean isChapterComplete(){
         return Enemies == Character.getEnemiesKilled();
     }
+
+    /**
+     * Setter to set the number of enemies in the game
+     * @param enemies New enemy count
+     */
     public void setEnemies(int enemies) {
         Enemies = enemies;
     }
 
+    /**
+     * Getter to return the number of enemies
+     * @return Enemies count
+     */
     public int getEnemies() {
         return Enemies;
     }

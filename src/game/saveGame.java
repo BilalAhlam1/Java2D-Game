@@ -10,17 +10,29 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Initialise Save Game
+ * <p>Saves the current state of the game into a text file</p>
+ */
 public class saveGame {
     private final GameWorld GameChapter;
+    //GameWorld
     private final GameView view;
+    //GameView
     private String PortalList;
     private String AntiGravityList;
     private String ZombieList;
     private String GuardianList;
     private String QuiverList;
     private String PlatformList;
+    //String Lists
     private int Seconds;
+    //Countdown Seconds
 
+    /**
+     * Constructor Initialise Save Game
+     * <p>Option Pane Displayed To Exit Or Save Game/p>
+     */
     public saveGame(JFrame frame, Game game, GameView view) throws IOException {
         this.GameChapter = game.getGameLevel();
         this.view = view;
@@ -40,6 +52,11 @@ public class saveGame {
             view.getTimer1().start();
         }
     }
+
+    /**
+     * Empties Save File
+     * <p>Opens Current Save And Empties The File</p>
+     */
     public void clearFile() {
         try {
             FileWriter fw = new FileWriter("SavedGame", false);
@@ -52,6 +69,10 @@ public class saveGame {
         }
     }
 
+    /**
+     * Stores state of bodies
+     * <p>Saves state of each static and dynamic bodies into the string list</p>
+     */
     public void saveBodies(){
         List<DynamicBody> DynamicBodies = GameChapter.getDynamicBodies();
         List<StaticBody> StaticBodies = GameChapter.getStaticBodies();
@@ -125,7 +146,11 @@ public class saveGame {
                 .trim();           //remove trailing spaces from partially initialized arrays
     }
 
-        public void saveFile() throws IOException {
+    /**
+     * Saves state of string lists
+     * <p>Saves the string lists into the saved file line by line</p>
+     */
+    public void saveFile() throws IOException {
         saveBodies();
         clearFile();
         boolean append = false;

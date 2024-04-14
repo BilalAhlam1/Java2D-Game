@@ -10,20 +10,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.IOException;
 
+/**
+ * Initialise Shooting of type mouse listener
+ */
 public class Shooting implements MouseListener {
-
     private GameWorld world;
+    //GameWorld
     private UserView view;
+    //UserView
     private Character Character;
+    //Character
     private static final BodyImage bomb = new BodyImage("data/Loot/Seperate/tile373.png", 4f);
-    private static final BodyImage broken = new BodyImage("data/Loot/Seperate/tile373broken.png", 4f);
     private static final BodyImage bulletImage = new BodyImage("data/Loot/Seperate/Arrow.png", 4f);
+    //Ammunition Images
 
     SoundClip explosionSound = new SoundClip("data/Sounds/Explosion.wav");
+    //Explosion Sound
     static SoundClip ArrowShot;
+    //Arrow Shooting Sound
 
     static {
         try {
@@ -33,6 +39,7 @@ public class Shooting implements MouseListener {
         }
     }
     static SoundClip BombThrow;
+    //Throwing Bomb Sound
 
     static {
         try {
@@ -42,7 +49,12 @@ public class Shooting implements MouseListener {
         }
     }
 
-
+    /**
+     * Constructor Initialise Shooting
+     * @param w GameWorld where shooting exists
+     * @param v UserView Where Mouse Clicks Are Tracked
+     * @param Character Current Character
+     */
     public Shooting(GameWorld w, UserView v, Character Character) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
         world = w;
         view = v;
@@ -53,6 +65,11 @@ public class Shooting implements MouseListener {
     public void mouseClicked(MouseEvent e) {
 
     }
+
+    /**
+     * Projects ammunition where mouse point is
+     * <p>Projects Arrows or Bombs Depending on Mouse Event</p>
+     */
     @Override
     public void mousePressed(MouseEvent e) {
         //Create a bomb if right click
@@ -112,20 +129,31 @@ public class Shooting implements MouseListener {
         }
     }
 
-    public void removeBullet(Ammunition Bullet){
+    /**
+     * Removes Ammunition
+     * <p>Removes ammunition after 2 seconds of projection</p>
+     * @param ammunition Ammunition type
+     */
+    public void removeBullet(Ammunition ammunition){
         ActionListener a = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-                Bullet.destroy();
+                ammunition.destroy();
             }
         };
 
-        //removes the bomb after 5 seconds
+        //removes the bomb after 2 seconds
         Timer timer1 = new Timer(2000, a);
         //Doesn't repeat the timer
         timer1.setRepeats(false);
         timer1.start();
     }
+
+    /**
+     * Timer to set explosion
+     * <p>Sets explosion after 1 second of projection</p>
+     * @param Bomb Ammunition Type
+     */
     public void timer(Ammunition Bomb){
         ActionListener a = new ActionListener() {
             @Override
@@ -142,6 +170,11 @@ public class Shooting implements MouseListener {
         timer1.start();
     }
 
+    /**
+     * Changes state of ammunition to explosion
+     * <p>Sets explosion image and timer for explosion object</p>
+     * @param Bomb Ammunition type
+     */
     public void setExplosion(Ammunition Bomb) {
         Bomb.removeAllImages();
         //replace bomb with the explosion
@@ -166,20 +199,27 @@ public class Shooting implements MouseListener {
         timer2.start();
     }
 
-    public void setPosition(Vec2 worldPoint, Ammunition ammo, float speed){
+    /**
+     * Project object at mouse position
+     * <p>Uses Mouse Pointer Position To Project Ammunition And Sets Spawn</p>
+     * @param worldPoint Mouse Pointer Position
+     * @param ammunition Ammunition type
+     * @param speed Speed of trajectory
+     */
+    public void setPosition(Vec2 worldPoint, Ammunition ammunition, float speed){
         //Positions the shot depending on the position of the mouse
         if (worldPoint.x >= Character.getPosition().x && worldPoint.y >= Character.getPosition().y) {
-            ammo.setPosition(new Vec2(Character.getPosition().x + 1, Character.getPosition().y + 1));
+            ammunition.setPosition(new Vec2(Character.getPosition().x + 1, Character.getPosition().y + 1));
         } else if (worldPoint.x >= Character.getPosition().x && worldPoint.y <= Character.getPosition().y) {
-            ammo.setPosition(new Vec2(Character.getPosition().x + 1, Character.getPosition().y - 1));
+            ammunition.setPosition(new Vec2(Character.getPosition().x + 1, Character.getPosition().y - 1));
         } else if (worldPoint.x <= Character.getPosition().x && worldPoint.y <= Character.getPosition().y) {
-            ammo.setPosition(new Vec2(Character.getPosition().x - 1, Character.getPosition().y - 1));
+            ammunition.setPosition(new Vec2(Character.getPosition().x - 1, Character.getPosition().y - 1));
         } else if (worldPoint.x <= Character.getPosition().x && worldPoint.y >= Character.getPosition().y) {
-            ammo.setPosition(new Vec2(Character.getPosition().x - 1, Character.getPosition().y + 1));
+            ammunition.setPosition(new Vec2(Character.getPosition().x - 1, Character.getPosition().y + 1));
         }
 
 
-        Vec2 ballPosition = ammo.getPosition();
+        Vec2 ballPosition = ammunition.getPosition();
 
         // Calculate the direction vector from ball position to mouse click position
         Vec2 direction = worldPoint.sub(ballPosition);
@@ -187,17 +227,29 @@ public class Shooting implements MouseListener {
 
         // Apply a force in the direction of the mouse click
         Vec2 force = direction.mul(speed);
-        ammo.setLinearVelocity(force);
+        ammunition.setLinearVelocity(force);
     }
 
+    /**
+     * Setter to update character
+     * @param character New Character
+     */
     public void updateCharacter(Character character){
         this.Character = character;
     }
 
+    /**
+     * Setter to update world
+     * @param w New GameWorld
+     */
     public void setWorld(GameWorld w){
         this.world = w;
     }
 
+    /**
+     * Setter to update UserView
+     * @param view New UserView
+     */
     public void setView(UserView view) {
         this.view = view;
     }

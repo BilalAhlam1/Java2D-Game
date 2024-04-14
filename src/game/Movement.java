@@ -5,16 +5,22 @@ import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * Initialise Movement Key Adapter
+ * <p>Provides Key Event Conditions For Movement And Escape</p>
+ */
 public class Movement extends KeyAdapter {
-
     private Walker Character;
+    //Character Class
     private final JFrame frame;
+    //Game Frame
     private final GameView view;
+    //UserView
     private final Game game;
+    //Game Class
 
     //Character Movement images
     private static final BodyImage runRight = new BodyImage("data/Adventurer/Sprites/adventurer-run-00.png", 4f);
@@ -22,19 +28,26 @@ public class Movement extends KeyAdapter {
     private static final BodyImage jump = new BodyImage("data/Adventurer/Sprites/adventurer-fall-00.png", 4f);
     private static final BodyImage idleRight = new BodyImage("data/Adventurer/Sprites/adventurer-idle-00.png", 4f);
     private static final BodyImage idleLeft = new BodyImage("data/Adventurer/Sprites/adventurer-idleLeft-01.png", 4f);
-
+    //Character Images
     SoundClip JumpSound = new SoundClip("data/Sounds/jump.wav");
-
-
-    //Last movement key. Used to add the appropriate orientated image to the character
+    //Jump Sound
     public String preKey = null;
+    //Last movement key. Used to add the appropriate orientated image to the character
 
+    /**
+     * Constructor For Character Movement and Escape To Menu
+     */
     public Movement(Character character, JFrame frame, Game game, GameView view) throws UnsupportedAudioFileException, LineUnavailableException, IOException {
         this.Character = character;
         this.frame = frame;
         this.game = game;
         this.view = view;
     }
+
+    /**
+     * Move Character and Escape
+     * <p>Provides key Events And Conditions For Movement and Escape To Main Menu</p>
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int Key = e.getKeyCode();
@@ -47,7 +60,7 @@ public class Movement extends KeyAdapter {
             Character.addImage(runRight);
             preKey = "Right";
 
-            // Move Left
+        // Move Left
         } else if (Key == KeyEvent.VK_LEFT || Key == KeyEvent.VK_A) {
             Character.startWalking(-9);
             //replace Character image
@@ -55,13 +68,15 @@ public class Movement extends KeyAdapter {
             Character.addImage(runLeft);
             preKey = "Left";
 
-            //Jump
+        //Jump
         } else if (Key == KeyEvent.VK_UP || Key == KeyEvent.VK_W) {
             Character.jump(20);
             JumpSound.play();
             //replace Character image
             Character.removeAllImages();
             Character.addImage(jump);
+
+        //Main Menu
         } else if (Key == KeyEvent.VK_ESCAPE) {
             try {
                 new saveGame(frame, game, view);
@@ -71,6 +86,10 @@ public class Movement extends KeyAdapter {
         }
     }
 
+    /**
+     * Stops Character Movement And Updates Body Image
+     * <p>Changes State of The Character Body Image When Keys Are Released</p>
+     */
     @Override
     public void keyReleased(KeyEvent e) {
 
@@ -98,6 +117,10 @@ public class Movement extends KeyAdapter {
         }
     }
 
+    /**
+     * Setter to update the Character
+     * @param character new Character Class
+     */
     public void updateCharacter(Character character){
         this.Character = character;
     }

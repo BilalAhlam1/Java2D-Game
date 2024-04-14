@@ -10,11 +10,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 
+/**
+ * Initialise Menu JFrame
+ */
 public class Menu extends JFrame {
     public static final String TITLE = "Links Adventure";
-    private JLabel welcomeLabel = new JLabel(TITLE, SwingConstants.CENTER);
-    private ImageIcon backgroundImage = new ImageIcon("data//Background/Clouds_GIF.gif");
-    private JLabel background = new JLabel(backgroundImage);
+    private final JLabel welcomeLabel = new JLabel(TITLE, SwingConstants.CENTER);
+    //Game title
+    private final ImageIcon backgroundImage = new ImageIcon("data//Background/Clouds_GIF.gif");
+    private final JLabel background = new JLabel(backgroundImage);
+    //Menu Background
     JButton Play = new JButton("Play");
     JButton NewGame = new JButton("New Game");
     JButton LoadGame = new JButton("Load Saved Game");
@@ -25,8 +30,10 @@ public class Menu extends JFrame {
     JButton Help = new JButton("Help");
     JButton Quit = new JButton("Quit");
     JButton Back = new JButton("Back");
+    //Buttons
 
     static SoundClip BackGroundMusic;
+    //Menu Music
 
     static {
         try {
@@ -36,6 +43,7 @@ public class Menu extends JFrame {
         }
     }
     static SoundClip GameMusic;
+    //Game Music
 
     static {
         try {
@@ -46,6 +54,7 @@ public class Menu extends JFrame {
     }
 
     static SoundClip ButtonClick;
+    //Button Click
 
     static {
         try {
@@ -55,6 +64,10 @@ public class Menu extends JFrame {
         }
     }
 
+    /**
+     * Constructor initialises Main Menu
+     * <p>Load Starting Menu and Game Music, Give Functionality To Buttons</p>
+     */
     public Menu() {
         GameMusic.stop();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -191,6 +204,10 @@ public class Menu extends JFrame {
         });
     }
 
+    /**
+     * Set Help Menu
+     * <p>Add Buttons And Labels</p>
+     */
     public void setHelp(){
         background.removeAll();
 
@@ -220,6 +237,10 @@ public class Menu extends JFrame {
 
     }
 
+    /**
+     * Set Play Menu
+     * <p>Add Buttons And Labels</p>
+     */
     public void setPlay(){
         background.removeAll();
 
@@ -241,6 +262,10 @@ public class Menu extends JFrame {
         background.add(Back);
     }
 
+    /**
+     * Set Chapter Menu
+     * <p>Add Buttons And Labels</p>
+     */
     public void setChapter() {
         background.removeAll();
 
@@ -262,12 +287,18 @@ public class Menu extends JFrame {
         background.add(Chapter3);
     }
 
+    /**
+     * Set Score Board
+     * <p>Add buttons and labels, showing the current score and conditional message based upon finishing the game</p>
+     * @param chapter Current Chapter Completed or Running
+     * @param Score Current Score
+     */
     public void setScoreMessage(int chapter, int Score) {
         background.removeAll();
 
         Back.setBounds(5, 5, 100, 30);
 
-
+        //Set Messages
         JLabel gameComplete = new JLabel("You Have Completed The Game!", SwingConstants.CENTER);
         gameComplete.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
         gameComplete.setBounds(-40, 40, 500, 30);
@@ -289,6 +320,10 @@ public class Menu extends JFrame {
         background.add(scoreMessage);
     }
 
+    /**
+     * Set Main Menu
+     * <p>Add Buttons And Labels</p>
+     */
     public void setMenu(){
         background.removeAll();
         welcomeLabel.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));

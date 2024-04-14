@@ -3,13 +3,20 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
+/**
+ * Initialise Portal Of Type Static Body
+ */
 public class Portal extends StaticBody{
-    //Arrow shape
     private static final Shape Portal =  new CircleShape(2);
-
-    //ArrowImage
+    //Arrow Shape
     private static final BodyImage PortalImage = new BodyImage("data/Loot/Seperate/tile259.png", 4f);
+    //Arrow Image
 
+    /**
+     * Constructor For Portal Object
+     * @param w World where body exists
+     * @param staticBody Position for body to spawn
+     */
     public Portal(World w, Vec2 staticBody) {
         //Creates Dynamic Body
         super(w, Portal);

@@ -3,24 +3,41 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
+/**
+ * Provides platforms, enemies and pickup objects for the second chapter in the world
+ */
 public class Chapter2 extends GameWorld{
     private static final BodyImage Cloud = new BodyImage("data/Cloud.png", 7f);
+    //Cloud Platform
     private static final BodyImage purpleCloud = new BodyImage("data/Purple Cloud.png", 7f);
+    //Bouncy Platform
     private static final BodyImage TimeYourJumpsMessage = new BodyImage("data/GameMessages/TimeYourJumps.png", 2f);
     private static final BodyImage DirectArrowsMessage = new BodyImage("data/GameMessages/DirectArrows.png", 1f);
+    private static final BodyImage AntiGravityMessage1 = new BodyImage("data/GameMessages/AntiGravityMessage1.png", 1f);
+    private static final BodyImage AntiGravityMessage2 = new BodyImage("data/GameMessages/AntiGravityMessage2.png", 1f);
+    private static final BodyImage FallDamageMessage = new BodyImage("data/GameMessages/FallDamage.png", 1f);
+    private static final BodyImage GuardianMessage = new BodyImage("data/GameMessages/Guardian.png", 1f);
+    //Messages
 
+    /**
+     * Constructor Loads/generates more difficult platforms, alternating positions, more enemies and power ups
+     * @param game Game Class
+     * @param Arrows Arrows Count
+     * @param Score Score Count
+     * @param Health Health Count
+     * @param Lives Lives Count
+     */
     public Chapter2(Game game, int Arrows, int Score, int Health, int Lives){
         super();
 
-        setChapter(2);
-        //Move Statistics from previous level to current Level
+        //Move Statistics from previous level to current Level and set enemy count
         setStatistics(Arrows, Score, Health, Lives);
         setEnemies(3);
 
         //Set Character Position
         getCharacter().setPosition(new Vec2(-6f, 0));
 
-        //Displays score with collisions
+        //Set Character Collision
         CharacterCollisions Collisions = new CharacterCollisions(getCharacter(), game);
         getCharacter().addCollisionListener(Collisions);
 
@@ -48,11 +65,12 @@ public class Chapter2 extends GameWorld{
         platform2.addImage(Cloud);
         movePlatform(platform2, 60, 0);
 
-        //Arrows
+        //Spawn Arrows
         Shape shape3 = new BoxShape(6, 0.5f);
         StaticBody platform3 = new StaticBody(this, shape3);
         platform3.setPosition(new Vec2(6f, 14));
         platform3.addImage(Cloud);
+
         //Resupply arrows if empty
         ResupplyArrows(this, platform3);
 
@@ -64,7 +82,7 @@ public class Chapter2 extends GameWorld{
         DirectArrowsBody.setPosition(new Vec2(-8f, 16));
         DirectArrowsBody.addImage(DirectArrowsMessage);
 
-        //Bouncy cloud
+        //Bouncy Platform
         Shape shape4 = new BoxShape(6, 0.5f);
         StaticBody BouncyPlatform = new StaticBody(this, shape4);
         BouncyPlatform.setPosition(new Vec2(14, 26));
@@ -74,7 +92,7 @@ public class Chapter2 extends GameWorld{
         BouncyPlatform.addImage(purpleCloud);
         BouncyPlatform.setAngleDegrees(120);
 
-        //Enemy Cloud
+        //Spawn Enemy
         Shape shape5 = new BoxShape(6, 0.5f);
         StaticBody platform4 = new StaticBody(this, shape5);
         platform4.setPosition(new Vec2(0f, 22));
@@ -83,12 +101,35 @@ public class Chapter2 extends GameWorld{
         EnemyDamage enemyDamage = new EnemyDamage(enemy, getCharacter());
         enemy.addCollisionListener(enemyDamage);
 
-        //PowerUp Cloud
+        //AntiGravity Message
+        Shape AntiGravity1 = new BoxShape(6, 0.5f);
+        StaticBody AntiGravityText1 = new StaticBody(this, AntiGravity1);
+        AntiGravityText1.getFixtureList().removeFirst().destroy();
+        GhostlyFixture AntiGravityFixture1 = new GhostlyFixture(AntiGravityText1, AntiGravity1);
+        AntiGravityText1.setPosition(new Vec2(3f, 38));
+        AntiGravityText1.addImage(AntiGravityMessage1);
+
+        Shape AntiGravity2 = new BoxShape(6, 0.5f);
+        StaticBody AntiGravityText2 = new StaticBody(this, AntiGravity2);
+        AntiGravityText2.getFixtureList().removeFirst().destroy();
+        GhostlyFixture AntiGravityFixture2 = new GhostlyFixture(AntiGravityText2, AntiGravity2);
+        AntiGravityText2.setPosition(new Vec2(3f, 35));
+        AntiGravityText2.addImage(AntiGravityMessage2);
+
+        //Spawn PowerUp
         Shape shape6 = new BoxShape(6, 0.5f);
         StaticBody platform5 = new StaticBody(this, shape6);
         platform5.setPosition(new Vec2(-10f, 31));
         platform5.addImage(Cloud);
-        PowerUps antiGravity = new AntiGravity(this, platform5.getPosition(), getCharacter());
+        PowerUps antiGravity = new AntiGravity(this, platform5.getPosition());
+
+        //Fall Damage
+        Shape FallDamage = new BoxShape(6, 0.5f);
+        StaticBody FallDamageText = new StaticBody(this, FallDamage);
+        FallDamageText.getFixtureList().removeFirst().destroy();
+        GhostlyFixture FallDamageFixture = new GhostlyFixture(FallDamageText, FallDamage);
+        FallDamageText.setPosition(new Vec2(-10f, 42));
+        FallDamageText.addImage(FallDamageMessage);
 
         Shape shape7 = new BoxShape(6, 0.5f);
         StaticBody platform6 = new StaticBody(this, shape7);
@@ -97,7 +138,14 @@ public class Chapter2 extends GameWorld{
         //Resupply arrows if empty
         ResupplyArrows(this, platform6);
 
-        //Enemy platform
+        //Guardian Message
+        Shape Guardian = new BoxShape(6, 0.5f);
+        StaticBody GuardianText = new StaticBody(this, Guardian);
+        GuardianText.getFixtureList().removeFirst().destroy();
+        GhostlyFixture GuardianFixture = new GhostlyFixture(GuardianText, Guardian);
+        GuardianText.setPosition(new Vec2(-6f, 76));
+        GuardianText.addImage(GuardianMessage);
+
         //Move platform
         Shape shape9 = new BoxShape(6, 0.5f);
         StaticBody platform8 = new StaticBody(this, shape9);
@@ -105,6 +153,7 @@ public class Chapter2 extends GameWorld{
         platform8.addImage(Cloud);
         movePlatform(platform8, 20, -8);
 
+        //Spawn Enemy
         Enemy enemy1 = new Guardian(this, platform8.getPosition(), getCharacter());
         EnemyDamage enemyDamage1 = new EnemyDamage(enemy1, getCharacter());
         enemy1.addCollisionListener(enemyDamage1);
@@ -116,6 +165,7 @@ public class Chapter2 extends GameWorld{
         platform9.addImage(Cloud);
         Portal portal = new Portal(this, platform9.getPosition());
 
+        //Spawn Enemy
         Enemy enemy2 = new Guardian(this, platform9.getPosition(), getCharacter());
         EnemyDamage enemyDamage2 = new EnemyDamage(enemy2, getCharacter());
         enemy2.addCollisionListener(enemyDamage2);

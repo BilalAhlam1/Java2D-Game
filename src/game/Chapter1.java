@@ -4,34 +4,48 @@ import city.cs.engine.*;
 import city.cs.engine.Shape;
 import org.jbox2d.common.Vec2;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.Vector;
+/**
+ * Provides platforms, enemies and pickup objects for the first chapter in the world
+ */
 
 public class Chapter1 extends GameWorld {
     private static final BodyImage Mountain = new BodyImage("data/mountainTile.png", 7f);
+    //Mountain Platforms
     private static final BodyImage purpleMountain = new BodyImage("data/PurpleMountainTile.png", 7f);
+    //Bouncy Platform
     private static final BodyImage MovementInfo = new BodyImage("data/GameMessages/Movement-Info.png", 2f);
+    //How To Move Text
     private static final BodyImage JumpBoost = new BodyImage("data/GameMessages/JumpBoost.png", 2f);
+    //How To Jump Text
     private static final BodyImage ShootingMessage1 = new BodyImage("data/GameMessages/ShootingMessage1.png", 1f);
+    //How To Shoot Text
     private static final BodyImage ShootingMessage2 = new BodyImage("data/GameMessages/ShootingMessage2.png", 1f);
+    //How To Shoot Text
 
+
+    /**
+     * Constructor Loads/Generates basic platforms, enemy and ammunition
+     * @param game Game Class
+     * @param Arrows Arrows Count
+     * @param Score Score Count
+     * @param Health Health Count
+     * @param Lives Lives Count
+     */
     public Chapter1(Game game,  int Arrows, int Score, int Health, int Lives) {
         super();
 
+        //Set Coordinates for platforms
         Vec2[] PlatformCoordinates = new Vec2[]{new Vec2(0f, 0), new Vec2(6f, 8), new Vec2(-6f, 16)};
         Vec2[] BouncyPlatformCoordinates = new Vec2[]{new Vec2(8f, 24)};
-        Vec2[] ZombieCoordinates = new Vec2[]{new Vec2(8f, 24)};
 
-        setChapter(1);
+        //Set values of statistics and enemy count
         setStatistics(Arrows, Score, Health, Lives);
         setEnemies(1);
 
-
-        //setPlatformCoordinates(PlatformCoordinates);
+        //Set the character position
         getCharacter().setPosition(new Vec2(0, 3));
 
-        //Displays score with collisions
+        //Add collisions to the character
         CharacterCollisions Collisions = new CharacterCollisions(getCharacter(), game);
         getCharacter().addCollisionListener(Collisions);
 
@@ -43,7 +57,7 @@ public class Chapter1 extends GameWorld {
             platform1.addImage(Mountain);
         }
 
-        //HOW TO MOVE
+        //How To Move Text
         Shape movementText = new BoxShape(6, 0.5f);
         StaticBody movementTextBody = new StaticBody(this, movementText);
         movementTextBody.getFixtureList().removeFirst().destroy();
@@ -59,8 +73,7 @@ public class Chapter1 extends GameWorld {
         jumpBoostTextBody.setPosition(new Vec2(5f, 20));
         jumpBoostTextBody.addImage(JumpBoost);
 
-
-        //Purple Cloud
+        //Bouncy Platform
         Shape shape4 = new BoxShape(6, 0.5f);
         StaticBody BouncyPlatform = new StaticBody(this, shape4);
         BouncyPlatform.setPosition(BouncyPlatformCoordinates[0]);
@@ -68,19 +81,19 @@ public class Chapter1 extends GameWorld {
         platformFixture.setRestitution(3);
         BouncyPlatform.addImage(purpleMountain);
 
-        //Killing Enemies
+        //Spawn Arrows
         Shape shape5 = new BoxShape(6, 0.5f);
         StaticBody platform4 = new StaticBody(this, shape5);
         platform4.setPosition(new Vec2(-8f, 36));
         platform4.addImage(Mountain);
         Quiver quiver = new Quiver(this, platform4.getPosition());
 
-        //HOW TO SHOOT
+        //How To Shoot Text
         Shape ShootText = new BoxShape(6, 0.5f);
         StaticBody ShootTextBody = new StaticBody(this, ShootText);
         ShootTextBody.getFixtureList().removeFirst().destroy();
         GhostlyFixture ShootFixture = new GhostlyFixture(ShootTextBody, ShootText);
-        ShootTextBody.setPosition(new Vec2(8f, 39));
+        ShootTextBody.setPosition(new Vec2(9f, 37));
         ShootTextBody.addImage(ShootingMessage1);
 
         Shape ShootText2 = new BoxShape(6, 0.5f);
@@ -90,7 +103,7 @@ public class Chapter1 extends GameWorld {
         ShootTextBody2.setPosition(new Vec2(8f, 38));
         ShootTextBody2.addImage(ShootingMessage2);
 
-        //Spawn enemy
+        //Spawn Enemy
         Shape shape6 = new BoxShape(6, 0.5f);
         StaticBody platform5 = new StaticBody(this, shape6);
         platform5.setPosition(new Vec2(10f, 42));
@@ -105,6 +118,5 @@ public class Chapter1 extends GameWorld {
         platform6.setPosition(new Vec2(-8f, 48));
         platform6.addImage(Mountain);
         Portal portal = new Portal(this, platform6.getPosition());
-
     }
 }

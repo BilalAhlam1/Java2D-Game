@@ -2,15 +2,21 @@ package game;
 
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+/**
+ * Initialise Scene of type StepListener
+ * <p>Provides Camera Following Characters Position</p>
+ */
 public class Scene implements StepListener {
     private final UserView view;
+    //UserView
     private Character Character;
+    //Character
 
+    /**
+     * Constructor Initialise Scene
+     * <p>updates view and character</p>
+     */
     public Scene(Character Character, UserView view) {
         this.view = view;
         this.Character = Character;
@@ -21,6 +27,10 @@ public class Scene implements StepListener {
 
     }
 
+    /**
+     * Tracks Character
+     * <p>Sets USerView To The Character Position, Checks If The Character Falls Below The Map And Tracks Fall Damage</p>
+     */
     @Override
     public void postStep(StepEvent stepEvent) {
         // Game view follows the character
@@ -44,6 +54,10 @@ public class Scene implements StepListener {
         }
     }
 
+    /**
+     * Setter updating character
+     * @param character Current Character
+     */
     public void updateCharacter(Character character){
         this.Character = character;
     }

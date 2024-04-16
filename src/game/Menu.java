@@ -225,7 +225,7 @@ public class Menu extends JFrame {
         Shoot.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
         Shoot.setBounds(-40, 100, 500, 30);
 
-        JLabel Exit = new JLabel("Exit To Main Menu - ESC Key", SwingConstants.CENTER);
+        JLabel Exit = new JLabel("Exit To Main Menu And/Or Save - ESC Key", SwingConstants.CENTER);
         Exit.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
         Exit.setBounds(-40, 120, 500, 30);
 

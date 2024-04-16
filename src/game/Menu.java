@@ -24,9 +24,9 @@ public class Menu extends JFrame {
     JButton NewGame = new JButton("New Game");
     JButton LoadGame = new JButton("Load Saved Game");
     JButton LoadChapter = new JButton("Chapter");
-    JButton Chapter1 = new JButton("Chapter 1 - A Breeze");
-    JButton Chapter2 = new JButton("Chapter 2 - MoonFall");
-    JButton Chapter3 = new JButton("Chapter 3 - Mountaineer");
+    JButton Chapter1 = new JButton("Chapter 1 - Mountaineer");
+    JButton Chapter2 = new JButton("Chapter 2 - A Breeze");
+    JButton Chapter3 = new JButton("Chapter 3 - MoonFall");
     JButton Help = new JButton("Help");
     JButton Quit = new JButton("Quit");
     JButton Back = new JButton("Back");

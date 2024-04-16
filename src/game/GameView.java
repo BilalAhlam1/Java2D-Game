@@ -270,6 +270,8 @@ public class GameView extends UserView {
         g.setColor(Color.BLACK);
         g.drawString("Health", 640, 30);
 
+        g.drawString("Chapter:" + Chapter, 620, 80);
+
         //Display Timer
         g.drawString("" + Seconds[0], 375, 60);
 

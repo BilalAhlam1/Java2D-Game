@@ -31,7 +31,7 @@ public class saveGame {
 
     /**
      * Constructor Initialise Save Game
-     * <p>Option Pane Displayed To Exit Or Save Game/p>
+     * <p>Option Pane Displayed To Save Game/p>
      */
     public saveGame(JFrame frame, Game game, GameView view) throws IOException {
         this.GameChapter = game.getGameLevel();
@@ -45,8 +45,8 @@ public class saveGame {
             GameChapter.start();
             view.getTimer1().start();
         } else if (SaveGame == 1) {
-            frame.dispose();
-            new Menu();
+            GameChapter.start();
+            view.getTimer1().start();
         } else if (SaveGame == 2){
             GameChapter.start();
             view.getTimer1().start();

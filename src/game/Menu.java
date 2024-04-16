@@ -85,7 +85,7 @@ public class Menu extends JFrame {
         BackGroundMusic.play();
         BackGroundMusic.loop();
 
-        //PLAY
+        //Buttons
         Play.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -225,14 +225,9 @@ public class Menu extends JFrame {
         Shoot.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
         Shoot.setBounds(-40, 100, 500, 30);
 
-        JLabel Exit = new JLabel("Exit To Main Menu And/Or Save - ESC Key", SwingConstants.CENTER);
-        Exit.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 10));
-        Exit.setBounds(-40, 120, 500, 30);
-
         background.add(Controls);
         background.add(movement);
         background.add(Shoot);
-        background.add(Exit);
         background.add(Back);
 
     }

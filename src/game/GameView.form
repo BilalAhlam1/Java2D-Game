@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="game.GameView">
+  <grid id="27dc6" binding="panel1" default-binding="true" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="45344" class="javax.swing.JButton" binding="Exit">
+        <constraints border-constraint="West"/>
+        <properties>
+          <text value="Exit"/>
+        </properties>
+      </component>
+      <component id="c67e9" class="javax.swing.JButton" binding="Save">
+        <constraints border-constraint="East"/>
+        <properties>
+          <text value="Save"/>
+        </properties>
+      </component>
+      <component id="f322d" class="javax.swing.JButton" binding="PlayPause">
+        <constraints border-constraint="Center"/>
+        <properties>
+          <text value="Pause/Play"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

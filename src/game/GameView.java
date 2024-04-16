@@ -58,11 +58,15 @@ public class GameView extends UserView {
     //Timer Seconds
 
     private Timer timer1;
+    private JPanel panel1;
+    private JButton Exit;
+    private JButton Save;
+    private JButton PlayPause;
     //Timer
 
     /**
      * Constructor Initialises GameView
-     * <p>Sets The Frame And In-Game Timer</p>
+     * <p>Sets The Frame, In-Game Timer and Panel</p>
      * @param game Game Class
      * @param w GameWorld Class
      * @param Chapter Chapter To Launch
@@ -103,6 +107,8 @@ public class GameView extends UserView {
         movement = new Movement(Character, frame, game, this);
         //Control Character
         frame.addKeyListener(movement);
+        frame.setFocusable(true);
+        frame.add(panel1, BorderLayout.NORTH);
 
         //Start Timer in chapter 3
         if (Chapter == 1) {
@@ -118,6 +124,40 @@ public class GameView extends UserView {
 
         frame.getContentPane();
         setLayout(null);
+
+        //Buttons
+        Exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new Menu();
+            }
+        });
+        Save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.requestFocusInWindow();
+                try {
+                    new saveGame(frame, game, game.getView());
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
+        PlayPause.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (game.getGameLevel().isRunning()){
+                    game.getGameLevel().stop();
+                    timer1.stop();
+                } else {
+                    frame.requestFocusInWindow();
+                    game.getGameLevel().start();
+                    timer1.start();
+                }
+            }
+        });
     }
 
     /**
@@ -241,7 +281,7 @@ public class GameView extends UserView {
 
     /**
      * Foreground Statistics
-     * <p>Draw Lives, Arrows, Score, Health, Timer And Anti-Gravity Statistics</p>
+     * <p>Draw Lives, Arrows, Score, Health, Timer, Chapter And Anti-Gravity Statistics</p>
      */
     @Override
     protected void paintForeground(Graphics2D g) {
@@ -270,10 +310,18 @@ public class GameView extends UserView {
         g.setColor(Color.BLACK);
         g.drawString("Health", 640, 30);
 
-        g.drawString("Chapter:" + Chapter, 620, 80);
-
         //Display Timer
         g.drawString("" + Seconds[0], 375, 60);
+
+        //Display Chapter
+        g.setColor(Color.RED);
+        if (Chapter == 1 && Seconds[0] < 30 && Seconds[0] > 25){
+            g.drawString("Chapter" + Chapter, 370, 200);
+        } else if (Chapter == 2 && Seconds[0] < 60 && Seconds[0] > 55){
+            g.drawString("Chapter" + Chapter, 370, 200);
+        } else if (Chapter == 3 && Seconds[0] < 120 && Seconds[0] > 115){
+            g.drawString("Chapter" + Chapter, 370, 200);
+        }
 
 
         //Displays Anti Gravity in inventory if in use

@@ -17,6 +17,8 @@ public abstract class GameWorld extends World {
     private float MaxPlatformPosition = 0;
     //Current Maximum Y Position Of The Platform
     private int Enemies = 0;
+    private JButton button1;
+    private JPanel panel1;
     //Number Of Enemies
 
     /**

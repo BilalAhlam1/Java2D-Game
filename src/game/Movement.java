@@ -60,7 +60,7 @@ public class Movement extends KeyAdapter {
             Character.addImage(runRight);
             preKey = "Right";
 
-        // Move Left
+            // Move Left
         } else if (Key == KeyEvent.VK_LEFT || Key == KeyEvent.VK_A) {
             Character.startWalking(-9);
             //replace Character image
@@ -68,21 +68,13 @@ public class Movement extends KeyAdapter {
             Character.addImage(runLeft);
             preKey = "Left";
 
-        //Jump
+            //Jump
         } else if (Key == KeyEvent.VK_UP || Key == KeyEvent.VK_W) {
             Character.jump(20);
             JumpSound.play();
             //replace Character image
             Character.removeAllImages();
             Character.addImage(jump);
-
-        //Main Menu
-        } else if (Key == KeyEvent.VK_ESCAPE) {
-            try {
-                new saveGame(frame, game, view);
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
         }
     }
 

@@ -111,6 +111,7 @@ public class Chapter3 extends GameWorld{
                     EnemyDamage guardianDamage = new EnemyDamage(Guardian, getCharacter());
                     Guardian.addCollisionListener(guardianDamage);
                     setEnemies(getEnemies() + 1);
+                    movePlatform(ground, 20, 0);
                 }
                 //loads enemy on a condition
                 if (Random > 0.35 && Random < 0.5 && Random < Difficulty) {

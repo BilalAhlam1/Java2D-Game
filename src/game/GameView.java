@@ -131,6 +131,7 @@ public class GameView extends UserView {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 new Menu();
+                timer1.stop();
             }
         });
         Save.addActionListener(new ActionListener() {

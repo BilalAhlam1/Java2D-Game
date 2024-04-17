@@ -1,14 +1,14 @@
 Chapter:,3
-Time Left,105
-Character xPosition,3.736886
-Character yPosition,50.515
-Character Health,100
-Character Lives,3
-Character Arrows,6,
-Character Score,0
-EnemyList Bodies,
+Time Left,53
+Character xPosition,-9.970453
+Character yPosition,202.515
+Character Health,60
+Character Lives,2
+Character Arrows,3,
+Character Score,8
+EnemyList Bodies,-7.0, 208.0
 GuardianList Bodies,
-PortalList Bodies,-3.0, 74.0
-AntiGravityList Bodies,-5.0, 24.0
-QuiverList Bodies,3.0, 66.0, 9.0, 34.0
-PlatformList Bodies,-3.0, 72.0, 3.0, 64.0, -11.0, 56.0, 6.0, 48.0, 1.0, 40.0, 9.0, 32.0, -5.0, 24.0, 2.0, 16.0, 10.0, 8.0, 0.0, 0.0, 0.0, -4.0, -21.0, 0.0, 21.0, 0.0
+PortalList Bodies,-1.0, 220.0
+AntiGravityList Bodies,2.0, 18.0, -3.0, 42.0, 4.0, 10.0, 9.0, 106.0, 0.0, 130.0
+QuiverList Bodies,
+PlatformList Bodies,0.0, -4.0, 0.0, 0.0, 4.0, 8.0, 2.0, 16.0, 6.0, 24.0, 10.0, 32.0, -3.0, 40.0, -9.0, 48.0, 1.0, 56.0, 11.0, 64.0, -4.0, 72.0, 8.0, 80.0, 7.0, 88.0, -6.0, 96.0, 9.0, 103.99999, -10.0, 112.0, -11.0, 120.0, 0.0, 128.0, -9.0, 136.0, -4.0, 144.0, 6.0, 152.0, -2.0, 160.0, -3.0, 168.0, 0.0, 176.0, 1.0, 184.0, 3.0, 192.0, -9.0, 200.0, -7.0, 208.0, -1.0, 216.0
